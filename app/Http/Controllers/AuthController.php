@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Helper\AuthUser;
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
@@ -48,20 +47,12 @@ class AuthController extends Controller
 
         $request->session()->put($response->json());
 
-        $authUser = AuthUser::user();
-
-        $user = new User();
-        $user->name = $authUser->name;
-        $user->email = $authUser->email;
-
-        Auth::login($user);
-
         return redirect($this->redirectCallbak);
     }
 
     public function logout(Request $request)
     {
         $request->session()->forget('access_token');
-        return redirect('http://192.168.100.11:8080/logout');
+        return redirect(env('URL_OAUTH') . '/logout');
     }
 }

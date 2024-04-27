@@ -14,7 +14,7 @@ class AuthUser
         $response = Http::withHeaders([
             'Accept' => 'application/json',
             'Authorization' => 'Bearer ' . $token
-        ])->get('http://192.168.100.11:8080/api/current');
+        ])->get(env('URL_OAUTH'). '/api/current');
 
         // dd($token);
         // dd($response->body());
