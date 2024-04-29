@@ -25,8 +25,8 @@ use Illuminate\Support\Facades\Route;
 Route::
     middleware('oauth')
     ->get('/', function () {
-    return AuthUser::user();
-    // return redirect()->route('auth.login');
+    // return AuthUser::user();
+    return redirect()->route('admin.dashboard.index');
 });
 
 Route::controller(AuthController::class)
