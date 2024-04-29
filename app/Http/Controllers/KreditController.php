@@ -71,9 +71,9 @@ class KreditController extends Controller
     {
         try {
             $this->kredit_service->destroy($id);
-            return redirect()->back()->with('success', 'Berhasil update arsip perjanjian kredit');
+            return redirect()->back()->with('success', 'Berhasil hapus arsip perjanjian kredit');
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Gagal update data , sedang terjadi maintenance, coba beberapa saat lagi ');
+            return redirect()->back()->with('error', 'Gagal hapus data , sedang terjadi maintenance, coba beberapa saat lagi ');
         }
     }
 }

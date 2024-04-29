@@ -3,6 +3,7 @@
 @section('title', 'Edit Categori')
 @section('content')
 <div class="col-lg-12">
+    <a href="{{ route('admin.kredit.index') }}" class="btn btn-primary shadow-sm mb-1">Kembali</a>
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary">Tambah Kategori Kredit</h6>
