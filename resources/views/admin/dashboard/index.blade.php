@@ -1,6 +1,15 @@
 @extends('admin.templates.app')
 @section('title', 'Dashboard')
 @section('content')
+<div class="row mb-3">
+    <div class="col-12">
+        <div class="row d-flex justify-content-center align-items-center flex-column bg-white">
+            <img src="{{ asset('/assets/admin/img/bg-01.png') }}" class="img-fluid rounded" width="350px" alt="image-profile">
+            <h5 class="font-weight-bold text-gray-900 mt-3">Selamat datang, {{ AuthSSO::user()->name }}</h5>
+            <p>Manage your archive to make Banking work better for you.</p>
+        </div>
+    </div>
+</div>
 <div class="row">
     <!-- Earnings (Monthly) Card Example -->
     <div class="col-xl-3 col-md-6 mb-4">
