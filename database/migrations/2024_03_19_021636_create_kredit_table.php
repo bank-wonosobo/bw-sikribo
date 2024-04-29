@@ -20,7 +20,7 @@ class CreateKreditTable extends Migration
             $table->date('tanggal_akad');
             $table->bigInteger('kategori_id')->unsigned()->index();
             $table->foreign('kategori_id')->references('id')->on('kategori_kredit');
-            $table->string('file');
+            $table->string('file')->nullable();
             $table->timestamps();
         });
     }

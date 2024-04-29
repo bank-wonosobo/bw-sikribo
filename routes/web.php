@@ -54,7 +54,9 @@ Route::prefix('admin')
             Route::post('/', 'store')->name('store');
             Route::get('/{id}/file', 'file')->name('file');
             Route::get('/{id}/edit', 'edit')->name('edit');
-            Route::patch('/{id}', 'update')->name('update');
+            Route::put('/{id}', 'update')->name('update');
+            Route::delete('/{id}', 'delete')->name('delete');
+
         });
 
     Route::prefix('kategori-kredit')

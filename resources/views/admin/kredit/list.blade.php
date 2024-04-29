@@ -8,7 +8,7 @@
                 <div class="col-md">
                     <!-- Button trigger modal -->
                     @can('kredit:manage')
-                    <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#staticBackdrop">
+                    <button type="button" class="btn btn-sm btn-primary mb-3" data-toggle="modal" data-target="#staticBackdrop">
                         Tambah Data
                     </button>
                     @endcan
@@ -51,9 +51,14 @@
                             <td><a href="{{ route('admin.kredit.file', ['id' => $kredit->id]) }}" target="_blank"><i class="fas fa-external-link-alt"></i></a></td>
                             <td>{{ $kredit->kategorikredit->nama }}</td>
                             @can('kredit:manage')
-                            <td>
-                                <a href="#" class="btn btn-sm bg-white text-success"><i class="fas fa-edit"></i></a>
-                                <a href="#" class="btn btn-sm bg-white text-danger"><i class="fas fa-trash"></i></a></a>
+                            <td class="d-flex">
+                                <a href="{{ route('admin.kredit.edit', ['id' => $kredit->id]) }}" class="btn btn-sm bg-white text-success"><i class="fas fa-edit"></i></a>
+                                <form method="POST" action="{{ route('admin.kredit.delete', ['id' => $kredit->id]) }}" onSubmit="return confirm('Do you want to delete?') ">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-sm bg-white text-danger"><i class="fas fa-trash"></i></button>
+                                </form>
+                                {{-- <a href="#" class="btn btn-sm bg-white text-danger"><i class="fas fa-trash"></i></a></a> --}}
                             </td>
                             @endcan
                         </tr>

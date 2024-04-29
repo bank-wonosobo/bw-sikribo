@@ -3,14 +3,22 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Kredit\StoreKreditReq;
+use App\Http\Requests\Kredit\UpdateKreditReq;
 use App\Models\KategoriKredit;
 use App\Models\Kredit;
+use App\Services\KreditService;
 use App\Traits\UploadTrait;
 use Illuminate\Http\Request;
 
 class KreditController extends Controller
 {
     use UploadTrait;
+
+    private KreditService $kredit_service;
+
+    public function __construct(KreditService $kredit_service) {
+        $this->kredit_service = $kredit_service;
+    }
 
     public function index(Request $request) {
 
@@ -29,28 +37,11 @@ class KreditController extends Controller
 
     public function store(StoreKreditReq $request) {
         try {
-            $data = $request->validated();
-
-            $data['nama_peminjam'] = strtoupper($data['nama_peminjam']);
-
-            $filename = $data['nama_peminjam'] . '_' . $data['no_kredit'];
-
-            $file = $this->uploads($request->file('file'), 'perjanjian_kredit/file', true, $filename);
-
-            $kredit = new Kredit([
-                'no_kredit' => $data['no_kredit'],
-                'nama_peminjam' => $data['nama_peminjam'],
-                'tanggal_akad' => $data['tanggal_akad'],
-                'file' => $file,
-                'kategori_id' => $data['kategori_id']
-            ]);
-
-            $kredit->save();
-
+            $kredit = $this->kredit_service->create($request);
+            $this->kredit_service->addFileKredit($kredit->id, $request->file('file'));
             return redirect()->back()->with('success', 'Berhasil menambah arsip perjanjian kredit');
-
         } catch (\Exception $e) {
-            dd($e);
+            return redirect()->back()->with('error', 'Gagal menambah data , sedang terjadi maintenance, coba beberapa saat lagi ');
         }
     }
 
@@ -61,10 +52,28 @@ class KreditController extends Controller
 
     public function edit($id) {
         $kredit = Kredit::find($id);
-        return view('admin.kredit.edit', compact('kredit'));
+        $kategori = KategoriKredit::pluck('nama', 'id')->all();
+
+        return view('admin.kredit.edit', compact('kredit', 'kategori'));
     }
 
-    public function update() {
+    public function update(UpdateKreditReq $request, int $id) {
+        try {
+            $kredit = $this->kredit_service->update($request, $id);
+            if ($request->file('file') != null) $this->kredit_service->addFileKredit($kredit->id, $request->file('file'));
+            return redirect()->back()->with('success', 'Berhasil update arsip perjanjian kredit');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Gagal update data , sedang terjadi maintenance, coba beberapa saat lagi ');
+        }
+    }
 
+    public function delete($id)
+    {
+        try {
+            $this->kredit_service->destroy($id);
+            return redirect()->back()->with('success', 'Berhasil update arsip perjanjian kredit');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Gagal update data , sedang terjadi maintenance, coba beberapa saat lagi ');
+        }
     }
 }

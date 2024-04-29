@@ -13,7 +13,7 @@ class UpdateKreditReq extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,10 @@ class UpdateKreditReq extends FormRequest
     public function rules()
     {
         return [
-            //
+            'no_kredit' => ['required'],
+            'nama_peminjam' => ['required'],
+            'kategori_id' => ['required'],
+            'tanggal_akad' => ['required']
         ];
     }
 }
