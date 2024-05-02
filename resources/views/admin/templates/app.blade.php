@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta content="width=device-width, initial-scale=0.9" name="viewport">
 
   <title>@yield('title') - bw arsip</title>
   <meta content="" name="description">
