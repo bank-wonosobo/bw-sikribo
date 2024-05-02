@@ -1,71 +1,54 @@
-<div class="col-lg-12">
-    <div class="card shadow mb-4">
-        <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Daftar Arsip Perjanjian Kredit</h6>
-        </div>
+<div class="row">
+    <div class="col-lg-12">
+      <div class="card">
         <div class="card-body">
-            <div class="row mb-3 ">
-                <div class="col-md">
-                    <!-- Button trigger modal -->
-                    @can('kredit:manage')
-                    <button type="button" class="btn btn-sm btn-primary mb-3" data-toggle="modal" data-target="#staticBackdrop">
-                        Tambah Data
-                    </button>
-                    @endcan
-                </div>
-                <div class="col-md-3">
-                    <form class="navbar-search" method="get">
-                        <div class="input-group">
-                            <input type="text" name="key" value="{{ $_GET['key'] ?? '' }}" class="form-control bg-light border-0 small"
-                                placeholder="Search for..." aria-label="Search"
-                                aria-describedby="basic-addon2">
-                            <div class="input-group-append">
-                                <button class="btn btn-primary" type="submit">
-                                    <i class="fas fa-search fa-sm"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-            <div class="table-responsive">
-                <table class="table">
-                    <thead>
-                      <tr>
-                        <th scope="col">No</th>
-                        <th scope="col">Nomer Kredit</th>
-                        <th scope="col">Nama Peminjam</th>
-                        <th scope="col">File Kredit</th>
-                        <th scope="col">Kategori</th>
-                        @can('kredit:manage')
-                        <th scope="col">Action</th>
-                        @endcan
-                      </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($kredits as $kredit)
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>{{ $kredit->no_kredit }}</td>
-                            <td>{{ $kredit->nama_peminjam }}</td>
-                            <td><a href="{{ route('admin.kredit.file', ['id' => $kredit->id]) }}" target="_blank"><i class="fas fa-external-link-alt"></i></a></td>
-                            <td>{{ $kredit->kategorikredit->nama }}</td>
-                            @can('kredit:manage')
-                            <td class="d-flex">
-                                <a href="{{ route('admin.kredit.edit', ['id' => $kredit->id]) }}" class="btn btn-sm bg-white text-success"><i class="fas fa-edit"></i></a>
-                                <form method="POST" action="{{ route('admin.kredit.delete', ['id' => $kredit->id]) }}" onSubmit="return confirm('Do you want to delete?') ">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-sm bg-white text-danger"><i class="fas fa-trash"></i></button>
-                                </form>
-                                {{-- <a href="#" class="btn btn-sm bg-white text-danger"><i class="fas fa-trash"></i></a></a> --}}
-                            </td>
-                            @endcan
-                        </tr>
-                        @endforeach
-                    </tbody>
-                  </table>
-            </div>
+          <h5 class="card-title">Data Arsip Perjanjian Kredit</h5>
+          <button type="button" class="btn btn-dark mb-2" data-bs-toggle="modal" data-bs-target="#basicModal">
+           Tambah Data
+          </button>
+
+          <div class="table-responsive">
+            <!-- Table with stripped rows -->
+            <table class="table datatable">
+              <thead>
+                <tr>
+                  <th>No</th>
+                  <th>Nama Peminjam</th>
+                  <th>Kredit Nomer</th>
+                  <th>File</th>
+                  <th>Jenis Kredit</th>
+                  <th data-type="date" data-format="YYYY-MM-DD">Tanggal Akad</th>
+                  <th>Aksi</th>
+                </tr>
+              </thead>
+              <tbody>
+                @php($i = 1)
+                @foreach ($kredits as $kredit)
+                <tr>
+                  <td>{{ $i }}</td>
+                  <td>{{ $kredit->nama_peminjam }}</td>
+                  <td>{{ $kredit->no_kredit }}</td>
+                  <td><a href="{{ route('admin.kredit.file', ['id' => $kredit->id]) }}" class="btn btn-light" target="_blank"><i class='bx bxs-file-pdf'></i></a></td>
+                  <td>{{ $kredit->kategorikredit->nama }}</td>
+                  <td>{{ $kredit->tanggal_akad }}</td>
+                  <td>
+                    <a href="{{ route('admin.kredit.edit', ['id' => $kredit->id]) }}" class="btn btn-sm btn-success"><i class="bx bx-edit-alt me-1"></i></a>
+                    <a href="{{ route('admin.kredit.delete', ['id' => $kredit->id]) }}" class="btn btn-sm btn-danger" onclick="return confirm('Konfirmasi hapus data')"><i class="bx bx-trash me-1"></i></a>
+                    {{-- <form method="POST" action="{{ route('admin.kredit.delete', ['id' => $kredit->id]) }}" onSubmit="return confirm('Do you want to delete?') ">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-sm bg-white text-danger"><i class="fas fa-trash"></i></button>
+                    </form> --}}
+                  </td>
+                </tr>
+                @php($i++)
+                @endforeach
+              </tbody>
+            </table>
+            <!-- End Table with stripped rows -->
+          </div>
         </div>
+      </div>
+
     </div>
-</div>
+  </div>

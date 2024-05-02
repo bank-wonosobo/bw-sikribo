@@ -14,7 +14,7 @@ class CreateKreditTable extends Migration
     public function up()
     {
         Schema::create('kredit', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
             $table->string('no_kredit');
             $table->string('nama_peminjam');
             $table->date('tanggal_akad');

@@ -40,6 +40,13 @@ class AppServiceProvider extends ServiceProvider
             // dd($user);
             return in_array('bw:archive:kategorikredit:manage', $roles) ;
         });
+
+        Gate::define('slik:manage', function ($user = null) {
+            $user = AuthUser::user();
+            $roles = $this->getArrPermissions($user);
+            // dd($user);
+            return in_array('bw:archive:slik:manage', $roles) ;
+        });
     }
 
     public function getArrRoles($user)

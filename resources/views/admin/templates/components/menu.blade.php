@@ -1,4 +1,65 @@
-<!-- Nav Item - Dashboard -->
+<ul class="sidebar-nav" id="sidebar-nav">
+
+    <li class="nav-item">
+      <a href="{{ route('admin.dashboard.index') }}" class="nav-link {{ Route::is('admin.dashboard.*') ? '' : 'collapsed' }}" href="index.html">
+        <i class="bi bi-grid"></i>
+        <span>Dashboard</span>
+      </a>
+    </li><!-- End Dashboard Nav -->
+
+    <li class="nav-heading">Arsip Kredit</li>
+
+    <li class="nav-item">
+      <a href="{{ route('admin.kredit.index') }}" class="nav-link {{ Route::is('admin.kredit.*') ? '' : 'collapsed' }}" href="users-profile.html">
+        <i class='bx bx-file-find'></i>
+        <span>Arsip Perjanjian Kredit</span>
+      </a>
+    </li><!-- End Profile Page Nav -->
+
+    @can('kategorikredit:manage')
+    <li class="nav-item">
+      <a href="{{ route('admin.kategori-kredit.index') }}" class="nav-link {{ Route::is('admin.kategori-kredit.*') ? '' : 'collapsed' }}" href="users-profile.html">
+        <i class='bx bx-credit-card-front'></i>
+        <span>Jenis Kredit</span>
+      </a>
+    </li>
+    @endcan
+
+    <li class="nav-heading">SLIK</li>
+
+    <li class="nav-item">
+      <a class="nav-link {{ Route::is('admin.slik.index') ? '' : 'collapsed' }}" href="{{ route('admin.slik.index') }}">
+       <i class='bx bx-copy-alt'></i>
+        <span>Data SLIK</span>
+      </a>
+    </li><!-- End F.A.Q Page Nav -->
+
+    @can('slik:manage')
+    <li class="nav-item">
+      <a class="nav-link {{ Route::is('admin.slik.create') ? '' : 'collapsed' }}" href="{{ route('admin.slik.create') }}">
+        <i class='bx bx-add-to-queue'></i>
+        <span>Tambah SLIK</span>
+      </a>
+    </li>
+    @endcan
+    <li class="nav-heading">Lain-lain</li>
+
+    <li class="nav-item">
+      <a class="nav-link {{ Route::is('admin.faq') ? '' : 'collapsed' }}" href="{{ route('admin.faq') }}">
+        <i class="bi bi-question-circle"></i>
+        <span>F.A.Q</span>
+      </a>
+    </li><!-- End F.A.Q Page Nav -->
+
+    <li class="nav-item">
+      <a class="nav-link {{ Route::is('admin.contact') ? '' : 'collapsed' }}" href="{{ route('admin.contact') }}">
+        <i class="bi bi-envelope"></i>
+        <span>Contact</span>
+      </a>
+    </li><!-- End Contact Page Nav -->
+  </ul>
+
+{{-- <!-- Nav Item - Dashboard -->
 <li class="nav-item {{ Route::is('admin.dashboard.*') ? 'active' : '' }}">
     <a class="nav-link" href="{{ route('admin.dashboard.index') }}">
         <i class="fas fa-fw fa-tachometer-alt"></i>
@@ -25,7 +86,7 @@
         <i class="fas fa-fw fa-table"></i>
         <span>Kategori Kredit</span></a>
 </li>
-@endcan
+@endcan --}}
 
 <!-- Nav Item - Pages Collapse Menu -->
 {{-- <li class="nav-item">

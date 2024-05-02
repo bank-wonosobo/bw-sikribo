@@ -12,4 +12,12 @@ class HomeController extends Controller
         // $file_archives = FileArchive::orderBy('created_at', 'DESC')->paginate(5);
         return view('admin.dashboard.index');
     }
+
+    public function faq() {
+        return view('admin.faq');
+    }
+
+    public function contact() {
+        return view('admin.contact');
+    }
 }

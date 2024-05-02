@@ -6,10 +6,11 @@ use App\Http\Requests\Kredit\StoreKreditReq;
 use App\Http\Requests\Kredit\UpdateKreditReq;
 use App\Models\Kredit;
 use App\Services\KreditService;
+use App\Traits\ManageFile;
 use App\Traits\UploadTrait;
 
 class KreditServiceImpl implements KreditService {
-    use UploadTrait;
+    use UploadTrait, ManageFile;
 
     public function create(StoreKreditReq $request): Kredit
     {
@@ -26,7 +27,7 @@ class KreditServiceImpl implements KreditService {
         return $kredit;
     }
 
-    public function destroy(int $id)
+    public function destroy(string $id)
     {
         $kredit = Kredit::find($id);
 
@@ -35,7 +36,7 @@ class KreditServiceImpl implements KreditService {
         Kredit::where('id', $id)->delete();
     }
 
-    public function update(UpdateKreditReq $request, int $id): Kredit
+    public function update(UpdateKreditReq $request, string $id): Kredit
     {
         $kredit = Kredit::find($id);
         $kredit->no_kredit = $request->input('no_kredit');
@@ -48,7 +49,7 @@ class KreditServiceImpl implements KreditService {
 
     }
 
-    public function addFileKredit(int $id, $file)
+    public function addFileKredit(string $id, $file)
     {
         $kredit = Kredit::find($id);
 
@@ -63,11 +64,5 @@ class KreditServiceImpl implements KreditService {
         $kredit->save();
 
         return $kredit;
-    }
-
-    private function deleteFileExist($kredit){
-        if ($kredit->file != null) {
-            $this->delete($kredit->file);
-        }
     }
 }

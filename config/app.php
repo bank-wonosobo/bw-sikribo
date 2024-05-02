@@ -178,6 +178,7 @@ return [
         //own
 
         App\Providers\KreditProvider::class,
+        App\Providers\SlikProvider::class,
 
     ],
 

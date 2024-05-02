@@ -6,12 +6,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
-class Kredit extends Model
+class Slik extends Model
 {
     use HasFactory;
+
     protected $keyTypr = 'string';
     public $incrementing = false;
-    protected $table = 'kredit';
+    protected $table = 'slik';
     protected $guarded = [];
 
     public static function boot() {
@@ -20,9 +21,5 @@ class Kredit extends Model
         static::creating(function ($model) {
             $model->id = (string) Str::uuid();
         });
-    }
-
-    public function kategorikredit() {
-        return $this->belongsTo(KategoriKredit::class, 'kategori_id', 'id');
     }
 }

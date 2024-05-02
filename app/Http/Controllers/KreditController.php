@@ -22,15 +22,20 @@ class KreditController extends Controller
 
     public function index(Request $request) {
 
-        $kredits = Kredit::all();
         $kategori = KategoriKredit::pluck('nama', 'id')->all();
 
-        $key = $request->get('key');
-        if ($key != null) {
-            $kredits = Kredit::where('nama_peminjam', 'LIKE', "%" . $key ."%")
-                ->orWhere('no_kredit', 'LIKE', "%" . $key ."%")
-                ->simplePaginate(20);
-        }
+        // $key = $request->get('key');
+        // if ($key != null) {
+        //     $kredits = Kredit::where('nama_peminjam', 'LIKE', "%" . $key ."%")
+        //         ->orWhere('no_kredit', 'LIKE', "%" . $key ."%")
+        //         ->simplePaginate(20);
+        // }
+        $kredits = [];
+        Kredit::chunk(200, function ($chunkedKredits) use (&$kredits) {
+            foreach ($chunkedKredits as $kredit) {
+                $kredits[] = $kredit;
+            }
+        });
 
         return view('admin.kredit.index', compact('kredits', 'kategori'));
     }
@@ -73,6 +78,7 @@ class KreditController extends Controller
             $this->kredit_service->destroy($id);
             return redirect()->back()->with('success', 'Berhasil hapus arsip perjanjian kredit');
         } catch (\Exception $e) {
+            dd($e);
             return redirect()->back()->with('error', 'Gagal hapus data , sedang terjadi maintenance, coba beberapa saat lagi ');
         }
     }

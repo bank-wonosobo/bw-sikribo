@@ -9,6 +9,7 @@ use App\Http\Controllers\IncomingMailController;
 use App\Http\Controllers\KategoriKreditController;
 use App\Http\Controllers\KreditController;
 use App\Http\Controllers\OutgoingMailController;
+use App\Http\Controllers\SlikController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -45,6 +46,9 @@ Route::prefix('admin')
 ->as('admin.')
 ->group(function() {
     Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard.index');
+    Route::get('/faq', [HomeController::class, 'faq'])->name('faq');
+    Route::get('/contact', [HomeController::class, 'contact'])->name('contact');
+
 
     Route::prefix('kredit')
         ->as('kredit.')
@@ -55,7 +59,7 @@ Route::prefix('admin')
             Route::get('/{id}/file', 'file')->name('file');
             Route::get('/{id}/edit', 'edit')->name('edit');
             Route::put('/{id}', 'update')->name('update');
-            Route::delete('/{id}', 'delete')->name('delete');
+            Route::get('/{id}/delete', 'delete')->name('delete');
 
         });
 
@@ -65,5 +69,18 @@ Route::prefix('admin')
         ->group(function() {
             Route::get('/', 'index')->name('index');
             Route::post('/', 'store')->name('store');
+        });
+
+    Route::prefix('slik')
+        ->as('slik.')
+        ->controller(SlikController::class)
+        ->group(function() {
+            Route::get('/', 'index')->name('index');
+            Route::get('/create', 'create')->name('create');
+            Route::post('/', 'store')->name('store');
+            Route::get('/{id}/edit', 'edit')->name('edit');
+            Route::put('/{id}', 'update')->name('update');
+            Route::get('/{id}/delete', 'delete')->name('delete');
+            Route::get('/monthlydestroy', 'monthlydestroy')->name('monthlydestroy');
         });
 });
