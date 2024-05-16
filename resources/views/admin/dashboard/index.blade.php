@@ -2,29 +2,8 @@
 @section('title', 'Dashboard')
 @section('content')
 <section class="section dashboard">
-
-<div class="row mb-3">
-    <div class="col-12">
-        <div class="card">
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-lg-4">
-                        <div class="row d-flex justify-content-center align-items-center flex-column bg-white">
-                            <img src="{{ asset('/assets/admin/img/bg-01.png') }}" class="img-fluid rounded"  alt="image-profile">
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <h5 class="mt-3 card-title">Selamat datang, {{ AuthSSO::user()->name }}</h5>
-                        <p>Manage your archive to make Banking work better for you,  and happy working :)</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="row">
 <!-- Right side columns -->
-<div class="col-lg-4">
+{{-- <div class="col-lg-4">
 
     <!-- News & Updates Traffic -->
     <div class="card">
@@ -62,7 +41,7 @@
       </div>
     </div><!-- End News & Updates -->
 
-  </div><!-- End Right side columns -->
+  </div><!-- End Right side columns --> --}}
       <!-- Left side columns -->
       <div class="col-lg-8">
         <div class="row">
