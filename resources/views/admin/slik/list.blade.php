@@ -20,7 +20,9 @@
                 <th>Nama</th>
                 <th data-type="date" data-format="YYYY-MM-DD hh:mm:ss">Created At</th>
                 <th>File</th>
+                {{-- @can('slik:manage') --}}
                 <th>Aksi</th>
+                {{-- @endcan --}}
             </tr>
             </thead>
             <tbody>
@@ -32,8 +34,10 @@
                 <td>{{ $slik->created_at }}</td>
                 <td><a href="{{ asset('storage' . $slik->file) }}" class="btn btn-light" target="_blank"><i class='bx bxs-file-pdf'></i></a></td>
                 <td>
+                @can('slik:manage')
                 {{-- <a href="{{ route('admin.slik.edit', ['id' => $slik->id]) }}" class="btn btn-sm btn-success"><i class="bx bx-edit-alt me-1"></i></a> --}}
                 <a href="{{ route('admin.slik.delete', ['id' => $slik->id]) }}" class="btn btn-sm btn-danger" onclick="return confirm('Konfirmasi hapus data')"><i class="bx bx-trash me-1"></i></a>
+                @endcan
                 </td>
             </tr>
             @php($i++)
