@@ -3,9 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Slik\StoreSlikReq;
-use App\Models\Slik;
+use App\Models\PermohonanSlik;
 use App\Services\SlikService;
-use Exception;
 use Illuminate\Http\Request;
 
 class SlikController extends Controller
@@ -16,40 +15,23 @@ class SlikController extends Controller
         $this->slikService = $slikService;
     }
 
-    public function index() {
-        $sliks = Slik::all();
-        return view('admin.slik.index', compact('sliks'));
-    }
+    public function create(string $permohonan_slik_id) {
+        $permohonan_slik = PermohonanSlik::find($permohonan_slik_id);
 
-    public function create() {
-        return view('admin.slik.create');
-    }
-
-    public function store(StoreSlikReq $req) {
-        try {
-            $result = $this->slikService->create($req);
-            return response()->json(['success'=>true, 'slik_id' => $result->id]);
-        } catch (Exception $e) {
-            return $e->getMessage();
+        if ($permohonan_slik == null) {
+            abort(404, "Page Not Found");
         }
+
+        return view('admin.slik.create', compact('permohonan_slik'));
     }
 
-    public function delete($id) {
+    public function store(StoreSlikReq $request) {
         try {
-            $this->slikService->destroy($id);
-            return redirect()->back()->with('success', 'Berhasil hapus arsip perjanjian kredit');
+            $this->slikService->create($request);
+            return redirect()->back()->with('success', 'Berhasil melakukan permohonan');
         } catch (\Exception $e) {
-            dd($e);
-            return redirect()->back()->with('error', 'Gagal hapus data , sedang terjadi maintenance, coba beberapa saat lagi ');
-        }
-    }
-
-    public function monthlydestroy() {
-        try {
-            $this->slikService->monthlydestroy();
-            return redirect()->back()->with('success', 'Berhasil hapus arsip perjanjian kredit');
-        } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Gagal hapus data , sedang terjadi maintenance, coba beberapa saat lagi ');
+            dd($e->getMessage());
+            return redirect()->back()->with('error', 'Gagal melakukan permohonan , sedang terjadi maintenance, coba beberapa saat lagi ');
         }
     }
 }

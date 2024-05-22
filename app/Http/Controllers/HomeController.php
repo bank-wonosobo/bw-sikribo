@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 class HomeController extends Controller
 {
     public function index() {
-        // $file_archives = FileArchive::orderBy('created_at', 'DESC')->paginate(5);
+        // $file_archives = FileArchive::orderBy('created_at', 'DESC')->paginate(5);`
         return view('admin.dashboard.index');
     }
 

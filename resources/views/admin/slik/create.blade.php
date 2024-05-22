@@ -1,63 +1,86 @@
 @extends('admin.templates.app')
 
-@section('title', 'Homestay')
-
-@section('breadcrumb')
-<li class="breadcrumb-item active" aria-current="page">Foto Homestay</li>
-@endsection
-
-@section('style')
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.4.0/min/dropzone.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.4.0/dropzone.js"></script>
-@endsection
+@section('title', 'Permohonan SLIK')
 
 @section('content')
 <div class="row">
-    <div class="col-12 grid-margin stretch-card">
-    <div class="card">
-        <div class="card-body">
-        <h4 class="card-title">Upload Foto Homestay</h4>
-        <form id="id_dropzone" class="dropzone" action="{{ route('admin.slik.store') }}" enctype="multipart/form-data" method="post">
-        @csrf
-        </form>
-        <a href="{{ route('admin.slik.create') }}" class="btn btn-dark mt-2">Selesai Upload</a>
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Permohonan SLIK</h4>
+
+                <p>Masukan Nomor SLIK dan Peruntukan Ideb untuk permohonan SLIK</p>
+                {!! Form::open(['route' => 'admin.slik.store', 'method' => 'POST']) !!}
+                <input type="hidden" name="permohonan_slik_id" value="{{ $permohonan_slik->id }}" />
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <h6 class="card-title">Debitur/Calon Debitur</h6>
+                        <div class="row">
+                            <div class="col-md-6">
+                                {!! Form::label('nama[0]', 'Nama') !!}
+                                {!! Form::text('nama[0]', old('nama[0]') ,['class' => 'form-control']) !!}
+                            </div>
+                            <div class="col-md-6">
+                                {!! Form::label('nik[0]', 'NIK') !!}
+                                {!! Form::text('nik[0]', old('nik[0]') ,['class' => 'form-control']) !!}
+                            </div>
+                            <input type="hidden" name="identitas_slik[0]" value="Debitur/Calon Debitur" >
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <h6 class="card-title">Pasangan Debitur/Calon Debitur</h6>
+                        <div class="row">
+                            <div class="col-md-6">
+                                {!! Form::label('nama[1]', 'Nama') !!}
+                                {!! Form::text('nama[1]', old('nama[1]') ,['class' => 'form-control']) !!}
+                            </div>
+                            <div class="col-md-6">
+                                {!! Form::label('nik[1]', 'NIK') !!}
+                                {!! Form::text('nik[1]', old('nik[1]') ,['class' => 'form-control']) !!}
+                            </div>
+                            <input type="hidden" name="identitas_slik[1]" value="Pasangan Debitur/Calon Debitur" >
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-md-6">
+                        <h6 class="card-title">Penjamin</h6>
+                        <div class="row">
+                            <div class="col-md-6">
+                                {!! Form::label('nama[2]', 'Nama') !!}
+                                {!! Form::text('nama[2]', old('nama[2]') ,['class' => 'form-control']) !!}
+                            </div>
+                            <div class="col-md-6">
+                                {!! Form::label('nik[2]', 'NIK') !!}
+                                {!! Form::text('nik[2]', old('nik[2]') ,['class' => 'form-control']) !!}
+                            </div>
+                            <input type="hidden" name="identitas_slik[2]" value="Penjamin" >
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <h6 class="card-title">Pasangan Pernjamin</h6>
+                        <div class="row">
+                            <div class="col-md-6">
+                                {!! Form::label('nama[3]', 'Nama') !!}
+                                {!! Form::text('nama[3]', old('nama[3]') ,['class' => 'form-control']) !!}
+                            </div>
+                            <div class="col-md-6">
+                                {!! Form::label('nik[3]', 'NIK') !!}
+                                {!! Form::text('nik[3]', old('nik[3]') ,['class' => 'form-control']) !!}
+                            </div>
+                            <input type="hidden" name="identitas_slik[3]" value="Pasangan Penjamin" >
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-12 mt-4">
+                    {!! Form::submit('Ajukan Permohonan', ['class' => ['btn', 'btn-dark']]) !!}
+                </div>
+                {!! Form::close() !!}
+            </div>
         </div>
     </div>
-    </div>
 </div>
-@endsection
 
-@section('script')
-<script type="text/javascript">
-  Dropzone.autoDiscover = false;
-
-  $(document).ready(function () {
-      $("#id_dropzone").dropzone({
-        maxFilesize: 5,
-        // renameFile: function(file) {
-        //   var dt = new Date()
-        //   var time = dt.getTime()
-        //   var splitname = file.name.split('.')
-        //   return time+'.'+ splitname.pop()
-        // },
-        acceptedFiles: ".pdf",
-        addRemoveLinks: true,
-        timeout: 50000,
-        addRemoveLinks: false,
-        success: function(file, response)
-        {
-            console.log("success upload");
-            $(file.previewElement).addClass("dz-success").find('.dz-success-message').text(response);
-
-        },
-        error: function(file, response)
-        {
-            console.log("failed upload");
-
-            $(file.previewElement).addClass("dz-error").find('.dz-error-message').text(response);
-        }
-      });
-  })
-</script>
 @endsection

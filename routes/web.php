@@ -4,11 +4,14 @@ use App\Helper\AuthUser;
 use App\Http\Controllers\AgencyController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\FileArchiveController;
+use App\Http\Controllers\HasilSlikController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\IncomingMailController;
 use App\Http\Controllers\KategoriKreditController;
+use App\Http\Controllers\KodeSlikController;
 use App\Http\Controllers\KreditController;
 use App\Http\Controllers\OutgoingMailController;
+use App\Http\Controllers\PermohonanSlikController;
 use App\Http\Controllers\SlikController;
 use Illuminate\Support\Facades\Route;
 
@@ -71,9 +74,9 @@ Route::prefix('admin')
             Route::post('/', 'store')->name('store');
         });
 
-    Route::prefix('slik')
-        ->as('slik.')
-        ->controller(SlikController::class)
+    Route::prefix('hasil-slik')
+        ->as('hasil-slik.')
+        ->controller(HasilSlikController::class)
         ->group(function() {
             Route::get('/', 'index')->name('index');
             Route::get('/create', 'create')->name('create');
@@ -82,5 +85,32 @@ Route::prefix('admin')
             Route::put('/{id}', 'update')->name('update');
             Route::get('/{id}/delete', 'delete')->name('delete');
             Route::get('/monthlydestroy', 'monthlydestroy')->name('monthlydestroy');
+        });
+
+    Route::prefix('kode-slik')
+        ->as('kode-slik.')
+        ->controller(KodeSlikController::class)
+        ->group(function() {
+            Route::get('/', 'index')->name('index');
+            Route::post('/set', 'setCode')->name('set');
+        });
+
+    Route::prefix('permohonan-slik')
+        ->as('permohonan-slik.')
+        ->controller(PermohonanSlikController::class)
+        ->group(function() {
+            Route::get('/', 'index')->name('index');
+            Route::get('/create', 'create')->name('create');
+            Route::post('/', 'store')->name('store');
+            Route::get('/{id}', 'detail')->name('detail');
+        });
+
+    Route::prefix('slik')
+        ->as('slik.')
+        ->controller(SlikController::class)
+        ->group(function() {
+            Route::get('/', 'index')->name('index');
+            Route::get('/create/{permohonan_slik_id}', 'create')->name('create');
+            Route::post('/', 'store')->name('store');
         });
 });

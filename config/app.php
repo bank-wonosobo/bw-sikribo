@@ -179,6 +179,9 @@ return [
 
         App\Providers\KreditProvider::class,
         App\Providers\SlikProvider::class,
+        App\Providers\KodeSlikProvider::class,
+        App\Providers\PermohonanSlikProvider::class,
+
 
     ],
 

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Slik;
+namespace App\Http\Requests\PermohonanSlik;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreSlikReq extends FormRequest
+class StorePermohohonanSlikReq extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,9 @@ class StoreSlikReq extends FormRequest
     public function rules()
     {
         return [
-            'permohonan_slik_id' => ['required'],
+            'nomor' => ['required'],
+            'peruntukan_ideb' => ['required'],
+            'berkas' => ['required', 'file', 'mimes:pdf']
         ];
     }
 }
