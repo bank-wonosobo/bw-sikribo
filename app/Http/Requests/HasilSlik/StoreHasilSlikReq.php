@@ -24,7 +24,7 @@ class StoreSlikReq extends FormRequest
     public function rules()
     {
         return [
-            'permohonan_slik_id' => ['required'],
+            //
         ];
     }
 }

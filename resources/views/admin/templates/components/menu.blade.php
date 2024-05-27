@@ -25,25 +25,50 @@
     </li>
     @endcan
 
+    @can('slik:manage')
+
     <li class="nav-heading">SLIK</li>
 
     <li class="nav-item">
-      <a class="nav-link {{ Route::is('admin.slik.index') ? '' : 'collapsed' }}" href="{{ route('admin.slik.index') }}">
-       <i class='bx bx-copy-alt'></i>
+        <a class="nav-link collapsed" data-bs-target="#permohonan_slik" data-bs-toggle="collapse" href="#">
+          <i class="bx bxs-cog"></i><span>Permohonan SLIK</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="permohonan_slik" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="{{ route('admin.permohonan-slik.create') }}">
+              <i class="bi bi-circle"></i><span>Permohonan SLIK</span>
+            </a>
+            <a href="{{ route('admin.permohonan-slik.index') }}">
+              <i class="bi bi-circle"></i><span>Data Permohonan</span>
+            </a>
+            <a href="{{ route('admin.permohonan-slik.history') }}">
+              <i class="bi bi-circle"></i><span>Histori Permohonan</span>
+            </a>
+          </li>
+        </ul>
+    </li>
+
+    <li class="nav-item">
+      <a class="nav-link {{ Route::is('admin.faq') ? '' : 'collapsed' }}" href="{{ route('admin.faq') }}">
+        <i class="bi bi-question-circle"></i>
         <span>Data SLIK</span>
       </a>
     </li><!-- End F.A.Q Page Nav -->
 
-    @can('slik:manage')
-    <li class="nav-item">
-      <a class="nav-link {{ Route::is('admin.slik.create') ? '' : 'collapsed' }}" href="{{ route('admin.slik.create') }}">
-        <i class='bx bx-add-to-queue'></i>
-        <span>Tambah SLIK</span>
-      </a>
-    </li>
     @endcan
     <li class="nav-heading">Lain-lain</li>
-
+    <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
+          <i class="bx bxs-cog"></i><span>Pengaturan</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="icons-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="{{ route('admin.kode-slik.index') }}">
+              <i class="bi bi-circle"></i><span>Set Kode SLIK</span>
+            </a>
+          </li>
+        </ul>
+    </li>
     <li class="nav-item">
       <a class="nav-link {{ Route::is('admin.faq') ? '' : 'collapsed' }}" href="{{ route('admin.faq') }}">
         <i class="bi bi-question-circle"></i>
@@ -58,48 +83,3 @@
       </a>
     </li><!-- End Contact Page Nav -->
   </ul>
-
-{{-- <!-- Nav Item - Dashboard -->
-<li class="nav-item {{ Route::is('admin.dashboard.*') ? 'active' : '' }}">
-    <a class="nav-link" href="{{ route('admin.dashboard.index') }}">
-        <i class="fas fa-fw fa-tachometer-alt"></i>
-        <span>Dashboard</span></a>
-</li>
-
-<!-- Divider -->
-<hr class="sidebar-divider">
-
-<!-- Heading -->
-<div class="sidebar-heading">
-    Arsip Kredit
-</div>
-
-<!-- Nav Item - Tables -->
-<li class="nav-item {{ Route::is('admin.kredit.*') ? 'active' : '' }}">
-    <a class="nav-link" href="{{ route('admin.kredit.index') }}">
-        <i class="fas fa-fw fa-table"></i>
-        <span>Arsip Perjanjian Kedit</span></a>
-</li>
-@can('kategorikredit:manage')
-<li class="nav-item {{ Route::is('admin.kategori-kredit.*') ? 'active' : '' }}">
-    <a class="nav-link" href="{{ route('admin.kategori-kredit.index') }}">
-        <i class="fas fa-fw fa-table"></i>
-        <span>Kategori Kredit</span></a>
-</li>
-@endcan --}}
-
-<!-- Nav Item - Pages Collapse Menu -->
-{{-- <li class="nav-item">
-    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-        aria-expanded="true" aria-controls="collapseTwo">
-        <i class="fas fa-fw fa-cog"></i>
-        <span>Components</span>
-    </a>
-    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-        <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Custom Components:</h6>
-            <a class="collapse-item" href="buttons.html">Buttons</a>
-            <a class="collapse-item" href="cards.html">Cards</a>
-        </div>
-    </div>
-</li> --}}
