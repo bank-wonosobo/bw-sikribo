@@ -41,7 +41,7 @@
             <a href="{{ route('admin.permohonan-slik.index') }}">
               <i class="bi bi-circle"></i><span>Data Permohonan</span>
             </a>
-            <a href="{{ route('admin.kode-slik.index') }}">
+            <a href="{{ route('admin.permohonan-slik.history') }}">
               <i class="bi bi-circle"></i><span>Histori Permohonan</span>
             </a>
           </li>

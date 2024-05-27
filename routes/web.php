@@ -102,7 +102,8 @@ Route::prefix('admin')
             Route::get('/', 'index')->name('index');
             Route::get('/create', 'create')->name('create');
             Route::post('/', 'store')->name('store');
-            Route::get('/{id}', 'detail')->name('detail');
+            Route::get('/{id}/detail', 'detail')->name('detail');
+            Route::get('/history', 'history')->name('history');
         });
 
     Route::prefix('slik')

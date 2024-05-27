@@ -98,4 +98,13 @@ class SlikServiceImpl implements SlikService {
 
         return array('nomor' => 1, 'nomor_ref' => $nomor_ref);
     }
+
+    public function setStatus(string $id, string $status): Slik
+    {
+        $slik = Slik::find($id);
+        $slik->status = $status;
+        $slik->save();
+
+        return $slik;
+    }
 }

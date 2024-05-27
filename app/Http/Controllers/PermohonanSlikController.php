@@ -12,6 +12,7 @@ use App\Traits\NumberToRoman;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PermohonanSlikController extends Controller
 {
@@ -53,5 +54,11 @@ class PermohonanSlikController extends Controller
     public function detail($id) {
         $permohonan_slik = PermohonanSlik::find($id);
         return view('admin.permohonan_slik.detail', compact('permohonan_slik'));
+    }
+
+    public function history() {
+        $user = AuthUser::user();
+        $permohonan_slik = PermohonanSlik::where('pemohon', $user->name)->orderBy('created_at', 'DESC')->get();
+        return view('admin.permohonan_slik.history', compact('permohonan_slik'));
     }
 }
