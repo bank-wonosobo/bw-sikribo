@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=0.9" name="viewport">
 
-  <title>@yield('title') - bw arsip</title>
+  <title>@yield('title', 'Page') - BW APPS</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -49,7 +49,7 @@
     <div class="d-flex align-items-center justify-content-between">
       <a href="{{ route('admin.dashboard.index') }}" class="logo d-flex align-items-center">
         <img src="{{ asset('logo.png') }}" alt="">
-        <span class="d-none d-lg-block">Bw Arsip</span>
+        <span class="d-none d-lg-block">BWWS</span>
       </a>
       <i class="bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->
@@ -215,15 +215,15 @@
 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
             <img src="{{ asset('templates/assets/img/profile-img.jpg') }}" alt="Profile" class="rounded-circle">
-            <span class="d-none d-md-block dropdown-toggle ps-2">{{ AuthSSO::user()->name }}</span>
+            <span class="d-none d-md-block dropdown-toggle ps-2">{{ Auth::user()->name }}</span>
           </a><!-- End Profile Iamge Icon -->
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
             <li class="dropdown-header">
-              <h6>{{ AuthSSO::user()->name }}</h6>
+              <h6>{{ Auth::user()->name }}</h6>
               <span>
-                @foreach (AuthSSO::user()->roles as $role)
-                    {{ $role }},
+                @foreach (Auth::user()->roles as $role)
+                    {{ $role->name }},
                 @endforeach
               </span>
             </li>
@@ -255,12 +255,15 @@
               <hr class="dropdown-divider">
             </li>
 
+            <form id="logout-form" action="{{ route('logout') }}" method="POST">
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="{{ route('auth.logout') }}">
+                @csrf
+                <button type="submit" class="dropdown-item d-flex align-items-center">
                 <i class="bi bi-box-arrow-right"></i>
                 <span>Sign Out</span>
-              </a>
+              </button>
             </li>
+            </form>
 
           </ul><!-- End Profile Dropdown Items -->
         </li><!-- End Profile Nav -->

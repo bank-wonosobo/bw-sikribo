@@ -19,7 +19,7 @@ class CreatePermohonanSlikTable extends Migration
             $table->string('nomor');
             $table->string('peruntukan_ideb');
             $table->string('status'); // prosees pengajuan, selesai
-            $table->string('pemohon');
+            $table->uuid('pemohon');
             $table->string('petugas_slik')->nullable();
             $table->string('berkas')->nullable();
             $table->timestamps();

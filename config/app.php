@@ -181,7 +181,13 @@ return [
         App\Providers\SlikProvider::class,
         App\Providers\KodeSlikProvider::class,
         App\Providers\PermohonanSlikProvider::class,
+        App\Providers\Owned\UserProvider::class,
+        App\Providers\Owned\RoleProvider::class,
 
+
+
+        //Out Source
+        Spatie\Permission\PermissionServiceProvider::class,
 
     ],
 
@@ -237,7 +243,6 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-        'AuthSSO' => App\Helper\AuthUser::class,
 
     ],
 
