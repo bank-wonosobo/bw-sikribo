@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Exceptions\KodeSLIKNotSetException;
-use App\Helper\AuthUser;
 use App\Http\Requests\PermohonanSlik\StorePermohohonanSlikReq;
 use App\Models\KodeSlik;
 use App\Models\PermohonanSlik;
@@ -11,7 +10,6 @@ use App\Services\PermohonanSlikService;
 use App\Traits\NumberToRoman;
 use Carbon\Carbon;
 use Exception;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class PermohonanSlikController extends Controller
@@ -32,12 +30,12 @@ class PermohonanSlikController extends Controller
     public function create() {
         $month = $this->numberToRoman(Carbon::now()->month);
         $year = Carbon::now()->year;
-        $kode_slik = KodeSlik::where('user_id', AuthUser::user()->id)->first();
+        $kode_slik = KodeSlik::where('user_id', Auth::user()->id)->first();
         return view('admin.permohonan_slik.create', compact('year', 'month', 'kode_slik'));
     }
 
     public function store(StorePermohohonanSlikReq $request) {
-        $user = AuthUser::user();
+        $user = Auth::user();
 
         try {
             $result = $this->permohonanSlikService->create($request, $user->id, $user->name);
@@ -57,7 +55,7 @@ class PermohonanSlikController extends Controller
     }
 
     public function history() {
-        $user = AuthUser::user();
+        $user = Auth::user();
         $permohonan_slik = PermohonanSlik::where('pemohon', $user->name)->orderBy('created_at', 'DESC')->get();
         return view('admin.permohonan_slik.history', compact('permohonan_slik'));
     }

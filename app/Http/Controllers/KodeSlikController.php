@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Helper\AuthUser;
 use App\Http\Requests\KodeSlik\StoreKodeSlikReq;
 use App\Models\KodeSlik;
 use App\Services\KodeSlikService;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class KodeSlikController extends Controller
 {
@@ -17,7 +16,7 @@ class KodeSlikController extends Controller
 
     public function index() {
 
-        $userid = AuthUser::user()->id;
+        $userid = Auth::user()->id;
 
         $kode_slik = KodeSlik::where('user_id', $userid)->first();
 
@@ -39,7 +38,7 @@ class KodeSlikController extends Controller
     }
 
     public function setCode(StoreKodeSlikReq $req) {
-        $userid = AuthUser::user()->id;
+        $userid = Auth::user()->id;
 
         $this->kodeSlikService->setCode($req, $userid);
 

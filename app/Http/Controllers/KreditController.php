@@ -24,12 +24,6 @@ class KreditController extends Controller
 
         $kategori = KategoriKredit::pluck('nama', 'id')->all();
 
-        // $key = $request->get('key');
-        // if ($key != null) {
-        //     $kredits = Kredit::where('nama_peminjam', 'LIKE', "%" . $key ."%")
-        //         ->orWhere('no_kredit', 'LIKE', "%" . $key ."%")
-        //         ->simplePaginate(20);
-        // }
         $kredits = [];
         Kredit::chunk(200, function ($chunkedKredits) use (&$kredits) {
             foreach ($chunkedKredits as $kredit) {

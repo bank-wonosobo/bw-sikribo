@@ -12,7 +12,10 @@ use App\Http\Controllers\KodeSlikController;
 use App\Http\Controllers\KreditController;
 use App\Http\Controllers\OutgoingMailController;
 use App\Http\Controllers\PermohonanSlikController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SlikController;
+use App\Http\Controllers\UserController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,30 +30,48 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::
-    middleware('oauth')
+    middleware('auth')
     ->get('/', function () {
     // return AuthUser::user();
     return redirect()->route('admin.dashboard.index');
 });
 
-Route::controller(AuthController::class)
-    ->prefix('auth')
-    ->as('auth.')
-    ->group(function () {
-        Route::get('/login', 'login')->name('login');
-        Route::get('/logout', 'logout')->name('logout');
-        Route::get('/callback', 'callback')->name('callback');
-    });
-
-
-
 Route::prefix('admin')
-->middleware('oauth')
+->middleware('auth')
 ->as('admin.')
 ->group(function() {
     Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard.index');
     Route::get('/faq', [HomeController::class, 'faq'])->name('faq');
     Route::get('/contact', [HomeController::class, 'contact'])->name('contact');
+
+
+    Route::controller(UserController::class)
+    ->middleware('auth')
+    ->prefix('users')
+    ->as('users.')
+    ->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('/create', 'create')->name('create');
+        Route::get('/{id}/edit', 'edit')->name('edit');
+        Route::put('/{id}/update', 'update')->name('update');
+        Route::post('/', 'store')->name('store');
+        Route::post('/{id}/generate-password', 'generatePassword')->name('generate-password');
+        Route::post('/{id}/change-password', 'changePassword')->name('change-password');
+        Route::post('/{id}/create-password', 'createPassword')->name('create-password');
+        Route::delete('/{id}', 'delete')->name('delete');
+    });
+
+    Route::controller(RoleController::class)
+        ->prefix('roles')
+        ->middleware('auth')
+        ->as('roles.')
+        ->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::get('/create', 'create')->name('create');
+            Route::post('/', 'store')->name('store');
+            Route::post('/permission', 'add_permission')->name('add-permission');
+            Route::post('/permission/{role_id}/grant', 'grant_permission')->name('grant-permission');
+        });
 
 
     Route::prefix('kredit')
@@ -115,3 +136,7 @@ Route::prefix('admin')
             Route::post('/', 'store')->name('store');
         });
 });
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
