@@ -176,15 +176,13 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         //own
-
         App\Providers\KreditProvider::class,
         App\Providers\SlikProvider::class,
         App\Providers\KodeSlikProvider::class,
         App\Providers\PermohonanSlikProvider::class,
         App\Providers\Owned\UserProvider::class,
         App\Providers\Owned\RoleProvider::class,
-
-
+        App\Providers\Owned\DokumenHukumProvider::class,
 
         //Out Source
         Spatie\Permission\PermissionServiceProvider::class,

@@ -3,10 +3,12 @@
 use App\Helper\AuthUser;
 use App\Http\Controllers\AgencyController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DokumenHukumController;
 use App\Http\Controllers\FileArchiveController;
 use App\Http\Controllers\HasilSlikController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\IncomingMailController;
+use App\Http\Controllers\JenisDokumenHukumController;
 use App\Http\Controllers\KategoriKreditController;
 use App\Http\Controllers\KodeSlikController;
 use App\Http\Controllers\KreditController;
@@ -133,6 +135,23 @@ Route::prefix('admin')
         ->group(function() {
             Route::get('/', 'index')->name('index');
             Route::get('/create/{permohonan_slik_id}', 'create')->name('create');
+            Route::post('/', 'store')->name('store');
+        });
+
+    Route::prefix('jenis-dh')
+        ->as('jenis-dh.')
+        ->controller(JenisDokumenHukumController::class)
+        ->group(function() {
+            Route::get('/', 'index')->name('index');
+            Route::post('/', 'store')->name('store');
+        });
+
+    Route::prefix('dokumen-hukum')
+        ->as('dokumen-hukum.')
+        ->controller(DokumenHukumController::class)
+        ->group(function() {
+            Route::get('/{jdh_id}/index', 'index')->name('index');
+            Route::get('/create', 'create')->name('create');
             Route::post('/', 'store')->name('store');
         });
 });

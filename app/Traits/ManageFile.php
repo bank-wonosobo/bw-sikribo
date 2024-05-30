@@ -6,9 +6,15 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 
 trait ManageFile {
-    public function deleteFileExist($kredit){
-        if ($kredit->file != null) {
-            $this->delete($kredit->file);
+    public function delete($path) {
+        if (Storage::disk('public')->exists($path)) {
+            Storage::disk('public')->delete($path);
+        }
+    }
+
+    public function deleteFileExist($obj){
+        if ($obj->file != null) {
+            $this->delete($obj->file);
         }
     }
 }

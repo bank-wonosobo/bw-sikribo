@@ -20,10 +20,4 @@ trait UploadTrait
             return $filePath;
         }
     }
-
-    public function delete($path) {
-        if (Storage::disk('public')->exists($path)) {
-            Storage::disk('public')->delete($path);
-        }
-    }
 }
