@@ -8,6 +8,10 @@
   <title>@yield('title', 'Page') - BW APPS</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
+    <!-- PWA  -->
+    <meta name="theme-color" content="#2F2F6F"/>
+    <link rel="apple-touch-icon" href="{{ asset('logo.png') }}">
+    <link rel="manifest" href="{{ asset('/manifest.json') }}">
 
   <!-- Favicons -->
   <link href="{{ asset('logo.png') }}" rel="icon">
@@ -180,19 +184,30 @@
   <!-- ======= Footer ======= -->
   <footer id="footer" class="footer">
     <div class="copyright">
-      &copy; Copyright <strong><span>Nicetemplates</span></strong>. All Rights Reserved
-    </div>
-    <div class="credits">
-      <!-- All the links in the footer should remain intact. -->
-      <!-- You can delete the links only if you purchased the pro version. -->
-      <!-- Licensing information: https://bootstrapmade.com/license/ -->
-      <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-templates-bootstrap-templates-html-template/ -->
-      Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+      &copy; Copyright <strong><span>Bank Wonosobo</span></strong>. All Rights Reserved
     </div>
   </footer><!-- End Footer -->
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
+
+    <script src="{{ asset('/sw.js') }}"></script>
+    <script>
+    if ("serviceWorker" in navigator) {
+        // Register a service worker hosted at the root of the
+        // site using the default scope.
+        navigator.serviceWorker.register("/sw.js").then(
+        (registration) => {
+            console.log("Service worker registration succeeded:", registration);
+        },
+        (error) => {
+            console.error(`Service worker registration failed: ${error}`);
+        },
+        );
+    } else {
+        console.error("Service workers are not supported.");
+    }
+    </script>
 
   <!-- Vendor JS Files -->
   <script src="{{ asset('templates/assets/vendor/apexcharts/apexcharts.min.js') }}"></script>
@@ -206,6 +221,7 @@
 
   <!-- Template Main JS File -->
   <script src="{{ asset('templates/assets/js/main.js') }}"></script>
+
   @yield('script')
 </body>
 

@@ -185,7 +185,8 @@ return [
         App\Providers\Owned\DokumenHukumProvider::class,
 
         //Out Source
-        Spatie\Permission\PermissionServiceProvider::class,
+        Spatie\Permission\PermissionServiceProvider::class, // Multi Login
+        Ladumor\LaravelPwa\PWAServiceProvider::class, // PWA
 
     ],
 
@@ -241,7 +242,7 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-
+        'LaravelPwa' => \Ladumor\LaravelPwa\LaravelPwa::class,
     ],
 
 ];
