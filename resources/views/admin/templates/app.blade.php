@@ -10,7 +10,6 @@
   <meta content="" name="keywords">
     <!-- PWA  -->
     <meta name="theme-color" content="#2F2F6F"/>
-    <link rel="apple-touch-icon" href="{{ asset('logo.png') }}">
     <link rel="manifest" href="{{ asset('manifest.json') }}">
 
   <!-- Favicons -->
@@ -88,7 +87,7 @@
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="https://account.bankwonosobo.co.id" target="_blank">
+              <a class="dropdown-item d-flex align-items-center" href="#">
                 <i class="bi bi-person"></i>
                 <span>Kelola BW Akun</span>
               </a>
