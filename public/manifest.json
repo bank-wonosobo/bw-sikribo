@@ -1,11 +1,11 @@
 {
-    "name": "Laravel Package Tutorial",
+    "name": "Sikribo Bank Wonosobo",
     "short_name": "LPT",
     "start_url": "/index.php",
-    "background_color": "#6777ef",
-    "description": "Tutorial of Laravel Package",
+    "background_color": "#2F2F6F",
+    "description": "Sistem Informasi Kredit Bank Wonosobo",
     "display": "fullscreen",
-    "theme_color": "#6777ef",
+    "theme_color": "#2F2F6F",
     "icons": [
         {
             "src": "logo.PNG",
