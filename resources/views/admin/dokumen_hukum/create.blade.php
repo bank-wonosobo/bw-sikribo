@@ -1,6 +1,6 @@
 @extends('admin.templates.app')
 
-@section('title', 'Permohonan SLIK')
+@section('title', 'Tambah Dokumen Hukum')
 
 @section('style')
 <style>
@@ -49,7 +49,7 @@
                 <div class="col-12 mt-3">
                     {!! Form::label('berkas', 'Berkas SLIK', ['class' => 'font-weight-bold']) !!}
                     {!! Form::file('file' ,['class' => 'form-control', 'id' => 'files']) !!}
-                    <span class="text-danger text-small">* berkas berisi KTP dan KK dengan format pdf, dijadikan 1 file</span>
+                    <span class="text-danger text-small">* berkas dengan format pdf, dijadikan 1 file</span>
                 </div>
                 <div class="container">
                     <div class="row">

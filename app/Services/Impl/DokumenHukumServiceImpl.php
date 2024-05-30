@@ -42,6 +42,16 @@ class DokumenHukumServiceImpl implements DokumenHukumService {
 
     public function addFile(string $id, $file)
     {
+        $dokumen_hukum = DokumenHukum::find($id);
 
+        $this->deleteFileExist($dokumen_hukum);
+
+        $file = $this->uploads($file, 'dokumen_hukum/file');
+
+        $dokumen_hukum->file = $file;
+
+        $dokumen_hukum->save();
+
+        return $dokumen_hukum;
     }
 }

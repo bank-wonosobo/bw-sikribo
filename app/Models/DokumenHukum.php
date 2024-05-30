@@ -10,6 +10,8 @@ class DokumenHukum extends Model
 {
     use HasFactory;
 
+    protected $keyTypr = 'string';
+    public $incrementing = false;
     protected $table = 'dokumen_hukum';
     protected $guarded = [];
 
@@ -19,5 +21,9 @@ class DokumenHukum extends Model
         static::creating(function ($model) {
             $model->id = (string) Str::uuid();
         });
+    }
+
+    public function jenisDokumen() {
+        return $this->belongsTo(JenisDokumenHukum::class, 'jenis_dokumen_hukum_id', 'id');
     }
 }

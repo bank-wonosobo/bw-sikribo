@@ -25,7 +25,13 @@ class StoreDokumenHukumReq extends FormRequest
     {
         return [
             'nomor' => ['required'],
-            ''
+            'perihal' => ['required'],
+            'tanggal' => ['required'],
+            'tahun' => ['required'],
+            'keterangan' => ['required'],
+            'status' => ['required'],
+            'jenis_dokumen_hukum_id' => ['required'],
+            'file' => ['required', 'file', 'mimes:pdf']
         ];
     }
 }
