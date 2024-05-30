@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=0.8" name="viewport">
+  <meta content="width=device-width, initial-scale=0.9" name="viewport">
 
   <title>@yield('title', 'Page') - BW APPS</title>
   <meta content="" name="description">
