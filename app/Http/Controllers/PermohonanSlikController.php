@@ -40,7 +40,7 @@ class PermohonanSlikController extends Controller
         try {
             $result = $this->permohonanSlikService->create($request, $user->id, $user->name);
             if ($request->file('berkas') != null) $this->permohonanSlikService->addBerkas($result->id, $request->file('berkas'));
-            return redirect()->route('admin.slik.create', ['permohonan_slik_id' => $result->id])->with('success', 'Berhasil malakukan permohonan, silahkan input data nasabah slik');
+            return redirect()->route('admin.slik.create', ['permohonan_slik_id' => $result->id])->with('success', 'Berhasil malakukan permohonan, silahkan input data nasabah slik')->with('loader',true);;
         } catch (KodeSLIKNotSetException $e) {
             return redirect()->back()->with('error', 'Kode SLIK belum di set');
         }catch (Exception $e) {

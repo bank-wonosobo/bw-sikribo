@@ -28,7 +28,7 @@ class SlikController extends Controller
     public function store(StoreSlikReq $request) {
         try {
             $this->slikService->create($request);
-            return redirect()->back()->with('success', 'Berhasil melakukan permohonan');
+            return redirect()->route('admin.permohonan-slik.create')->with('success', 'Berhasil melakukan permohonan');
         } catch (\Exception $e) {
             dd($e->getMessage());
             return redirect()->back()->with('error', 'Gagal melakukan permohonan , sedang terjadi maintenance, coba beberapa saat lagi ');

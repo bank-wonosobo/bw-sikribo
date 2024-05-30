@@ -33,7 +33,19 @@
 
   <!-- Template Main CSS File -->
   <link href="{{ asset('templates/assets/css/style.css') }}" rel="stylesheet">
+    <style>
+    .pageLoader{
+        background: url(/loading.gif) no-repeat center center;
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        z-index: 9999999;
+        background-color: #ffffff8c;
 
+    }
+    </style>
 
   <!-- =======================================================
   * Template Name: Nicetemplates
@@ -45,7 +57,7 @@
 </head>
 
 <body>
-
+    <div  class="pageLoader" id="pageLoader"></div>
   <!-- ======= Header ======= -->
   <header id="header" class="header fixed-top d-flex align-items-center">
 
@@ -189,7 +201,6 @@
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
-
     <script src="{{ asset('/sw.js') }}"></script>
     <script>
     if ("serviceWorker" in navigator) {
@@ -220,7 +231,21 @@
 
   <!-- Template Main JS File -->
   <script src="{{ asset('templates/assets/js/main.js') }}"></script>
+    <!-- jQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
+ <script>
+   $(window).on('beforeunload', function(){
+
+        $('#pageLoader').show();
+
+    });
+
+    $(function () {
+
+        $('#pageLoader').hide();
+    })
+    </script>
   @yield('script')
 </body>
 
