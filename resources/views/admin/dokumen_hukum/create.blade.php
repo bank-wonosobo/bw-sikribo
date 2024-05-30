@@ -20,27 +20,27 @@
                 {!! Form::open(['route' => 'admin.dokumen-hukum.store', 'method' => 'POST', 'files' => true]) !!}
                 <div class="col-12 mt-3">
                     {!! Form::label('nomor', 'Nomor') !!}
-                    {!! Form::text('nomor', old('nomor') ,['class' => 'form-control', 'placeholder' => 'ex: Permohonan SLIK']) !!}
+                    {!! Form::text('nomor', old('nomor') ,['class' => 'form-control']) !!}
                 </div>
                 <div class="col-12 mt-3">
-                    {!! Form::label('perihal', 'perihal') !!}
+                    {!! Form::label('perihal', 'Perihal') !!}
                     {!! Form::text('perihal', old('perihal') ,['class' => 'form-control']) !!}
                 </div>
                 <div class="col-12 mt-3">
-                    {!! Form::label('tanggal', 'tanggal') !!}
+                    {!! Form::label('tanggal', 'Tanggal') !!}
                     {!! Form::date('tanggal', old('tanggal') ?? Carbon\Carbon::now() ,['class' => 'form-control']) !!}
                 </div>
                 <div class="col-12 mt-3">
-                    {!! Form::label('tahun', 'tahun') !!}
+                    {!! Form::label('tahun', 'Tahun') !!}
                     {!! Form::number('tahun',  old('tahun') ?? Carbon\Carbon::now()->year ,['class' => 'form-control', 'placeholder' => 'YYYY',  'min' => "2000",  'max'=>"2100"]) !!}
                 </div>
                 <div class="col-12 mt-3">
-                    {!! Form::label('keterangan', 'keterangan') !!}
+                    {!! Form::label('keterangan', 'Keterangan') !!}
                     {!! Form::text('keterangan', old('tanggal') ,['class' => 'form-control', 'placeholder' => 'ex: Permohonan SLIK']) !!}
                 </div>
                 <div class="col-12 mt-3">
                     {!! Form::label('status', 'Status') !!}
-                    {!! Form::select('status', ['Berlaku', 'Tidak Berlaku'], old('status'), ['class' => 'form-control', 'placeholder','placeholder' => 'Pilih kategori...']) !!}
+                    {!! Form::select('status', ['Tidak Berlaku', 'Berlaku'], old('status'), ['class' => 'form-control', 'placeholder','placeholder' => 'Pilih kategori...']) !!}
                 </div>
                 <div class="col-12 mt-3">
                     {!! Form::label('jenis_dokumen_hukum_id', 'Jenis Dokumen') !!}

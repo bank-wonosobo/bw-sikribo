@@ -16,9 +16,10 @@ class DokumenHukumController extends Controller
         $this->dokumenService = $dokumenService;
     }
 
-    public function index() {
-        $dokumen_hukum = DokumenHukum::all();
-        return view('admin.dokumen_hukum.index', compact('dokumen_hukum'));
+    public function index($jdh_id) {
+        $jdh = JenisDokumenHukum::find($jdh_id);
+        $dokumen_hukum = DokumenHukum::where('jenis_dokumen_hukum_id', $jdh_id)->get();
+        return view('admin.dokumen_hukum.index', compact('dokumen_hukum', 'jdh'));
     }
 
     public function create() {
