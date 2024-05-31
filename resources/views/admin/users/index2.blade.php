@@ -1,27 +1,26 @@
 @extends('admin.templates.app')
 
-@section('title', 'User')
-
 @section('content')
-<div class="row">
-    <div class="col-lg-12">
+<div class="row justify-content-center">
+    <div class="col-md-12">
+
+
+        <a href="{{ route('admin.users.create') }}" class="btn btn-primary my-3 shadow-sm">
+        Tambah User
+        </a>
+
         @if($refund = Session::has('password-show'))
-            <div class="alert alert-warning mb-2">
+            <div class="alert alert-warning">
                 Berhasil generate password user ({{ Session::get('user')->name }}), <br>
                 <b>Password  : {{ Session::get('user')->password }} </b>,<br>
                 <p>Password hanya akan ditampilan 1 kali !!. copy password agar tidak lupa ya</p>
                 @include('admin.users.form-send-credential')
             </div>
         @endif
-        <div class="card">
+
+        <div class="card border-0 shadow">
             <div class="card-body">
-                <h5 class="card-title">User Manajemen</h5>
-                <a href="{{ route('admin.users.create') }}" class="btn btn-primary my-3 shadow-sm">
-                Tambah User
-                </a>
-                <div class="table-responsive">
-                <!-- Table with stripped rows -->
-                <table class="table datatable">
+                <table class="table">
                     <thead>
                         <tr>
                             <th scope="col">No</th>
@@ -34,7 +33,7 @@
                     <tbody>
                         @foreach ($data as $item)
                             <tr>
-                                <th scope="row">{{ $loop->iteration }}</th>
+                                <th scope="row">{{ $loop->iteration + $data->firstItem() - 1}}</th>
                                 <td>{{ $item->name }}</td>
                                 <td>{{ $item->email }}</td>
                                 <td>
@@ -57,6 +56,8 @@
                         @endforeach
                     </tbody>
                 </table>
+                <div class="mx-3 my-3">
+                    {{ $data->appends($_GET)->links() }}
                 </div>
             </div>
         </div>

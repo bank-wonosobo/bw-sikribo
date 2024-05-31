@@ -61,6 +61,7 @@ Route::prefix('admin')
         Route::post('/{id}/change-password', 'changePassword')->name('change-password');
         Route::post('/{id}/create-password', 'createPassword')->name('create-password');
         Route::delete('/{id}', 'delete')->name('delete');
+        Route::post('/send-credential', 'sendCredential')->name('send-credential');
     });
 
     Route::controller(RoleController::class)
@@ -159,3 +160,5 @@ Route::prefix('admin')
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('kirim-email','App\Http\Controllers\MailController@index');
