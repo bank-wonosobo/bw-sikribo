@@ -72,6 +72,7 @@
                             </td>
                         </tr>
                     </table>
+                    @include('admin.users.form-send-credential')
                 </div>
             </div>
         </div>

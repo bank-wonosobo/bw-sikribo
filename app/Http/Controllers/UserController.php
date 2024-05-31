@@ -7,10 +7,13 @@ use App\Http\Requests\Users\UserAddRequest;
 use App\Http\Requests\Users\UserChangePasswordRequest;
 use App\Http\Requests\Users\UserCreatePasswordRequest;
 use App\Http\Requests\Users\UserUpdateRequest;
+use App\Mail\AccountCredentialMail;
 use App\Models\Role;
 use App\Models\User;
 use App\Services\UserService;
 use Exception;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class UserController extends Controller
 {
@@ -22,7 +25,7 @@ class UserController extends Controller
 
     public function index()
     {
-        $data = User::paginate(20);
+        $data = User::all();
 
         return view('admin.users.index', compact('data'));
     }
@@ -110,6 +113,26 @@ class UserController extends Controller
             return redirect()->back()->with('success', 'Berhasil menghapus data.');
         } catch (\Exception $e) {
             abort(500, 'terjadi kesalahan pada server');
+        }
+    }
+
+    public function sendCredential(Request $request) {
+        $nama = $request->input('nama');
+        $email = $request->input('email');
+        $password = $request->input('password');
+
+        try {
+            $details = [
+                'nama' => $nama,
+                'email' => $email,
+                'password' => $password
+            ];
+
+            Mail::to($email)->send(new AccountCredentialMail($details));
+
+            return redirect()->back()->with('success', 'Berhasil Mengirim User Credential ');
+        } catch (Exception $e) {
+            dd($e->getMessage());
         }
     }
 }
