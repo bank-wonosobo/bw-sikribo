@@ -1,12 +1,12 @@
-@can('manage jdih')
     <li class="nav-heading">JDIH</li>
-
+@can('manage jdih')
 <li class="nav-item">
     <a class="nav-link {{ Route::is('admin.dokumen-hukum.create') ? '' : 'collapsed' }}" href="{{ route('admin.dokumen-hukum.create') }}">
     <i class='bx bx-detail'></i>
     <span>Tambah Dokumen</span>
     </a>
 </li>
+@endcan
 
 <li class="nav-item">
     <a class="nav-link collapsed" data-bs-target="#dokumen-hukum" data-bs-toggle="collapse" href="#">
@@ -22,12 +22,11 @@
         @endforeach
     </ul>
 </li>
-
+@can('manage jdih')
 <li class="nav-item">
     <a class="nav-link {{ Route::is('admin.jenis-dh.*') ? '' : 'collapsed' }}" href="{{ route('admin.jenis-dh.index') }}">
     <i class='bx bx-windows'></i>
     <span>Jenis Dokumen Hukum</span>
     </a>
 </li>
-
 @endcan
