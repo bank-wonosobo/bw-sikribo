@@ -14,8 +14,11 @@
 </li>
 
 <li class="nav-item">
-    <a class="nav-link {{ Route::is('admin.contact') ? '' : 'collapsed' }}" href="{{ route('admin.contact') }}">
-    <i class="bi bi-envelope"></i>
+    <form id="logout-form" action="{{ route('logout') }}" method="POST">
+    @csrf
+    <button class="nav-link collapsed" href="{{ route('logout') }}">
+    <i class="bi bi-box-arrow-right"></i>
     <span>Logout</span>
-    </a>
+    </button>
+    </form>
 </li><!-- End Contact Page Nav -->
