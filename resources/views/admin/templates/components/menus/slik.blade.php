@@ -9,9 +9,11 @@
         <a href="{{ route('admin.permohonan-slik.create') }}">
             <i class="bi bi-circle"></i><span>Permohonan SLIK</span>
         </a>
+        @can('manajemen slik')
         <a href="{{ route('admin.permohonan-slik.index') }}">
             <i class="bi bi-circle"></i><span>Data Permohonan</span>
         </a>
+        @endcan
         <a href="{{ route('admin.permohonan-slik.history') }}">
             <i class="bi bi-circle"></i><span>Histori Permohonan</span>
         </a>
@@ -19,13 +21,14 @@
     </ul>
 </li>
 
+@can('manajemen slik')
 <li class="nav-item">
     <a class="nav-link {{ Route::is('admin.faq') ? '' : 'collapsed' }}" href="{{ route('admin.faq') }}">
     <i class='bx bxs-file-export'></i>
     <span>Data SLIK</span>
     </a>
-</li><!-- End F.A.Q Page Nav -->
-
+</li>
+@endcan
 
 <li class="nav-item">
     <a class="nav-link collapsed" data-bs-target="#hasil_slik" data-bs-toggle="collapse" href="#">
@@ -36,9 +39,11 @@
         <a href="{{ route('admin.hasil-slik.index') }}">
             <i class="bi bi-circle"></i><span>Hasil PDF</span>
         </a>
+        @can('manajemen slik')
         <a href="{{ route('admin.hasil-slik.create') }}">
             <i class="bi bi-circle"></i><span>Upload Hasil</span>
         </a>
+        @endcan
         </li>
     </ul>
 </li>

@@ -1,3 +1,4 @@
+@can('manage arsip kredit')
 <li class="nav-heading">Arsip Kredit</li>
 
 <li class="nav-item">
@@ -13,3 +14,5 @@
         <span>Jenis Kredit</span>
     </a>
 </li>
+
+@endcan

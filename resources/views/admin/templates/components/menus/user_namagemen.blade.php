@@ -1,3 +1,4 @@
+@can('manage user')
 <li class="nav-heading">User Management</li>
 
 <li class="nav-item">
@@ -13,3 +14,5 @@
     <span>Roles</span>
     </a>
 </li>
+
+@endcan

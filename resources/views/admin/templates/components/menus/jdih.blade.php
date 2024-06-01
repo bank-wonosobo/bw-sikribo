@@ -1,4 +1,5 @@
-<li class="nav-heading">JDIH</li>
+@can('manage jdih')
+    <li class="nav-heading">JDIH</li>
 
 <li class="nav-item">
     <a class="nav-link {{ Route::is('admin.dokumen-hukum.create') ? '' : 'collapsed' }}" href="{{ route('admin.dokumen-hukum.create') }}">
@@ -28,3 +29,5 @@
     <span>Jenis Dokumen Hukum</span>
     </a>
 </li>
+
+@endcan
