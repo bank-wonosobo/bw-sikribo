@@ -24,7 +24,6 @@ class StorePermohohonanSlikReq extends FormRequest
     public function rules()
     {
         return [
-            'nomor' => ['required'],
             'peruntukan_ideb' => ['required'],
             'berkas' => ['required', 'file', 'mimes:pdf']
         ];

@@ -9,7 +9,8 @@
             <div class="card-body">
                 <h4 class="card-title">Permohonan SLIK</h4>
 
-                <p>Masukan Nomor SLIK dan Peruntukan Ideb untuk permohonan SLIK</p>
+                <p>Masukan NIK dan Nama Identitas SLIK, minimal mengisi Debitur / Calon Debitur</p>
+
                 {!! Form::open(['route' => 'admin.slik.store', 'method' => 'POST']) !!}
                 <input type="hidden" name="permohonan_slik_id" value="{{ $permohonan_slik->id }}" />
                 <div class="row mb-3">

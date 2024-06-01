@@ -27,8 +27,11 @@ class SlikController extends Controller
 
     public function store(StoreSlikReq $request) {
         try {
+            if($request->input('nama')[0] == null || $request->input('nik')[0] == null){
+                return redirect()->back()->with('error', 'Wajib Megisikan Minimal Identitas Debitur / Calon Debitur')->withInput($request->all());
+            }
             $this->slikService->create($request);
-            return redirect()->route('admin.permohonan-slik.create')->with('success', 'Berhasil melakukan permohonan');
+            return redirect()->route('admin.permohonan-slik.create')->with('success', 'Berhasil melakukan permohonan, untuk melihat hasil pengajuan terdapat di menu history permohonan');
         } catch (\Exception $e) {
             dd($e->getMessage());
             return redirect()->back()->with('error', 'Gagal melakukan permohonan , sedang terjadi maintenance, coba beberapa saat lagi ');

@@ -3,6 +3,7 @@
 namespace App\Services\Impl;
 
 use App\Exceptions\KodeSLIKNotSetException;
+use App\Exceptions\NomorSLIKCanotSameException;
 use App\Helper\AuthUser;
 use App\Http\Requests\PermohonanSlik\StorePermohohonanSlikReq;
 use App\Models\KodeSlik;
@@ -29,7 +30,9 @@ class PermohonanSlikServiceImpl implements PermohonanSlikService {
             throw new KodeSLIKNotSetException("Kode SLIK belum diset");
         }
 
-        $nomor_slik = $this->generateNomorPengajuan($nomor, $kode_slik->kode);
+
+        $nomor_slik = $this->generateNomorPengajuan($kode_slik->kode);
+
         $status = 'proses pengajuan';
 
         $permohonan = new PermohonanSlik([
@@ -46,13 +49,35 @@ class PermohonanSlikServiceImpl implements PermohonanSlikService {
 
     }
 
-    public function generateNomorPengajuan(string $nomor, string $kode_slik): string {
+    public function generateNomorPengajuan(string $kode_slik): string {
 
         $kode_bank = '600557';
-        $bulanRoman = $this->numberToRoman(Carbon::now()->month);
+        $bulan_roman = $this->numberToRoman(Carbon::now()->month);
         $tahun = Carbon::now()->year;
 
-        $nomor_slik = $nomor . '/' . $kode_bank . '/' . $kode_slik . '/' . $bulanRoman . '/' . $tahun;
+        $permohonan_slik = PermohonanSlik::where('nomor','like', '%' . $kode_slik . '%')->orderBy('nomor', 'DESC')->first();
+
+        if($permohonan_slik != null){
+
+            $ref_terakhir = $permohonan_slik->nomor;
+            $explode_nomor = explode('/', $ref_terakhir);
+            $nomor_terakhir = $explode_nomor[0];
+            $bulan_roman_terakhir = $explode_nomor[3];
+            // $tahun_terakhir = end($explode_ref);
+            $nomor_baru = 0;
+
+
+            if ($bulan_roman == $bulan_roman_terakhir) {
+                $nomor_baru = $nomor_terakhir + 1;
+            } else {
+                $nomor_baru = 1;
+            }
+
+            return $nomor_baru . '/' . $kode_bank . '/' . $kode_slik  . '/' . $bulan_roman . '/' . $tahun;
+
+        }
+
+        $nomor_slik = 1 . '/' . $kode_bank . '/' . $kode_slik . '/' . $bulan_roman . '/' . $tahun;
 
         return $nomor_slik;
     }

@@ -68,9 +68,7 @@ class SlikServiceImpl implements SlikService {
             $nomor_ref = $nomor . '/' . $kode_bank . '/' . $bulan_roman . '/' . $tahun;
             array('nomor' => $nomor, 'nomor_ref' => $nomor_ref);
         }
-
-
-
+        
         $slik = Slik::orderBy('no_ref_slik', 'DESC')->first();
 
         if($slik != null){

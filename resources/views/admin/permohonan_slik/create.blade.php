@@ -15,13 +15,6 @@
                 @endif
                 <p>Masukan Nomor SLIK dan Peruntukan Ideb untuk permohonan SLIK</p>
                 {!! Form::open(['route' => 'admin.permohonan-slik.store', 'method' => 'POST', 'files' => true]) !!}
-                <div class="col-6 mt-3">
-                    {!! Form::label('nomor', 'Nomor SLIK') !!}
-                    <div class="input-group">
-                      <input type="number" name="nomor" class="form-control" aria-label="Recipient's username" aria-describedby="basic-addon2">
-                      <span class="input-group-text" id="basic-addon2">600557<b>/</b>{{ $kode_slik->kode ?? '_' }}<b>/</b>{{ $month }}<b>/</b> {{ $year }}</span>
-                    </div>
-                </div>
                 <div class="col-12 mt-3">
                     {!! Form::label('peruntukan_ideb', 'Peruntukan Ideb') !!}
                     {!! Form::text('peruntukan_ideb', old('peruntukan_ideb') ,['class' => 'form-control', 'placeholder' => 'ex: Permohonan SLIK']) !!}

@@ -35,7 +35,6 @@
   <link href="{{ asset('templates/assets/css/style.css') }}" rel="stylesheet">
     <style>
     .pageLoader{
-        background: url(/loading.gif) no-repeat center center;
         position: fixed;
         top: 0;
         left: 0;
@@ -44,6 +43,19 @@
         z-index: 9999999;
         background-color: #ffffff8c;
 
+    }
+    .loader {
+        border: 8px solid #f3f3f3; /* Light grey */
+        border-top: 8px solid #ffce6d; /* Blue */
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        animation: spin 0.5s linear infinite;
+    }
+
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
     }
     </style>
 
@@ -57,7 +69,11 @@
 </head>
 
 <body>
-    <div  class="pageLoader" id="pageLoader"></div>
+    <div  class="pageLoader" id="pageLoader">
+        <div class="d-flex align-items-center justify-content-center h-100 w-100">
+            <div class="loader"></div>
+        </div>
+    </div>
   <!-- ======= Header ======= -->
   <header id="header" class="header fixed-top d-flex align-items-center">
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Exceptions\KodeSLIKNotSetException;
+use App\Exceptions\NomorSLIKCanotSameException;
 use App\Http\Requests\PermohonanSlik\StorePermohohonanSlikReq;
 use App\Models\KodeSlik;
 use App\Models\PermohonanSlik;
@@ -11,6 +12,7 @@ use App\Traits\NumberToRoman;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Support\Facades\Auth;
+use Ramsey\Collection\Exception\NoSuchElementException;
 
 class PermohonanSlikController extends Controller
 {
