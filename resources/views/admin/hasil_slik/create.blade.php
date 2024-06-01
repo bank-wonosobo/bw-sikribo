@@ -18,10 +18,10 @@
     <div class="card">
         <div class="card-body">
         <h4 class="card-title">Upload Foto Homestay</h4>
-        <form id="id_dropzone" class="dropzone" action="{{ route('admin.slik.store') }}" enctype="multipart/form-data" method="post">
+        <form id="id_dropzone" class="dropzone" action="{{ route('admin.hasil-slik.store') }}" enctype="multipart/form-data" method="post">
         @csrf
         </form>
-        <a href="{{ route('admin.slik.create') }}" class="btn btn-dark mt-2">Selesai Upload</a>
+        <a href="{{ route('admin.hasil-slik.create') }}" class="btn btn-dark mt-2">Selesai Upload</a>
         </div>
     </div>
     </div>
@@ -30,7 +30,7 @@
 
 @section('script')
 <script type="text/javascript">
-  Dropzone.autoDiscover = false;
+  Dropzone.autoDiscover = true;
 
   $(document).ready(function () {
       $("#id_dropzone").dropzone({

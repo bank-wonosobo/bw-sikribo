@@ -26,9 +26,19 @@
     </a>
 </li><!-- End F.A.Q Page Nav -->
 
+
 <li class="nav-item">
-    <a class="nav-link {{ Route::is('admin.faq') ? '' : 'collapsed' }}" href="{{ route('admin.faq') }}">
-    <i class='bx bx-file-find'></i>
-    <span>Hasil SLIK</span>
+    <a class="nav-link collapsed" data-bs-target="#hasil_slik" data-bs-toggle="collapse" href="#">
+        <i class='bx bx-file'></i></i><span>Hasil SLIK</span><i class="bi bi-chevron-down ms-auto"></i>
     </a>
-</li><!-- End F.A.Q Page Nav -->
+    <ul id="hasil_slik" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+        <li>
+        <a href="{{ route('admin.hasil-slik.index') }}">
+            <i class="bi bi-circle"></i><span>Hasil PDF</span>
+        </a>
+        <a href="{{ route('admin.hasil-slik.create') }}">
+            <i class="bi bi-circle"></i><span>Upload Hasil</span>
+        </a>
+        </li>
+    </ul>
+</li>

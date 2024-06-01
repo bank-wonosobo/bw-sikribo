@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Slik;
+namespace App\Http\Requests\HasilSlik;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreSlikReq extends FormRequest
+class StoreHasilSlikReq extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

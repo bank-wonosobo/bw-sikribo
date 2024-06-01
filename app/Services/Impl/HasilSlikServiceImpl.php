@@ -2,7 +2,8 @@
 
 namespace App\Services\Impl;
 
-use App\Http\Requests\Slik\StoreSlikReq;
+use App\Http\Requests\HasilSlik\StoreHasilSlikReq;
+use App\Models\HasilSlik;
 use App\Models\Slik;
 use App\Services\HasilSlikService;
 use App\Traits\ManageFile;
@@ -14,7 +15,7 @@ class HasilSlikServiceImpl implements HasilSlikService {
 
     const PATH = 'slik/file/';
 
-    public function create(StoreSlikReq $req): Slik
+    public function create(StoreHasilSlikReq $req): HasilSlik
     {
 
         $file = $req->file('file');
@@ -22,7 +23,7 @@ class HasilSlikServiceImpl implements HasilSlikService {
         $file_name = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
         $file_path = $this->uploads($file, self::PATH, true, Str::uuid());
 
-        $slik = new Slik([
+        $slik = new HasilSlik([
             'nama' => $file_name,
             'file' => $file_path
         ]);

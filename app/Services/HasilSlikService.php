@@ -2,11 +2,12 @@
 
 namespace App\Services;
 
-use App\Http\Requests\Slik\StoreSlikReq;
-use App\Models\Slik;
+use App\Http\Requests\HasilSlik\StoreHasilSlikReq;
+use App\Models\HasilSlik;
+
 
 interface HasilSlikService {
-    public function create(StoreSlikReq $req): Slik;
+    public function create(StoreHasilSlikReq $req): HasilSlik;
     public function destroy(string $id);
     public function monthlydestroy();
 }

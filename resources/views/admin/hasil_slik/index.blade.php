@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="row">
-    @include('admin.slik.list')
+    @include('admin.hasil_slik.list')
 </div>
 
 @endsection

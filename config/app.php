@@ -183,6 +183,8 @@ return [
         App\Providers\Owned\UserProvider::class,
         App\Providers\Owned\RoleProvider::class,
         App\Providers\Owned\DokumenHukumProvider::class,
+        App\Providers\Owned\HasilSlikProvider::class,
+
 
         //Out Source
         Spatie\Permission\PermissionServiceProvider::class, // Multi Login

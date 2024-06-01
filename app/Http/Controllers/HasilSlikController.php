@@ -2,32 +2,33 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Slik\StoreSlikReq;
+use App\Http\Requests\HasilSlik\StoreHasilSlikReq;
+use App\Models\HasilSlik;
 use App\Models\Slik;
-use App\Services\SlikService;
+use App\Services\HasilSlikService;
 use Exception;
-use Illuminate\Http\Request;
+
 
 class HasilSlikController extends Controller
 {
-    private HasilSlikService $slikService;
+    private HasilSlikService $hasilSlikService;
 
-    public function __construct(SlikService $slikService) {
-        $this->slikService = $slikService;
+    public function __construct(HasilSlikService $hasilSlikService) {
+        $this->hasilSlikService = $hasilSlikService;
     }
 
     public function index() {
-        $sliks = Slik::all();
-        return view('admin.slik.index', compact('sliks'));
+        $sliks = HasilSlik::all();
+        return view('admin.hasil_slik.index', compact('sliks'));
     }
 
     public function create() {
-        return view('admin.slik.create');
+        return view('admin.hasil_slik.create');
     }
 
-    public function store(StoreSlikReq $req) {
+    public function store(StoreHasilSlikReq $req) {
         try {
-            $result = $this->slikService->create($req);
+            $result = $this->hasilSlikService->create($req);
             return response()->json(['success'=>true, 'slik_id' => $result->id]);
         } catch (Exception $e) {
             return $e->getMessage();
@@ -36,7 +37,7 @@ class HasilSlikController extends Controller
 
     public function delete($id) {
         try {
-            $this->slikService->destroy($id);
+            $this->hasilSlikService->destroy($id);
             return redirect()->back()->with('success', 'Berhasil hapus arsip perjanjian kredit');
         } catch (\Exception $e) {
             dd($e);
@@ -46,7 +47,7 @@ class HasilSlikController extends Controller
 
     public function monthlydestroy() {
         try {
-            $this->slikService->monthlydestroy();
+            $this->hasilSlikService->monthlydestroy();
             return redirect()->back()->with('success', 'Berhasil hapus arsip perjanjian kredit');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Gagal hapus data , sedang terjadi maintenance, coba beberapa saat lagi ');
