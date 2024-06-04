@@ -8,6 +8,7 @@ use App\Models\Slik;
 use App\Services\HasilSlikService;
 use App\Traits\ManageFile;
 use App\Traits\UploadTrait;
+use Carbon\Carbon;
 use Illuminate\Support\Str;
 
 class HasilSlikServiceImpl implements HasilSlikService {
@@ -21,7 +22,7 @@ class HasilSlikServiceImpl implements HasilSlikService {
         $file = $req->file('file');
 
         $file_name = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
-        $file_path = $this->uploads($file, self::PATH, true, Str::uuid());
+        $file_path = $this->uploads($file, self::PATH, true, Carbon::now()->format('dmy') . '_'. $file_name);
 
         $slik = new HasilSlik([
             'nama' => $file_name,
