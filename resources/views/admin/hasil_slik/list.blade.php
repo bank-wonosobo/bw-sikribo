@@ -28,11 +28,12 @@
             <tbody>
             @php($i = 1)
             @foreach ($sliks as $slik)
+            <a>
             <tr>
                 <td>{{ $i }}</td>
-                <td>{{ $slik->nama }}</td>
+                <td><a href="{{ asset('storage' . $slik->file) }}" class="btn">{{ $slik->nama }}</a></td>
                 <td>{{ $slik->created_at }}</td>
-                <td><a href="{{ asset('storage' . $slik->file) }}" class="btn btn-light" target="_blank"><i class='bx bxs-file-pdf'></i></a></td>
+                <td><a href="{{ asset('storage' . $slik->file) }}" class="btn btn-dark" target="_blank"><i class='bx bxs-download'></i></a></td>
                 <td>
                 @can('slik:manage')
                 {{-- <a href="{{ route('admin.hasil_slik.edit', ['id' => $slik->id]) }}" class="btn btn-sm btn-success"><i class="bx bx-edit-alt me-1"></i></a> --}}
@@ -40,6 +41,8 @@
                 @endcan
                 </td>
             </tr>
+            </a>
+
             @php($i++)
             @endforeach
             </tbody>
