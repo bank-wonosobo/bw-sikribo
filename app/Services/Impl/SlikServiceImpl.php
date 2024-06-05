@@ -44,6 +44,7 @@ class SlikServiceImpl implements SlikService {
                 ]);
                 $slik->save();
                 $sliks[] = $slik;
+                sleep(1);
                 $nomer_ref_nomor++;
             }
 
@@ -69,7 +70,7 @@ class SlikServiceImpl implements SlikService {
             array('nomor' => $nomor, 'nomor_ref' => $nomor_ref);
         }
 
-        $slik = Slik::orderBy('created_at', 'DESC')->first();
+        $slik = Slik::where('no_ref_slik', 'like', '%' . $bulan_roman . '/' . $tahun . '%')->orderBy('created_at', 'DESC')->first();
 
         if($slik != null){
 
