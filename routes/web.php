@@ -62,6 +62,7 @@ Route::prefix('admin')
         Route::post('/{id}/create-password', 'createPassword')->name('create-password');
         Route::delete('/{id}', 'delete')->name('delete');
         Route::post('/send-credential', 'sendCredential')->name('send-credential');
+        Route::get('/{id}', 'detail')->name('detail');
     });
 
     Route::controller(RoleController::class)

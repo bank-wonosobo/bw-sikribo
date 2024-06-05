@@ -8,6 +8,7 @@ use App\Http\Requests\Users\UserChangePasswordRequest;
 use App\Http\Requests\Users\UserCreatePasswordRequest;
 use App\Http\Requests\Users\UserUpdateRequest;
 use App\Mail\AccountCredentialMail;
+use App\Models\KodeSlik;
 use App\Models\Role;
 use App\Models\User;
 use App\Services\UserService;
@@ -80,9 +81,7 @@ class UserController extends Controller
     {
         try {
             $this->userService->changePassword($id, $request);
-            return redirect()->route('admin.users.index')->with([
-                'success' => 'Password Berhasil dibuat',
-            ]);
+            return redirect()->back()->with('success', 'Password berhasil diubah');
         } catch (UserPasswordNotSame $e) {
             return redirect()->back()->with('error', $e->getMessage());
         } catch (Exception $e) {
@@ -135,4 +134,27 @@ class UserController extends Controller
             dd($e->getMessage());
         }
     }
+
+    public function detail($id) {
+        $kode = [
+            "GRG" => "GRG - GARUNG",
+            "WTM" => "WTM - WATUMALANG",
+            "WSB" => "WSB - INDUK",
+            "PST" => "PST - PUSAT",
+            "KRT" => "KRT - KERTEK",
+            "SPR" => "SPR - SAPURAN",
+            "KPL" => "KPL - KEPIL",
+            "SLM" => "SLM - SELOMERTO",
+            "SKHJ" => "SKHJ - SUKOHARJO",
+            "WDS" => "WDS - WADASLINTANG",
+            "LKS" => "LKS - LEKSONO",
+        ];
+
+        $kode_slik = KodeSlik::where('user_id', $id)->first();
+
+        $user = User::find($id);
+
+        return view('admin.users.detail', compact('user', 'kode', 'kode_slik'));
+    }
+
 }

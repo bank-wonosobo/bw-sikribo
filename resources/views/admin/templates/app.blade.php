@@ -96,8 +96,8 @@
         </li><!-- End Search Icon-->
         <li class="nav-item dropdown pe-3">
 
-          <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-            <img src="{{ asset('templates/assets/img/profile-img.jpg') }}" alt="Profile" class="rounded-circle">
+          <a class="nav-link nav-profile d-flex align-items-center pe-0" href="{{ route('admin.users.detail', ['id' => Auth::user()->id]) }}" data-bs-toggle="dropdown">
+            <img src="{{ asset('user_profile.png') }}" alt="Profile" class="rounded-circle">
             <span class="d-none d-md-block dropdown-toggle ps-2">{{ Auth::user()->name }}</span>
           </a><!-- End Profile Iamge Icon -->
 
@@ -115,9 +115,9 @@
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="#">
+              <a class="dropdown-item d-flex align-items-center" href="{{ route('admin.users.detail', ['id' => Auth::user()->id]) }}">
                 <i class="bi bi-person"></i>
-                <span>Kelola BW Akun</span>
+                <span>Kelola Profile</span>
               </a>
             </li>
             <li>
@@ -175,7 +175,7 @@
         </ol>
       </nav>
     </div><!-- End Page Title -->
-
+    @yield('user-profile')
     <section class="section">
         @if (count($errors) > 0)
         <div class="alert alert-danger bg-danger text-light border-0 alert-dismissible fade show" role="alert">

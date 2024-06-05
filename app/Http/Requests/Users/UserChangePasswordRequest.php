@@ -26,6 +26,7 @@ class UserChangePasswordRequest extends FormRequest
         return [
             'old_password' => 'required',
             'new_password' => 'required',
+            'new_password2' => 'same:new_password'
         ];
     }
 }
