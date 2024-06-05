@@ -55,7 +55,7 @@ class PermohonanSlikServiceImpl implements PermohonanSlikService {
         $bulan_roman = $this->numberToRoman(Carbon::now()->month);
         $tahun = Carbon::now()->year;
 
-        $permohonan_slik = PermohonanSlik::where('nomor','like', '%' . $kode_slik . '%')->orderBy('created_at', 'DESC')->first();
+        $permohonan_slik = PermohonanSlik::where('nomor','like', '%' . $kode_slik . '%')->orderBy('nomor', 'DESC')->first();
 
         if($permohonan_slik != null){
 
