@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Slik\StoreSlikReq;
 use App\Models\PermohonanSlik;
+use App\Models\Slik;
 use App\Services\SlikService;
 use Illuminate\Http\Request;
 
@@ -13,6 +14,11 @@ class SlikController extends Controller
 
     public function __construct(SlikService $slikService) {
         $this->slikService = $slikService;
+    }
+
+    public function index() {
+        $sliks = Slik::all();
+        return view('admin.slik.index', compact('sliks'));
     }
 
     public function create(string $permohonan_slik_id) {
