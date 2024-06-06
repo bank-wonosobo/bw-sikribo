@@ -23,7 +23,7 @@
 
 @can('manajemen slik')
 <li class="nav-item">
-    <a class="nav-link {{ Route::is('admin.faq') ? '' : 'collapsed' }}" href="{{ route('admin.faq') }}">
+    <a class="nav-link {{ Route::is('admin.slik.index') ? '' : 'collapsed' }}" href="{{ route('admin.slik.index') }}">
     <i class='bx bxs-file-export'></i>
     <span>Data SLIK</span>
     </a>

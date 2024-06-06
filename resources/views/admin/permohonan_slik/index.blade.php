@@ -15,11 +15,9 @@
                     <tr>
                         <th>No</th>
                         <th>Nomer SLIK</th>
-                        <th>Peruntukan Ideb</th>
                         <th data-type="date" data-format="YYYY-MM-DD">Tanggal Pengajuan</th>
                         <th>Pemohon</th>
                         <th>Status Pengajuan</th>
-                        <th>Petugas SLIK</th>
                         <th>Aksi</th>
                     </tr>
                     </thead>
@@ -29,13 +27,17 @@
                     <tr>
                         <td>{{ $i }}</td>
                         <td>{{ $permohonan->nomor }}</td>
-                        <td>{{ $permohonan->peruntukan_ideb }}</td>
                         <td>{{ $permohonan->tanggal }}</td>
                         <td>{{ $permohonan->pemohon }}</td>
-                        <td>{{ $permohonan->status }}</td>
-                        <td>{{ $permohonan->petugas_slik ?? '-' }}</td>
                         <td>
-                            <a href="{{ route('admin.permohonan-slik.detail', ['id' => $permohonan->id]) }}">detail</a>
+                            <span class="badge @if ($permohonan->status != 'SELESAI') bg-light text-dark @else bg-success @endif">{{ ucwords($permohonan->status) }}</span>
+                        </td>
+                        <td>
+                            @if ($permohonan->status != 'SELESAI')
+                                <a href="{{ route('admin.permohonan-slik.detail', ['id' => $permohonan->id]) }}" class="btn btn-dark">Slik</a>
+                            @else
+                                <a href="{{ route('admin.permohonan-slik.detail', ['id' => $permohonan->id]) }}" class="btn btn-light">Detail</a>
+                            @endif
                         </td>
                     </tr>
                     @php($i++)

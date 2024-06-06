@@ -25,7 +25,7 @@ class PermohonanSlikController extends Controller
     }
 
     public function index() {
-        $permohonan_slik = PermohonanSlik::orderBy('status', 'ASC')->orderBy('created_at', 'DESC')->get();
+        $permohonan_slik = PermohonanSlik::orderBy('status', 'ASC')->orderBy('created_at', 'ASC')->get();
         return view('admin.permohonan_slik.index', compact('permohonan_slik'));
     }
 
