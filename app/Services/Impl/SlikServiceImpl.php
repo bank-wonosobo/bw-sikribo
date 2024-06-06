@@ -10,6 +10,7 @@ use App\Traits\ManageFile;
 use App\Traits\NumberToRoman;
 use App\Traits\UploadTrait;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class SlikServiceImpl implements SlikService {
@@ -88,12 +89,16 @@ class SlikServiceImpl implements SlikService {
                 $nomor_baru = 1;
             }
 
-            $nomor_ref = $nomor_baru . '/' . $kode_bank . '/' . $bulan_roman . '/' . $tahun;
+            $nomer = str_pad($nomor_baru, 3, '0', STR_PAD_LEFT);
+
+            $nomor_ref = $nomer . '/' . $kode_bank . '/' . $bulan_roman . '/' . $tahun;
 
             return  array('nomor' => $nomor_baru, 'nomor_ref' => $nomor_ref);
         }
 
-        $nomor_ref = 1 . '/' . $kode_bank . '/' . $bulan_roman . '/' . $tahun;
+        $nomer = str_pad(1, 3, '0', STR_PAD_LEFT);
+
+        $nomor_ref = $nomer . '/' . $kode_bank . '/' . $bulan_roman . '/' . $tahun;
 
         return array('nomor' => 1, 'nomor_ref' => $nomor_ref);
     }
@@ -105,5 +110,40 @@ class SlikServiceImpl implements SlikService {
         $slik->save();
 
         return $slik;
+    }
+
+    public function done(string $id): Slik
+    {
+        try {
+            $petugas_slik = Auth::user()->name;
+
+            DB::beginTransaction();
+
+            $slik = Slik::find($id);
+            $slik->status = 'SELESAI';
+            $slik->petugas_slik = $petugas_slik;
+            $slik->save();
+
+            $totalSlikDone = Slik::where('permohonan_slik_id', $slik->permohonan_slik_id)->where('status', 'SELESAI')->count();
+            $totalSlikPermohonan = Slik::where('permohonan_slik_id', $slik->permohonan_slik_id)->count();
+
+            if ($totalSlikDone == $totalSlikPermohonan) {
+                $slik->status = 'SELESAI';
+                $slik->save();
+
+                $permohonanSlik = PermohonanSlik::find($slik->permohonan_slik_id);
+                $permohonanSlik->status = 'SELESAI';
+                $permohonanSlik->save();
+            }
+
+            DB::commit();
+
+            return $slik;
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+            dd($e->getMessage());
+        }
+
     }
 }

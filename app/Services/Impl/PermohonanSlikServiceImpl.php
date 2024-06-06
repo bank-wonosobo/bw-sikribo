@@ -33,7 +33,7 @@ class PermohonanSlikServiceImpl implements PermohonanSlikService {
 
         $nomor_slik = $this->generateNomorPengajuan($kode_slik->kode);
 
-        $status = 'proses pengajuan';
+        $status = 'PROSES PENGAJUAN';
 
         $permohonan = new PermohonanSlik([
             'tanggal' => Carbon::now(),
@@ -73,11 +73,15 @@ class PermohonanSlikServiceImpl implements PermohonanSlikService {
                 $nomor_baru = 1;
             }
 
-            return $nomor_baru . '/' . $kode_bank . '/' . $kode_slik  . '/' . $bulan_roman . '/' . $tahun;
+            $nomer = str_pad($nomor_baru, 3, '0', STR_PAD_LEFT);
+
+            return $nomer . '/' . $kode_bank . '/' . $kode_slik  . '/' . $bulan_roman . '/' . $tahun;
 
         }
 
-        $nomor_slik = 1 . '/' . $kode_bank . '/' . $kode_slik . '/' . $bulan_roman . '/' . $tahun;
+        $nomer = str_pad(1, 3, '0', STR_PAD_LEFT);
+
+        $nomor_slik = $nomer . '/' . $kode_bank . '/' . $kode_slik . '/' . $bulan_roman . '/' . $tahun;
 
         return $nomor_slik;
     }

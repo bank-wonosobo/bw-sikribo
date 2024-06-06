@@ -32,12 +32,9 @@
                     <tr>
                         <th>Status Pengajuan</th>
                         <td>:</td>
-                        <td><span class="badge bg-primary">{{ $permohonan_slik->status }}</span></td>
-                    </tr>
-                    <tr>
-                        <th>Petugas SLIK</th>
-                        <td>:</td>
-                        <td>{{ $permohonan_slik->petugas_slik ?? '-' }}</td>
+                        <td>
+                            <span class="badge @if ($permohonan_slik->status != 'SELESAI') bg-light text-dark @else bg-success @endif">{{ $permohonan_slik->status }}</span>
+                        </td>
                     </tr>
                 </table>
 
@@ -50,29 +47,42 @@
                             <th>NIK</th>
                             <th>Nama</th>
                             <th>Identitas SLIK</th>
+                            <th>Petugas Slik</th>
                             <th>Status</th>
                             <th>Aksi</th>
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach ($permohonan_slik->sliks->sortBy('no_ref_slik') as $slik)
+                        @foreach ($permohonan_slik->sliks->sortBy('created_at') as $slik)
                         <tr>
                             <td>{{ $slik->no_ref_slik }}</td>
                             <td>{{ $slik->nik }}</td>
                             <td>{{ $slik->nama }}</td>
                             <td>{{ $slik->identitas_slik }}</td>
-                            <td><span class="badge bg-primary">{{ $slik->status }}</span></td>
+                            <td>{{ $slik->petugas_slik ?? '-' }}</td>
                             <td>
-                                <a href="#" class="btn btn-sm btn-success">Ada</a>
-                                <a href="#" class="btn btn-sm btn-danger">Tidak Ada</a>
+                                @if ($slik->status != 'SELESAI')
+                                    <span class="badge bg-light text-dark">{{ $slik->status }}</span>
+                                @else
+                                    <span class="badge bg-success">{{ $slik->status }}</span>
+                                @endif
+                            </td>
+                            <td>
+                                @if ($slik->status != 'SELESAI')
+                                    @can('selesai slik')
+                                        <a href="{{ route('admin.slik.done', ['id' => $slik->id]) }}" class="btn btn-sm btn-success">Selesai</a>
+                                    @else
+                                        <badge class="text-sm">Menunggu Proses Petugas</badge>
+                                    @endcan
+                                @else
+                                    <a href="{{ route('admin.hasil-slik.index') . '?nama=' . $slik->nama }}"><span class="badge text-dark">Lihat Hasil Slik</span></a>
+                                @endif
                             </td>
                         </tr>
                         @endforeach
                         </tbody>
                     </table>
                 </div>
-                <a href="#" class="btn btn-primary mb-2">Selesai SLIK</a>
-
                 <h5 class="card-title">Berkas SLIK</h5>
                 <iframe src="{{ asset('storage' . $permohonan_slik->berkas) }}" width="100%" height="500px" frameborder="0"></iframe>
             </div>

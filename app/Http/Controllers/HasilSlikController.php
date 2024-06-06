@@ -7,6 +7,7 @@ use App\Models\HasilSlik;
 use App\Models\Slik;
 use App\Services\HasilSlikService;
 use Exception;
+use Illuminate\Http\Request;
 
 
 class HasilSlikController extends Controller
@@ -17,8 +18,15 @@ class HasilSlikController extends Controller
         $this->hasilSlikService = $hasilSlikService;
     }
 
-    public function index() {
+    public function index(Request $req) {
+        $nama = $req->get('nama');
+
         $sliks = HasilSlik::all();
+
+        if($nama != null ) {
+            $sliks = HasilSlik::where('nama','like', '%'.$nama.'%')->get();
+        }
+
         return view('admin.hasil_slik.index', compact('sliks'));
     }
 

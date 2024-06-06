@@ -39,7 +39,15 @@ class SlikController extends Controller
             $this->slikService->create($request);
             return redirect()->route('admin.permohonan-slik.create')->with('success', 'Berhasil melakukan permohonan, untuk melihat hasil pengajuan terdapat di menu history permohonan');
         } catch (\Exception $e) {
-            dd($e->getMessage());
+            return redirect()->back()->with('error', 'Gagal melakukan permohonan , sedang terjadi maintenance, coba beberapa saat lagi ');
+        }
+    }
+
+    public function done($id) {
+        try {
+            $this->slikService->done($id);
+            return redirect()->back()->with('success', 'SLIK telah selesai');
+        } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Gagal melakukan permohonan , sedang terjadi maintenance, coba beberapa saat lagi ');
         }
     }

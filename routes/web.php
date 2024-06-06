@@ -138,6 +138,7 @@ Route::prefix('admin')
             Route::get('/', 'index')->name('index');
             Route::get('/create/{permohonan_slik_id}', 'create')->name('create');
             Route::post('/', 'store')->name('store');
+            Route::get('/{id}/done', 'done')->name('done');
         });
 
     Route::prefix('jenis-dh')

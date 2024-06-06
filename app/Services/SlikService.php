@@ -9,4 +9,5 @@ interface SlikService {
     public function create(StoreSlikReq $req): array;
     public function generateNoRef(): array;
     public function setStatus(string $id, string $status): Slik;
+    public function done(string $id): Slik;
 }

@@ -20,7 +20,7 @@ class SlikFactory extends Factory
             'status' => 'ADA',
             'identitas_slik' => 'DEBITUR',
             'no_ref_slik' => 'xxx',
-            'permohonan_slik_id' => PermohonanSlik::factory()->create()->id,
+            'permohonan_slik_id' => null ?? PermohonanSlik::factory()->create()->id,
         ];
     }
 }

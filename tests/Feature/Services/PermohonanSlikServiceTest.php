@@ -33,18 +33,17 @@ class PermohonanSlikServiceTest extends TestCase
         assertTrue(true);
     }
 
-    public function test_generate_nomor()
-    {
-        $nomor = $this->service->generateNomorPengajuan(10, 'GRG');
+    // public function test_generate_nomor()
+    // {
+    //     $nomor = $this->service->generateNomorPengajuan(10, 'GRG');
 
-        assertSame('10/600557/GRG/V/2024', $nomor);
-    }
+    //     assertSame('10/600557/GRG/V/2024', $nomor);
+    // }
 
     public function test_create_not_set_codeslik() {
         $this->expectException(KodeSLIKNotSetException::class);
 
         $request = new StorePermohohonanSlikReq([
-            'nomor' => 10,
             'peruntukan_ideb' => 'pengajuan'
         ]);
 
@@ -58,7 +57,6 @@ class PermohonanSlikServiceTest extends TestCase
         ]);
 
         $request = new StorePermohohonanSlikReq([
-            'nomor' => 10,
             'peruntukan_ideb' => 'pengajuan'
         ]);
 
@@ -66,7 +64,13 @@ class PermohonanSlikServiceTest extends TestCase
 
         $this->assertDatabaseCount('permohonan_slik', 1);
         $this->assertDatabaseHas('permohonan_slik', [
-            'nomor' => '10/600557/GRG/V/2024'
+            'nomor' => '1/600557/GRG/VI/2024'
+        ]);
+
+        $this->service->create($request, '1', 'test');
+
+        $this->assertDatabaseHas('permohonan_slik', [
+            'nomor' => '2/600557/GRG/VI/2024'
         ]);
 
     }

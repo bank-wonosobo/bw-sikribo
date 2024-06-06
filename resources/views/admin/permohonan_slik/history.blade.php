@@ -35,16 +35,15 @@
                                 <span class="badge bg-danger">Belum Input Debitur</span>
                             @else
                                 @foreach ($permohonan->sliks as $slik)
-                                    <span class="badge bg-light text-black">{{ ucwords($slik->nama) }}</span><br>
+                                    <span class="badge bg-light text-black">{{ ucwords($slik->nama) }}  @if ($slik->status == 'SELESAI') <i class='bx bx-check'></i> @endif </span> <br>
                                 @endforeach
                             @endif
                         </td>
                         <td>
-                            <span class="badge bg-primary">{{ $permohonan->status }}</span>
+                            <span class="badge @if ($permohonan->status != 'SELESAI') bg-light text-dark @else bg-success @endif">{{ ucwords($permohonan->status) }}</span>
                         </td>
                         <td>
-                            <a class="btn btn-sm btn-info text-white" href="{{ route('admin.permohonan-slik.detail', ['id' => $permohonan->id]) }}">Detail</a>
-                            <a class="btn btn-sm btn-warning text-white" href="{{ route('admin.permohonan-slik.detail', ['id' => $permohonan->id]) }}">Edit</a>
+                            <a class="btn btn-sm btn-primary text-white" href="{{ route('admin.permohonan-slik.detail', ['id' => $permohonan->id]) }}">Detail</a>
                         </td>
                     </tr>
                     @php($i++)
