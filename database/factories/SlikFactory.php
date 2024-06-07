@@ -15,8 +15,8 @@ class SlikFactory extends Factory
     public function definition()
     {
         return [
-            'nama' => $this->faker->name(),
-            'nik' => $this->faker->name(),
+            'nama' => $this->faker->name,
+            'nik' => $this->faker->name,
             'status' => 'ADA',
             'identitas_slik' => 'DEBITUR',
             'no_ref_slik' => 'xxx',

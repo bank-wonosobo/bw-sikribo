@@ -21,7 +21,7 @@ class HasilSlikController extends Controller
     public function index(Request $req) {
         $nama = $req->get('nama');
 
-        $sliks = HasilSlik::all();
+        $sliks = $this->hasilSlikService->routinDeletion();
 
         if($nama != null ) {
             $sliks = HasilSlik::where('nama','like', '%'.$nama.'%')->get();
@@ -45,7 +45,7 @@ class HasilSlikController extends Controller
 
     public function delete($id) {
         try {
-            $this->hasilSlikService->destroy($id);
+            $this->hasilSlikService->destroying($id);
             return redirect()->back()->with('success', 'Berhasil hapus arsip perjanjian kredit');
         } catch (\Exception $e) {
             dd($e);

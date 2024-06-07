@@ -9,6 +9,7 @@ use App\Services\HasilSlikService;
 use App\Traits\ManageFile;
 use App\Traits\UploadTrait;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Str;
 
 class HasilSlikServiceImpl implements HasilSlikService {
@@ -34,17 +35,38 @@ class HasilSlikServiceImpl implements HasilSlikService {
         return $slik;
     }
 
-    public function destroy(string $id)
+    public function destroying(string $id)
     {
-        $slik = Slik::find($id);
+        $slik = HasilSlik::find($id);
 
         $this->deleteFileExist($slik);
 
-        Slik::where('id', $id)->delete();
+        HasilSlik::where('id', $id)->delete();
     }
 
     public function monthlydestroy()
     {
         Slik::truncate();
+    }
+
+    public function routinDeletion(int $date_amount = 14): Collection
+    {
+        $hasilSlik = HasilSlik::all();
+
+        $datenow = Carbon::now()->subDays($date_amount);
+
+        // dd($datenow);
+
+
+        foreach($hasilSlik as $hasil) {
+            $created_at = Carbon::parse($hasil->created_at);
+
+
+            if ($datenow->gte($created_at)) {
+                $this->destroying($hasil->id);
+            }
+        }
+
+        return HasilSlik::all();
     }
 }

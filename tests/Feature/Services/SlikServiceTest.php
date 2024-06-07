@@ -3,6 +3,7 @@
 namespace Tests\Feature\Services;
 
 use App\Http\Requests\Slik\StoreSlikReq;
+use App\Models\HasilSlik;
 use App\Models\PermohonanSlik;
 use App\Models\Slik;
 use App\Services\SlikService;
@@ -90,8 +91,8 @@ class SlikServiceTest extends TestCase
         $jumlah_slik = 3;
         for ($i=0; $i < $jumlah_slik; $i++) {
             Slik::create( [
-                'nama' => $this->faker->name(),
-                'nik' => $this->faker->name(),
+                'nama' => $this->faker->name,
+                'nik' => $this->faker->name,
                 'status' => 'SELESAI',
                 'identitas_slik' => 'DEBITUR',
                 'no_ref_slik' => 'xxx',
@@ -100,8 +101,8 @@ class SlikServiceTest extends TestCase
         }
 
         $slik = Slik::create([
-            'nama' => $this->faker->name(),
-            'nik' => $this->faker->name(),
+            'nama' => $this->faker->name,
+            'nik' => $this->faker->name,
             'status' => 'PROSES',
             'identitas_slik' => 'DEBITUR',
             'no_ref_slik' => 'xxx',
@@ -135,8 +136,8 @@ class SlikServiceTest extends TestCase
         $jumlah_slik = 2;
         for ($i=0; $i < $jumlah_slik; $i++) {
             Slik::create( [
-                'nama' => $this->faker->name(),
-                'nik' => $this->faker->name(),
+                'nama' => $this->faker->name,
+                'nik' => $this->faker->name,
                 'status' => 'SELESAI',
                 'identitas_slik' => 'DEBITUR',
                 'no_ref_slik' => 'xxx',
@@ -145,8 +146,8 @@ class SlikServiceTest extends TestCase
         }
 
         $slik = Slik::create([
-            'nama' => $this->faker->name(),
-            'nik' => $this->faker->name(),
+            'nama' => $this->faker->name,
+            'nik' => $this->faker->name,
             'status' => 'PROSES',
             'identitas_slik' => 'DEBITUR',
             'no_ref_slik' => 'xxx',
@@ -154,8 +155,8 @@ class SlikServiceTest extends TestCase
         ]);
 
         $slik1 = Slik::create([
-            'nama' => $this->faker->name(),
-            'nik' => $this->faker->name(),
+            'nama' => $this->faker->name,
+            'nik' => $this->faker->name,
             'status' => 'PROSES',
             'identitas_slik' => 'DEBITUR',
             'no_ref_slik' => 'xxx',
@@ -182,4 +183,5 @@ class SlikServiceTest extends TestCase
         ]);
 
     }
+
 }

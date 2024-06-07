@@ -33,12 +33,12 @@ class PermohonanSlikServiceTest extends TestCase
         assertTrue(true);
     }
 
-    // public function test_generate_nomor()
-    // {
-    //     $nomor = $this->service->generateNomorPengajuan(10, 'GRG');
+    public function test_generate_nomor()
+    {
+        $nomor = $this->service->generateNomorPengajuan(10, 'GRG');
 
-    //     assertSame('10/600557/GRG/V/2024', $nomor);
-    // }
+        assertSame('10/600557/GRG/V/2024', $nomor);
+    }
 
     public function test_create_not_set_codeslik() {
         $this->expectException(KodeSLIKNotSetException::class);

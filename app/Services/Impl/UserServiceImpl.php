@@ -7,13 +7,14 @@ use App\Http\Requests\Users\UserAddRequest;
 use App\Http\Requests\Users\UserChangePasswordRequest;
 use App\Http\Requests\Users\UserCreatePasswordRequest;
 use App\Http\Requests\Users\UserUpdateRequest;
+use App\Models\Slik;
 use App\Models\User;
 use App\Repositories\UserRepository;
 use App\Services\UserService;
+use App\Traits\ManageFile;
 use Illuminate\Support\Facades\Hash;
 
 class UserServiceImpl implements UserService
-
 {
 
     private UserRepository $userRepository;
@@ -26,7 +27,7 @@ class UserServiceImpl implements UserService
     function add(UserAddRequest $request)
     {
 
-        $password = $this->generataRandomString(8);
+        $password = $this->generataRandomString(4);
 
         $passwordHash = Hash::make($password);
 
@@ -112,8 +113,8 @@ class UserServiceImpl implements UserService
         return $user;
     }
 
-    function destroy($id)
+    public function destroy($id)
     {
-        $this->userRepository->delete($id);
+        // TODO
     }
 }
