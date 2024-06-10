@@ -9,11 +9,6 @@
         <a href="{{ route('admin.permohonan-slik.create') }}">
             <i class="bi bi-circle"></i><span>Permohonan SLIK</span>
         </a>
-        @can('manajemen slik')
-        <a href="{{ route('admin.permohonan-slik.index') }}">
-            <i class="bi bi-circle"></i><span>Data Permohonan</span>
-        </a>
-        @endcan
         <a href="{{ route('admin.permohonan-slik.history') }}">
             <i class="bi bi-circle"></i><span>Histori Permohonan</span>
         </a>
@@ -22,6 +17,16 @@
 </li>
 
 @can('manajemen slik')
+<li class="nav-item">
+    <a class="nav-link {{ Route::is('admin.slik.index') ? '' : 'collapsed' }}" href="{{ route('admin.permohonan-slik.index') }}">
+    <i class='bx bxs-file-export'></i>
+    <span>Data Permohohon SLIK</span>
+    @if (App\Models\PermohonanSlik::count() >= 0)
+        <span class="badge bg-danger ms-2">{{ App\Models\PermohonanSlik::count() }}</span>
+    @endif
+    </a>
+</li>
+
 <li class="nav-item">
     <a class="nav-link {{ Route::is('admin.slik.index') ? '' : 'collapsed' }}" href="{{ route('admin.slik.index') }}">
     <i class='bx bxs-file-export'></i>

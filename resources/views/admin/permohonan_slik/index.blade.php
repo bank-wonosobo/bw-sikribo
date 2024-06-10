@@ -30,11 +30,17 @@
                         <td>{{ $permohonan->tanggal }}</td>
                         <td>{{ $permohonan->pemohon }}</td>
                         <td>
+                        @if ($permohonan->sliks->count() == 0)
+                            <span class="badge bg-danger">Belum Input Debitur</span>
+                        @else
                             <span class="badge @if ($permohonan->status != 'SELESAI') bg-light text-dark @else bg-success @endif">{{ ucwords($permohonan->status) }}</span>
+                        @endif
                         </td>
                         <td>
                             @if ($permohonan->status != 'SELESAI')
-                                <a href="{{ route('admin.permohonan-slik.detail', ['id' => $permohonan->id]) }}" class="btn btn-dark">Slik</a>
+                                @if ($permohonan->sliks->count() != 0)
+                                    <a href="{{ route('admin.permohonan-slik.detail', ['id' => $permohonan->id]) }}" class="btn btn-dark">Slik</a>
+                                @endif
                             @else
                                 <a href="{{ route('admin.permohonan-slik.detail', ['id' => $permohonan->id]) }}" class="btn btn-light">Detail</a>
                             @endif

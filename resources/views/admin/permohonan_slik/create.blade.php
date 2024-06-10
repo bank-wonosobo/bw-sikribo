@@ -8,11 +8,14 @@
         <div class="card">
             <div class="card-body">
                 <h5 class="card-title">Permohonan SLIK</h5>
+                <div class="alert alert-warning" role="alert">
                 @if ($kode_slik == null)
-                    <div class="alert alert-warning" role="alert">
-                        User belum <a href="{{ route('admin.kode-slik.index') }}" class="alert-link">Atur Kode SLIK</a>. atur kode SLIK untuk dapat melakukan permohonan SLIK
-                    </div>
+                    User belum <a href="{{ route('admin.kode-slik.index') }}" class="alert-link">Atur Kode SLIK</a>. atur kode SLIK untuk dapat melakukan permohonan SLIK
+                @else
+                    Kode SLIK : <strong>{{ $kode_slik->kode }}</strong>
                 @endif
+                </div>
+
                 <p>Masukan Nomor SLIK dan Peruntukan Ideb untuk permohonan SLIK</p>
                 {!! Form::open(['route' => 'admin.permohonan-slik.store', 'method' => 'POST', 'files' => true]) !!}
                 <div class="col-12 mt-3">
