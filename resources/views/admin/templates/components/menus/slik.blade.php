@@ -22,7 +22,7 @@
     <i class='bx bxs-file-export'></i>
     <span>Data Permohohon SLIK</span>
     @if (App\Models\PermohonanSlik::where('status', '!=', 'SELESAI')->count() >= 0)
-        <span class="badge bg-danger ms-2">{{ App\Models\PermohonanSlik::count() }}</span>
+        <span class="badge bg-danger ms-2">{{ App\Models\PermohonanSlik::where('status', '!=', 'SELESAI')->count() }}</span>
     @endif
     </a>
 </li>
