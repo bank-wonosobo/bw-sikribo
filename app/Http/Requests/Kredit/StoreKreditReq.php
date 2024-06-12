@@ -28,7 +28,10 @@ class StoreKreditReq extends FormRequest
             'nama_peminjam' => ['required'],
             'file' => ['required'],
             'kategori_id' => ['required'],
-            'tanggal_akad' => ['required']
+            'tanggal_akad' => ['required'],
+            'no_jaminan' => ['required'],
+            'jenis_jaminan_id' => ['required'],
+            'status_pengikatan' => ['required']
         ];
     }
 }

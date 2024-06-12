@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\JenisDokumenHukum;
+namespace App\Http\Requests\JenisJaminan;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreJeninDokumenHukumReq extends FormRequest
+class StoreJenisJaminanReq extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,7 @@ class StoreJeninDokumenHukumReq extends FormRequest
     public function rules()
     {
         return [
-            'nama' => ['required', 'unique:jenis_dokumen_hukum,nama']
+            'nama' => ['required', 'unique:jenis_jaminan,nama']
         ];
     }
 }

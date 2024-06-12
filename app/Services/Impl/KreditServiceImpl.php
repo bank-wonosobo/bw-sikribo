@@ -19,7 +19,10 @@ class KreditServiceImpl implements KreditService {
             'no_kredit' => $request->input('no_kredit'),
             'nama_peminjam' => $request->input('nama_peminjam'),
             'tanggal_akad' => $request->input('tanggal_akad'),
-            'kategori_id' => $request->input('kategori_id')
+            'kategori_id' => $request->input('kategori_id'),
+            'no_jaminan' => $request->input('no_jaminan'),
+            'jenis_jaminan_id' => $request->input('jenis_jaminan_id'),
+            'status_pengikatan' => $request->input('status_pengikatan'),
         ]);
 
         $kredit->save();

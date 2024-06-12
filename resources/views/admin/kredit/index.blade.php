@@ -7,5 +7,5 @@
     @include('admin.kredit.list')
 </div>
 
-@include('admin.kredit.create')
+{{-- @include('admin.kredit.create') --}}
 @endsection

@@ -9,6 +9,7 @@ use App\Http\Controllers\HasilSlikController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\IncomingMailController;
 use App\Http\Controllers\JenisDokumenHukumController;
+use App\Http\Controllers\JenisJaminanController;
 use App\Http\Controllers\KategoriKreditController;
 use App\Http\Controllers\KodeSlikController;
 use App\Http\Controllers\KreditController;
@@ -84,6 +85,7 @@ Route::prefix('admin')
         ->group(function() {
             Route::get('/', 'index')->name('index');
             Route::post('/', 'store')->name('store');
+            Route::get('/create', 'create')->name('create');
             Route::get('/{id}/file', 'file')->name('file');
             Route::get('/{id}/edit', 'edit')->name('edit');
             Route::put('/{id}', 'update')->name('update');
@@ -155,6 +157,14 @@ Route::prefix('admin')
         ->group(function() {
             Route::get('/{jdh_id}/index', 'index')->name('index');
             Route::get('/create', 'create')->name('create');
+            Route::post('/', 'store')->name('store');
+        });
+
+    Route::prefix('jenis-jaminan')
+        ->as('jenis-jaminan.')
+        ->controller(JenisJaminanController::class)
+        ->group(function() {
+            Route::get('/', 'index')->name('index');
             Route::post('/', 'store')->name('store');
         });
 });

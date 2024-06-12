@@ -15,4 +15,12 @@
     </a>
 </li>
 
+
+<li class="nav-item">
+    <a href="{{ route('admin.jenis-jaminan.index') }}" class="nav-link {{ Route::is('admin.jenis-jaminan.*') ? '' : 'collapsed' }}" href="users-profile.html">
+        <i class='bx bx-archive-in' ></i>
+        <span>Jenis Jaminan</span>
+    </a>
+</li>
+
 @endcan

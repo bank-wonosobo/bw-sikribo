@@ -24,7 +24,7 @@ class StoreKategoryKreditReq extends FormRequest
     public function rules()
     {
         return [
-            'nama' => ['required']
+            'nama' => ['required', 'unique:kategori_kredit,nama']
         ];
     }
 }

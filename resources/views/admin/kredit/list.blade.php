@@ -3,9 +3,9 @@
     <div class="card">
     <div class="card-body">
         <h5 class="card-title">Data Arsip Perjanjian Kredit</h5>
-        <button type="button" class="btn btn-dark mb-2" data-bs-toggle="modal" data-bs-target="#basicModal">
+        <a href="{{ route('admin.kredit.create') }}" class="btn btn-dark mb-2">
         Tambah Data
-        </button>
+        </a>
 
         <div class="table-responsive">
         <!-- Table with stripped rows -->

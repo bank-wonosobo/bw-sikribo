@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Kredit\StoreKreditReq;
 use App\Http\Requests\Kredit\UpdateKreditReq;
+use App\Models\JenisJaminan;
 use App\Models\KategoriKredit;
 use App\Models\Kredit;
 use App\Services\KreditService;
@@ -34,12 +35,20 @@ class KreditController extends Controller
         return view('admin.kredit.index', compact('kredits', 'kategori'));
     }
 
+    public function create() {
+        $kategori = KategoriKredit::pluck('nama', 'id')->all();
+        $jenis_jaminan = JenisJaminan::pluck('nama', 'id')->all();
+
+        return view('admin.kredit.create', compact('kategori', 'jenis_jaminan'));
+    }
+
     public function store(StoreKreditReq $request) {
         try {
             $kredit = $this->kredit_service->create($request);
             $this->kredit_service->addFileKredit($kredit->id, $request->file('file'));
             return redirect()->back()->with('success', 'Berhasil menambah arsip perjanjian kredit');
         } catch (\Exception $e) {
+            dd($e->getMessage());
             return redirect()->back()->with('error', 'Gagal menambah data , sedang terjadi maintenance, coba beberapa saat lagi ');
         }
     }
