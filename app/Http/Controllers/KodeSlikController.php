@@ -32,6 +32,7 @@ class KodeSlikController extends Controller
             "SKHJ" => "SKHJ - SUKOHARJO",
             "WDS" => "WDS - WADASLINTANG",
             "LKS" => "LKS - LEKSONO",
+            "MJT" => "MJT - MOJOTENGAH"
         ];
 
         return view('admin.kode_slik.index', compact('kode','kode_slik'));
