@@ -13,6 +13,8 @@
                     User belum <a href="{{ route('admin.kode-slik.index') }}" class="alert-link">Atur Kode SLIK</a>. atur kode SLIK untuk dapat melakukan permohonan SLIK
                 @else
                     Kode SLIK : <strong>{{ $kode_slik->kode }}</strong>
+                    <br><br>
+                    Catatan: Apabila pemohon tidak melengkapi isi berkas sesuai dengan ketentuan, petugas SLIK berhak menolak permohonan SLIK
                 @endif
                 </div>
 
@@ -25,7 +27,7 @@
                 <div class="col-12 mt-3">
                     {!! Form::label('berkas', 'Berkas SLIK', ['class' => 'font-weight-bold']) !!}
                     {!! Form::file('berkas' ,['class' => 'form-control']) !!}
-                    <span class="text-danger text-small">* berkas berisi KTP dan KK dengan format pdf, dijadikan 1 file</span>
+                    <span class="text-danger text-small">* berkas berisi KTP dan KK dengan format pdf, dan foto nomer register kredit, dijadikan 1 file</span>
                 </div>
                 <div class="col-12 mt-4">
                     {!! Form::submit('Buat Permohonan', ['class' => ['btn', 'btn-dark']]) !!}
