@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Exceptions\KodeSLIKNotSetException;
 use App\Exceptions\NomorSLIKCanotSameException;
 use App\Http\Requests\PermohonanSlik\StorePermohohonanSlikReq;
+use App\Models\HasilSlik;
 use App\Models\KodeSlik;
 use App\Models\PermohonanSlik;
 use App\Services\PermohonanSlikService;
@@ -53,7 +54,8 @@ class PermohonanSlikController extends Controller
 
     public function detail($id) {
         $permohonan_slik = PermohonanSlik::find($id);
-        return view('admin.permohonan_slik.detail', compact('permohonan_slik'));
+        $hasil_slik = HasilSlik::where('permohonan_slik_id', $id)->get();
+        return view('admin.permohonan_slik.detail', compact('permohonan_slik', 'hasil_slik'));
     }
 
     public function history() {

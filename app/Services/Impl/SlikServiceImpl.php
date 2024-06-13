@@ -40,7 +40,7 @@ class SlikServiceImpl implements SlikService {
                     'nik' => $nik[$i],
                     'identitas_slik' => $identitas_slik[$i],
                     'permohonan_slik_id' => $permohonan_slik_id,
-                    'status' => 'PROSES',
+                    'status' => 'PROSES PENGAJUAN',
                     'no_ref_slik' => $this->generateNoRef($nomer_ref_nomor)['nomor_ref'],
                 ]);
                 $slik->save();
@@ -145,5 +145,18 @@ class SlikServiceImpl implements SlikService {
             dd($e->getMessage());
         }
 
+    }
+
+    public function startSlik(string $id): Slik
+    {
+
+        $petugas_slik = Auth::user()->name;
+
+        $slik = Slik::find($id);
+        $slik->status = 'PROSES SLIK';
+        $slik->petugas_slik = $petugas_slik;
+        $slik->save();
+
+        return $slik;
     }
 }

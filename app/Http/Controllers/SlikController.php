@@ -51,4 +51,13 @@ class SlikController extends Controller
             return redirect()->back()->with('error', 'Gagal melakukan permohonan , sedang terjadi maintenance, coba beberapa saat lagi ');
         }
     }
+
+    public function startSlik($id) {
+        try {
+            $this->slikService->startSlik($id);
+            return redirect()->back()->with('success', 'Memulai Proses SLIK');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Gagal melakukan permohonan , sedang terjadi maintenance, coba beberapa saat lagi ');
+        }
+    }
 }

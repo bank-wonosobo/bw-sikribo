@@ -22,14 +22,21 @@ class HasilSlikServiceImpl implements HasilSlikService {
 
         $file = $req->file('file');
 
+        $permohonan_slik_id = $req->input('permohonan_slik_id');
+
+
         $file_name = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
         $file_path = $this->uploads($file, self::PATH, true, Carbon::now()->format('dmy') . '_'. $file_name);
 
-        $slik = new HasilSlik([
-            'nama' => $file_name,
-            'file' => $file_path
-        ]);
 
+
+        $slik = new HasilSlik();
+        $slik->nama =  $file_name;
+        $slik->file = $file_path;
+
+        if ($permohonan_slik_id != null) {
+            $slik->permohonan_slik_id = $permohonan_slik_id;
+        }
         $slik->save();
 
         return $slik;

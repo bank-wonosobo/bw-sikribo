@@ -61,20 +61,29 @@
                             <td>{{ $slik->identitas_slik }}</td>
                             <td>{{ $slik->petugas_slik ?? '-' }}</td>
                             <td>
-                                @if ($slik->status != 'SELESAI')
-                                    <span class="badge bg-light text-dark">{{ $slik->status }}</span>
-                                @else
+                                @if ($slik->status == 'SELESAI')
                                     <span class="badge bg-success">{{ $slik->status }}</span>
+                                @elseif ($slik->status == 'PROSES SLIK')
+                                    <span class="badge bg-light text-info">{{ $slik->status }}</span>
+                                @else
+                                    <span class="badge bg-light text-dark">{{ $slik->status }}</span>
                                 @endif
                             </td>
                             <td>
-                                @if ($slik->status != 'SELESAI')
+                                @if ($slik->status == 'PROSES PENGAJUAN')
                                     @can('selesai slik')
-                                        <a href="{{ route('admin.slik.done', ['id' => $slik->id]) }}" class="btn btn-sm btn-success">Selesai</a>
+                                        <a href="{{ route('admin.slik.start-slik', ['id' => $slik->id]) }}" class="btn btn-sm btn-warning">Proses SLIK</a>
                                     @else
                                         <badge class="text-sm">Menunggu Proses Petugas</badge>
                                     @endcan
-                                @else
+
+                                @elseif ($slik->status == "PROSES SLIK")
+                                    @can('selesai slik')
+                                        <a href="{{ route('admin.slik.done', ['id' => $slik->id]) }}" class="btn btn-sm btn-success">SELESAI</a>
+                                    @else
+                                        <badge class="text-sm">SLIK Sedang Diproses</badge>
+                                    @endcan
+                                @elseif ($slik->status == "SELESAI")
                                     <a href="{{ route('admin.hasil-slik.index') . '?nama=' . $slik->nama }}"><span class="badge text-dark">Lihat Hasil Slik</span></a>
                                 @endif
                             </td>
@@ -83,6 +92,13 @@
                         </tbody>
                     </table>
                 </div>
+
+                <h4 class="card-title">Upload Hasil SLIK</h4>
+                <form id="id_dropzone" class="dropzone" action="{{ route('admin.hasil-slik.store') }}" enctype="multipart/form-data" method="post">
+                <input type="hidden" name="permohonan_slik_id" value="{{ $permohonan_slik->id }}" />
+                @csrf
+                </form>
+
                 <h5 class="card-title">Berkas SLIK</h5>
                 <iframe src="{{ asset('storage' . $permohonan_slik->berkas) }}" width="100%" height="500px" frameborder="0"></iframe>
             </div>
@@ -90,3 +106,44 @@
     </div>
 </div>
 @endsection
+
+@section('style')
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.4.0/min/dropzone.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.4.0/dropzone.js"></script>
+@endsection
+
+@section('script')
+<script type="text/javascript">
+  Dropzone.autoDiscover = true;
+
+  $(document).ready(function () {
+      $("#id_dropzone").dropzone({
+        maxFilesize: 5,
+        // renameFile: function(file) {
+        //   var dt = new Date()
+        //   var time = dt.getTime()
+        //   var splitname = file.name.split('.')
+        //   return time+'.'+ splitname.pop()
+        // },
+        acceptedFiles: ".pdf",
+        addRemoveLinks: true,
+        timeout: 50000,
+        addRemoveLinks: false,
+        success: function(file, response)
+        {
+            console.log("success upload");
+            $(file.previewElement).addClass("dz-success").find('.dz-success-message').text(response);
+
+        },
+        error: function(file, response)
+        {
+            console.log("failed upload");
+
+            $(file.previewElement).addClass("dz-error").find('.dz-error-message').text(response);
+        }
+      });
+  })
+</script>
+@endsection
+

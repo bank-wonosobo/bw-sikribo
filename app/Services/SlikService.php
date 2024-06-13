@@ -10,4 +10,5 @@ interface SlikService {
     public function generateNoRef(): array;
     public function setStatus(string $id, string $status): Slik;
     public function done(string $id): Slik;
+    public function startSlik(string $is): Slik;
 }
