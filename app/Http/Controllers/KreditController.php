@@ -61,8 +61,10 @@ class KreditController extends Controller
     public function edit($id) {
         $kredit = Kredit::find($id);
         $kategori = KategoriKredit::pluck('nama', 'id')->all();
+        $jenis_jaminan = JenisJaminan::pluck('nama', 'id')->all();
 
-        return view('admin.kredit.edit', compact('kredit', 'kategori'));
+
+        return view('admin.kredit.edit', compact('kredit', 'kategori', 'jenis_jaminan'));
     }
 
     public function update(UpdateKreditReq $request, int $id) {

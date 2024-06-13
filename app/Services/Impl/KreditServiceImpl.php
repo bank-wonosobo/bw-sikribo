@@ -46,6 +46,8 @@ class KreditServiceImpl implements KreditService {
         $kredit->nama_peminjam = $request->input('nama_peminjam');
         $kredit->tanggal_akad = $request->input('tanggal_akad');
         $kredit->kategori_id = $request->input('kategori_id');
+        $kredit->no_jaminan = $request->input('no_jaminan');
+        $kredit->jenis_jaminan_id = $request->input('jenis_jaminan_id');
         $kredit->save();
 
         return $kredit;

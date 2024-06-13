@@ -17,7 +17,7 @@ class SlikController extends Controller
     }
 
     public function index() {
-        $sliks = Slik::all();
+        $sliks = Slik::orderBy('created_at', 'DESC')->get();
         return view('admin.slik.index', compact('sliks'));
     }
 
