@@ -40,10 +40,17 @@
                             @endif
                         </td>
                         <td>
-                            <span class="badge @if ($permohonan->status != 'SELESAI') bg-light text-dark @else bg-success @endif">{{ ucwords($permohonan->status) }}</span>
+                            <span class="badge @if ($permohonan->status == 'SELESAI') bg-success @elseif($permohonan->status == 'PROSES SLIK') bg-primary @else bg-light text-dark @endif">{{ ucwords($permohonan->status) }}</span>
                         </td>
                         <td>
-                            <a class="btn btn-sm btn-primary text-white" href="{{ route('admin.permohonan-slik.detail', ['id' => $permohonan->id]) }}">Detail</a>
+                            @if ($permohonan->sliks->count() == 0)
+                            <a class="btn btn-sm btn-warning text-white" href="{{ route('admin.slik.create', ['permohonan_slik_id' => $permohonan->id]) }}">Input Debitur</a>
+                            @else
+                            @if ($slik->status != 'SELESAI' && $slik->status != 'PROSES SLIK')
+                            <a class="btn btn-sm btn-primary text-white" href="{{ route('admin.permohonan-slik.detail', ['id' => $permohonan->id]) }}">Edit Permohonan</a>
+                            @endif
+                            <a class="btn btn-sm btn-info text-white" href="{{ route('admin.permohonan-slik.detail', ['id' => $permohonan->id]) }}">Detail</a>
+                            @endif
                         </td>
                     </tr>
                     @php($i++)

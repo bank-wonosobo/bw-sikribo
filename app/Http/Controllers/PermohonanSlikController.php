@@ -8,6 +8,7 @@ use App\Http\Requests\PermohonanSlik\StorePermohohonanSlikReq;
 use App\Models\HasilSlik;
 use App\Models\KodeSlik;
 use App\Models\PermohonanSlik;
+use App\Models\Slik;
 use App\Services\PermohonanSlikService;
 use App\Traits\NumberToRoman;
 use Carbon\Carbon;
@@ -62,5 +63,13 @@ class PermohonanSlikController extends Controller
         $user = Auth::user();
         $permohonan_slik = PermohonanSlik::where('pemohon', $user->name)->orderBy('created_at', 'DESC')->get();
         return view('admin.permohonan_slik.history', compact('permohonan_slik'));
+    }
+
+    public function edit($id) {
+        $permohonan_slik = PermohonanSlik::find($id);
+
+        $sliks = Slik::where('permohonan_slik_id', $permohonan_slik->id)->get();
+
+        return view('admin.permohonan_slik.edit', compact('permohonan_slik', 'sliks'));
     }
 }

@@ -11,6 +11,15 @@
 
                 <p>Masukan NIK dan Nama Identitas SLIK, minimal mengisi Debitur / Calon Debitur</p>
 
+                <div class="alert alert-success" role="alert">
+                No SLIK : <strong>{{ $permohonan_slik->nomor }}</strong>
+                <br>
+                Peruntukan Ideb : <strong>{{ $permohonan_slik->peruntukan_ideb }}</strong>
+                <br>
+                Berkas SLIK : <a href="{{ asset('storage' . $permohonan_slik->berkas) }}" class="text-link" target="_blank">Lihat</a>
+                </div>
+
+
                 {!! Form::open(['route' => 'admin.slik.store', 'method' => 'POST']) !!}
                 <input type="hidden" name="permohonan_slik_id" value="{{ $permohonan_slik->id }}" />
                 <div class="row mb-3">
