@@ -56,7 +56,7 @@
                             @if ($slik->status != 'SELESAI' && $slik->status != 'PROSES SLIK')
                             <a class="btn btn-sm btn-primary text-white" href="{{ route('admin.permohonan-slik.edit', ['id' => $permohonan->id]) }}">Edit Permohonan</a>
                             @endif
-                            <a class="btn btn-sm btn-info text-white" href="{{ route('admin.permohonan-slik.detail', ['id' => $permohonan->id]) }}">Detail</a>
+                            <a class="btn btn-sm btn-dark text-white" href="{{ route('admin.permohonan-slik.proccess', ['id' => $permohonan->id]) }}">Detail</a>
                             @endif
                         </td>
                     </tr>

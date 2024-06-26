@@ -84,6 +84,7 @@ class PermohonanSlikController extends Controller
             dd($e);
             return redirect()->back()->with('error', 'Gagal update berkas, sedang terjadi maintenance, coba beberapa saat lagi ');
         }
+    }
 
     public function proccess($id) {
         $permohonan_slik = PermohonanSlik::find($id);
