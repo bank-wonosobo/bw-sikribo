@@ -2,7 +2,9 @@
 
 namespace App\Services\Impl;
 
+use App\Exceptions\AntrianIsNullException;
 use App\Http\Requests\Slik\StoreSlikReq;
+use App\Models\AntrianPermohonanSlik;
 use App\Models\PermohonanSlik;
 use App\Models\Slik;
 use App\Services\SlikService;
@@ -10,6 +12,7 @@ use App\Traits\ManageFile;
 use App\Traits\NumberToRoman;
 use App\Traits\UploadTrait;
 use Carbon\Carbon;
+use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -48,6 +51,15 @@ class SlikServiceImpl implements SlikService {
                 sleep(1);
                 $nomer_ref_nomor++;
             }
+
+            $status = 'PROSES PENGAJUAN';
+
+            $permohonan_slik = PermohonanSlik::find($permohonan_slik_id);
+            $permohonan_slik->status = $status;
+            $permohonan_slik->save();
+
+            // tambah antrian
+            $this->enqueue($permohonan_slik_id);
 
             DB::commit();
             return $sliks;
@@ -134,6 +146,8 @@ class SlikServiceImpl implements SlikService {
                 $permohonanSlik = PermohonanSlik::find($slik->permohonan_slik_id);
                 $permohonanSlik->status = 'SELESAI';
                 $permohonanSlik->save();
+
+                $this->dequeue($permohonanSlik->id);
             }
 
             DB::commit();
@@ -158,5 +172,56 @@ class SlikServiceImpl implements SlikService {
         $slik->save();
 
         return $slik;
+    }
+
+    private function dequeue($permohonan_slik_id) {
+        $antrian = AntrianPermohonanSlik::where('permohonan_slik_id', $permohonan_slik_id)->first();
+
+        if ($antrian != null) {
+            $listAntrian = AntrianPermohonanSlik::where('nomor_antrian', '>', $antrian->nomor_antrian)->get();
+
+            try {
+                DB::beginTransaction();
+                $antrian->delete();
+
+                foreach($listAntrian as $item) {
+                    // $ittantrian = AntrianPermohonanSlik::find($item->id);
+                    $nomor_baru =  $item->nomor_antrian - 1;
+                    $item->nomor_antrian = $nomor_baru;
+                    $item->save();
+                }
+                DB::commit();
+
+            } catch (\Exception $th) {
+                DB::rollBack();
+                throw new Exception($th);
+            }
+        }
+    }
+
+
+    private function enqueue($permohonan_slik_id): AntrianPermohonanSlik
+    {
+        $antrian_terakhir = AntrianPermohonanSlik::orderBy('nomor_antrian', 'DESC')->first();
+
+        if ($antrian_terakhir != null) {
+            $nomor_antrian = $antrian_terakhir->nomor_antrian + 1;
+
+            $antrian = new AntrianPermohonanSlik();
+            $antrian->permohonan_slik_id = $permohonan_slik_id;
+            $antrian->nomor_antrian = $nomor_antrian;
+            $antrian->save();
+
+            return $antrian;
+        }
+
+        $antrian = new AntrianPermohonanSlik();
+        $antrian->permohonan_slik_id = $permohonan_slik_id;
+        $antrian->nomor_antrian = 1;
+        $antrian->save();
+
+        return $antrian;
+
+
     }
 }

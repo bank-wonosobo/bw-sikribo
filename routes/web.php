@@ -130,6 +130,7 @@ Route::prefix('admin')
             Route::get('/create', 'create')->name('create');
             Route::post('/', 'store')->name('store');
             Route::get('/{id}/detail', 'detail')->name('detail');
+            Route::get('/{id}/proccess', 'proccess')->name('proccess');
             Route::get('/history', 'history')->name('history');
         });
 

@@ -15,8 +15,7 @@
                     <tr>
                         <th>No</th>
                         <th>Nomer SLIK</th>
-                        <th>Peruntukan Ideb</th>
-                        <th data-type="date" data-format="YYYY-MM-DD">Tanggal Pengajuan</th>
+                        <th>Nomor Antrian</th>
                         <th>Person</th>
                         <th>Status Pengajuan</th>
                         <th>Aksi</th>
@@ -28,11 +27,19 @@
                     <tr>
                         <td>{{ $i }}</td>
                         <td>{{ $permohonan->nomor }}</td>
-                        <td>{{ $permohonan->peruntukan_ideb }}</td>
-                        <td>{{ $permohonan->tanggal }}</td>
+                        <td>
+                            <div class="sub-label">
+                            @if (isset($permohonan->antrian->nomor_antrian))
+                                Antrian ke- {{ $permohonan->antrian->nomor_antrian }}
+                            @else
+                                Tidak ada antrian
+                            @endif
+
+                            </div>
+                        </td>
                         <td>
                             @if ($permohonan->sliks->count() == 0)
-                                <span class="badge bg-danger">Belum Input Debitur</span>
+                                <span class="badge bg-warning">Belum Input Debitur</span>
                             @else
                                 @foreach ($permohonan->sliks as $slik)
                                     <span class="badge bg-light text-black">{{ ucwords($slik->nama) }}  @if ($slik->status == 'SELESAI') <i class='bx bx-check'></i> @endif </span> <br>
@@ -43,7 +50,7 @@
                             <span class="badge @if ($permohonan->status != 'SELESAI') bg-light text-dark @else bg-success @endif">{{ ucwords($permohonan->status) }}</span>
                         </td>
                         <td>
-                            <a class="btn btn-sm btn-primary text-white" href="{{ route('admin.permohonan-slik.detail', ['id' => $permohonan->id]) }}">Detail</a>
+                            <a class="btn btn-sm btn-primary text-white" href="{{ route('admin.permohonan-slik.proccess', ['id' => $permohonan->id]) }}">Detail</a>
                         </td>
                     </tr>
                     @php($i++)
@@ -55,4 +62,13 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('style')
+<style>
+.sub-label {
+    font-size: 12px;
+    color: #767676;
+}
+</style>
 @endsection
