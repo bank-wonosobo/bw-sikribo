@@ -26,4 +26,8 @@ class PermohonanSlik extends Model
     public function sliks() {
         return $this->hasMany(Slik::class);
     }
+
+    public function antrian() {
+        return $this->hasOne(AntrianPermohonanSlik::class);
+    }
 }
