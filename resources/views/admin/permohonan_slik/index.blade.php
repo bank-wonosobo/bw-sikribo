@@ -33,7 +33,7 @@
                         @if ($permohonan->sliks->count() == 0)
                             <span class="badge bg-danger">Belum Input Debitur</span>
                         @else
-                            <span class="badge @if ($permohonan->status != 'SELESAI') bg-light text-dark @else bg-success @endif">{{ ucwords($permohonan->status) }}</span>
+                            <span class="badge @if ($permohonan->status == 'SELESAI') bg-success @elseif($permohonan->status == 'PROSES SLIK') bg-primary @else bg-light text-dark @endif">{{ ucwords($permohonan->status) }}</span>
                         @endif
                         </td>
                         <td>

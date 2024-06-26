@@ -36,7 +36,26 @@
                                 <span class="badge @if ($permohonan_slik->status != 'SELESAI') bg-light text-dark @else bg-success @endif">{{ $permohonan_slik->status }}</span>
                             </td>
                         </tr>
+                         <tr>
+                            <th>Berkas</th>
+                            <td>:</td>
+                            <td>
+                                <a href="{{ asset('storage' . $permohonan_slik->berkas) }}" class="btn btn-dark" target="_blank"><i class='bx bxs-download'></i></a>
+                            </td>
+                        </tr>
                     </table>
+
+                    <h5 class="card-title">Upload Ulang Berkas</h5>
+                    {!! Form::open(['route' => ['admin.permohonan-slik.update-berkas', 'id' => $permohonan_slik->id], 'method' => 'POST', 'files' => true]) !!}
+                    <div class="col-12 mt-3">
+                        {!! Form::label('berkas', 'Berkas SLIK', ['class' => 'font-weight-bold']) !!}
+                        {!! Form::file('berkas' ,['class' => 'form-control']) !!}
+                        <span class="text-danger text-small">* berkas berisi KTP dan KK dengan format pdf, dan foto nomer register kredit, dijadikan 1 file</span>
+                    </div>
+                    <div class="col-12 mt-4">
+                        {!! Form::submit('Update Berkas', ['class' => ['btn', 'btn-dark', 'rounded-0', 'btn-sm']]) !!}
+                    </div>
+                    {!! Form::close() !!}
                 </div>
             </div>
         </div>
@@ -61,7 +80,8 @@
                                 <td>{{ $slik->nama }}</td>
                                 <td>{{ $slik->identitas_slik }}</td>
                                 <td>
-                                    <a href="#" class="btn btn-sm btn-primary">Edit</a>
+                                    <button type="button" class="btn btn-sm btn-dark rounded-0" data-bs-toggle="modal" data-bs-target="#basicModal">Edit</button>
+                                    @include('admin.permohonan_slik.edit-slik')
                                 </td>
                             </tr>
                             @endforeach

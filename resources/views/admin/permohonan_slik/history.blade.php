@@ -47,7 +47,7 @@
                             <a class="btn btn-sm btn-warning text-white" href="{{ route('admin.slik.create', ['permohonan_slik_id' => $permohonan->id]) }}">Input Debitur</a>
                             @else
                             @if ($slik->status != 'SELESAI' && $slik->status != 'PROSES SLIK')
-                            <a class="btn btn-sm btn-primary text-white" href="{{ route('admin.permohonan-slik.detail', ['id' => $permohonan->id]) }}">Edit Permohonan</a>
+                            <a class="btn btn-sm btn-primary text-white" href="{{ route('admin.permohonan-slik.edit', ['id' => $permohonan->id]) }}">Edit Permohonan</a>
                             @endif
                             <a class="btn btn-sm btn-info text-white" href="{{ route('admin.permohonan-slik.detail', ['id' => $permohonan->id]) }}">Detail</a>
                             @endif

@@ -12,9 +12,9 @@ trait ManageFile {
         }
     }
 
-    public function deleteFileExist($obj){
-        if ($obj->file != null) {
-            $this->delete($obj->file);
+    public function deleteFileExist($obj, $nama_column = 'file'){
+        if ($obj->$nama_column != null) {
+            $this->delete($obj->$nama_column);
         }
     }
 }

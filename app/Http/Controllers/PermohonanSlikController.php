@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Exceptions\KodeSLIKNotSetException;
 use App\Exceptions\NomorSLIKCanotSameException;
+use App\Http\Requests\PermohonanSlik\EditBerkasPermohonanSlikReq;
 use App\Http\Requests\PermohonanSlik\StorePermohohonanSlikReq;
 use App\Models\HasilSlik;
 use App\Models\KodeSlik;
@@ -27,7 +28,7 @@ class PermohonanSlikController extends Controller
     }
 
     public function index() {
-        $permohonan_slik = PermohonanSlik::orderBy('status', 'ASC')->orderBy('created_at', 'ASC')->get();
+        $permohonan_slik = PermohonanSlik::where('status', 'PROSES PENGAJUAN')->orWhere('status', 'PROSES SLIK')->orderBy('status', 'ASC')->orderBy('created_at', 'ASC')->get();
         return view('admin.permohonan_slik.index', compact('permohonan_slik'));
     }
 
@@ -71,5 +72,15 @@ class PermohonanSlikController extends Controller
         $sliks = Slik::where('permohonan_slik_id', $permohonan_slik->id)->get();
 
         return view('admin.permohonan_slik.edit', compact('permohonan_slik', 'sliks'));
+    }
+
+    public function updateBerkas(EditBerkasPermohonanSlikReq $request, $id) {
+        try {
+            $result = $this->permohonanSlikService->addBerkas($id, $request->file('berkas'));
+            return redirect()->back()->with('success', 'Berhasil update berkas');
+        } catch (\Exception $e) {
+            dd($e);
+            return redirect()->back()->with('error', 'Gagal update berkas, sedang terjadi maintenance, coba beberapa saat lagi ');
+        }
     }
 }

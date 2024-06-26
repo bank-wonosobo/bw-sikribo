@@ -132,6 +132,7 @@ Route::prefix('admin')
             Route::get('/{id}/detail', 'detail')->name('detail');
             Route::get('/{id}/edit', 'edit')->name('edit');
             Route::get('/history', 'history')->name('history');
+            Route::post('/{id}/update-berkas', 'updateBerkas')->name('update-berkas');
         });
 
     Route::prefix('slik')

@@ -21,8 +21,8 @@
     <a class="nav-link {{ Route::is('admin.slik.index') ? '' : 'collapsed' }}" href="{{ route('admin.permohonan-slik.index') }}">
     <i class='bx bxs-file-export'></i>
     <span>Data Permohohon SLIK</span>
-    @if (App\Models\PermohonanSlik::where('status', '!=', 'SELESAI')->count() >= 0)
-        <span class="badge bg-danger ms-2">{{ App\Models\PermohonanSlik::where('status', '!=', 'SELESAI')->count() }}</span>
+    @if (App\Models\PermohonanSlik::where('status', 'PROSES PENGAJUAN')->orWhere('status', 'PROSES SLIK')->count() >= 0)
+        <span class="badge bg-danger ms-2">{{ App\Models\PermohonanSlik::where('status', 'PROSES PENGAJUAN')->orWhere('status', 'PROSES SLIK')->count() }}</span>
     @endif
     </a>
 </li>

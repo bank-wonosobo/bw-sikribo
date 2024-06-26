@@ -7,6 +7,7 @@
     <div class="col-lg-12">
         <div class="card">
             <div class="card-body">
+                <a href="{{ route('admin.permohonan-slik.index') }}" class="btn btn-light rounded-0 mt-3"><strong><i class='bx bx-chevron-left'></i> Kembali</strong></a>
                 <h5 class="card-title">Detail Permohonan SLIK</h5>
                 <table class="table">
                     <tr>
