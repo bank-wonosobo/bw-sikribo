@@ -163,15 +163,35 @@ class SlikServiceImpl implements SlikService {
 
     public function startSlik(string $id): Slik
     {
+        try {
+            $petugas_slik = Auth::user()->name;
 
-        $petugas_slik = Auth::user()->name;
+            DB::beginTransaction();
 
-        $slik = Slik::find($id);
-        $slik->status = 'PROSES SLIK';
-        $slik->petugas_slik = $petugas_slik;
-        $slik->save();
+            $slik = Slik::find($id);
+            $slik->status = 'PROSES SLIK';
+            $slik->petugas_slik = $petugas_slik;
+            $slik->save();
 
-        return $slik;
+            $totalSlikDone = Slik::where('permohonan_slik_id', $slik->permohonan_slik_id)->where('status', 'PROSES SLIK')->count();
+            $totalSlikPermohonan = Slik::where('permohonan_slik_id', $slik->permohonan_slik_id)->count();
+
+            if ($totalSlikDone == $totalSlikPermohonan) {
+                $slik->status = 'PROSES SLIK';
+                $slik->save();
+
+                $permohonanSlik = PermohonanSlik::find($slik->permohonan_slik_id);
+                $permohonanSlik->status = 'PROSES SLIK';
+                $permohonanSlik->save();
+            }
+
+            DB::commit();
+
+            return $slik;
+        } catch (\Exception $e) {
+            DB::rollBack();
+            dd($e->getMessage());
+        }
     }
 
     private function dequeue($permohonan_slik_id) {

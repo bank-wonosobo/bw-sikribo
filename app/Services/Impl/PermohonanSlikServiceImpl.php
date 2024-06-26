@@ -90,9 +90,9 @@ class PermohonanSlikServiceImpl implements PermohonanSlikService {
     {
         $permohonan_slik = PermohonanSlik::find($id);
 
-        $this->deleteFileExist($permohonan_slik);
+        $this->deleteFileExist($permohonan_slik, 'berkas');
 
-        $file = $this->uploads($file, 'permohonan_slik/file');
+        $file = $this->uploads($file, 'permohonan_slik/berkas');
 
         $permohonan_slik->berkas = $file;
 

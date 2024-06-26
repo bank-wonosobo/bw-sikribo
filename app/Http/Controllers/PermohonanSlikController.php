@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Exceptions\KodeSLIKNotSetException;
 use App\Exceptions\NomorSLIKCanotSameException;
+use App\Http\Requests\PermohonanSlik\EditBerkasPermohonanSlikReq;
 use App\Http\Requests\PermohonanSlik\StorePermohohonanSlikReq;
 use App\Models\AntrianPermohonanSlik;
 use App\Models\HasilSlik;
 use App\Models\KodeSlik;
 use App\Models\PermohonanSlik;
+use App\Models\Slik;
 use App\Services\PermohonanSlikService;
 use App\Traits\NumberToRoman;
 use Carbon\Carbon;
@@ -27,7 +29,7 @@ class PermohonanSlikController extends Controller
     }
 
     public function index() {
-        $permohonan_slik = PermohonanSlik::orderBy('status', 'ASC')->orderBy('created_at', 'ASC')->get();
+        $permohonan_slik = PermohonanSlik::where('status', 'PROSES PENGAJUAN')->orWhere('status', 'PROSES SLIK')->orderBy('status', 'ASC')->orderBy('created_at', 'ASC')->get();
         return view('admin.permohonan_slik.index', compact('permohonan_slik'));
     }
 
@@ -64,6 +66,24 @@ class PermohonanSlikController extends Controller
         $permohonan_slik = PermohonanSlik::where('pemohon', $user->name)->orderBy('created_at', 'DESC')->get();
         return view('admin.permohonan_slik.history', compact('permohonan_slik'));
     }
+
+
+    public function edit($id) {
+        $permohonan_slik = PermohonanSlik::find($id);
+
+        $sliks = Slik::where('permohonan_slik_id', $permohonan_slik->id)->get();
+
+        return view('admin.permohonan_slik.edit', compact('permohonan_slik', 'sliks'));
+    }
+
+    public function updateBerkas(EditBerkasPermohonanSlikReq $request, $id) {
+        try {
+            $result = $this->permohonanSlikService->addBerkas($id, $request->file('berkas'));
+            return redirect()->back()->with('success', 'Berhasil update berkas');
+        } catch (\Exception $e) {
+            dd($e);
+            return redirect()->back()->with('error', 'Gagal update berkas, sedang terjadi maintenance, coba beberapa saat lagi ');
+        }
 
     public function proccess($id) {
         $permohonan_slik = PermohonanSlik::find($id);

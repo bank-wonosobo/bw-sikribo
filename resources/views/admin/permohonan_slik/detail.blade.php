@@ -7,6 +7,7 @@
     <div class="col-lg-12">
         <div class="card">
             <div class="card-body">
+                <a href="{{ route('admin.permohonan-slik.index') }}" class="btn btn-light rounded-0 mt-3"><strong><i class='bx bx-chevron-left'></i> Kembali</strong></a>
                 <h5 class="card-title">Detail Permohonan SLIK</h5>
                 <table class="table">
                     <tr>
@@ -64,7 +65,7 @@
                                 @if ($slik->status == 'SELESAI')
                                     <span class="badge bg-success">{{ $slik->status }}</span>
                                 @elseif ($slik->status == 'PROSES SLIK')
-                                    <span class="badge bg-light text-info">{{ $slik->status }}</span>
+                                    <span class="badge bg-primary">{{ $slik->status }}</span>
                                 @else
                                     <span class="badge bg-light text-dark">{{ $slik->status }}</span>
                                 @endif
@@ -79,7 +80,7 @@
 
                                 @elseif ($slik->status == "PROSES SLIK")
                                     @can('selesai slik')
-                                        <a href="{{ route('admin.slik.done', ['id' => $slik->id]) }}" class="btn btn-sm btn-success">SELESAI</a>
+                                        <a href="{{ route('admin.slik.done', ['id' => $slik->id]) }}" class="btn btn-sm btn-primary">SELESAI SLIK</a>
                                     @else
                                         <badge class="text-sm">SLIK Sedang Diproses</badge>
                                     @endcan
@@ -93,14 +94,46 @@
                     </table>
                 </div>
 
+                @can('selesai slik')
                 <h4 class="card-title">Upload Hasil SLIK</h4>
                 <form id="id_dropzone" class="dropzone" action="{{ route('admin.hasil-slik.store') }}" enctype="multipart/form-data" method="post">
-                <input type="hidden" name="permohonan_slik_id" value="{{ $permohonan_slik->id }}" />
-                @csrf
+                    <input type="hidden" name="permohonan_slik_id" value="{{ $permohonan_slik->id }}" />
+                    @csrf
                 </form>
+                @endcan
 
+                <h4 class="card-title">Hasil SLIK</h4>
+                <div class="table-responsive">
+                <!-- Table with stripped rows -->
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Nama File</th>
+                        <th data-type="date" data-format="YYYY-MM-DD hh:mm:ss">Created At</th>
+                        <th>File</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @php($i = 1)
+                    @foreach ($hasil_slik as $hasil)
+                    <a>
+                    <tr>
+                        <td>{{ $i }}</td>
+                        <td><a href="{{ asset('storage' . $hasil->file) }}" class="btn" target="_blank">{{ $hasil->nama }}</a></td>
+                        <td>{{ $hasil->created_at }}</td>
+                        <td><a href="{{ asset('storage' . $hasil->file) }}" class="btn btn-dark" target="_blank"><i class='bx bxs-download'></i></a></td>
+                        </td>
+                    </tr>
+                    </a>
+
+                    @php($i++)
+                    @endforeach
+                    </tbody>
+                </table>
+                </div>
                 <h5 class="card-title">Berkas SLIK</h5>
-                <iframe src="{{ asset('storage' . $permohonan_slik->berkas) }}" width="100%" height="500px" frameborder="0"></iframe>
+                <iframe src="{{ asset('storage' . $permohonan_slik->berkas) }}" width="100%" height="700px" frameborder="0"></iframe>
             </div>
         </div>
     </div>
