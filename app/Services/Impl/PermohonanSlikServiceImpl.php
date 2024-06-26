@@ -33,7 +33,7 @@ class PermohonanSlikServiceImpl implements PermohonanSlikService {
 
         $nomor_slik = $this->generateNomorPengajuan($kode_slik->kode);
 
-        $status = 'PROSES PENGAJUAN';
+        $status = 'BELUM INPUT DEBITUR';
 
         $permohonan = new PermohonanSlik([
             'tanggal' => Carbon::now(),

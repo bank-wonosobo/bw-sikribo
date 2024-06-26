@@ -4,18 +4,23 @@
 
 @section('content')
 <div class="row">
-    <div class="col-lg-6">
+    <div class="col-lg-8">
+        <div class="alert alert-warning text-dark border-0 alert-dismissible fade show" role="alert">
+            <strong><i class='bx bx-info-circle text-danger me-2'></i></strong>Peringatan<br><br>
+            Cek kembali history permohonan, apabila terdapat permohonan yang <strong>belum terinput debitur </strong>, silahkan lengkapi permohonan tersebut sebelum melakukan permohonan slik.
+        </div>
         <div class="card">
             <div class="card-body">
                 <h5 class="card-title">Permohonan SLIK</h5>
-                <div class="alert alert-warning" role="alert">
-                @if ($kode_slik == null)
-                    User belum <a href="{{ route('admin.kode-slik.index') }}" class="alert-link">Atur Kode SLIK</a>. atur kode SLIK untuk dapat melakukan permohonan SLIK
-                @else
-                    Kode SLIK : <strong>{{ $kode_slik->kode }}</strong>
-                    <br><br>
-                    Catatan: Apabila pemohon tidak melengkapi isi berkas sesuai dengan ketentuan, petugas SLIK berhak menolak permohonan SLIK
-                @endif
+                <div class="alert bg-light text-dark border-0 alert-dismissible fade show" role="alert">
+                    @if ($kode_slik == null)
+                        <p class="text-warning">User belum <a href="{{ route('admin.kode-slik.index') }}" class="alert-link">Atur Kode SLIK</a>. atur kode SLIK untuk dapat melakukan permohonan SLIK</p>
+                    @else
+                        Kode SLIK : <strong>{{ $kode_slik->kode }}</strong>
+                        <br><br>
+                        <strong><i class='bx bx-info-circle text-primary me-2'></i></strong>Peringatan<br><br>
+                        Apabila pemohon tidak melengkapi isi berkas sesuai dengan ketentuan, petugas SLIK berhak menolak permohonan SLIK
+                    @endif
                 </div>
 
                 <p>Masukan Nomor SLIK dan Peruntukan Ideb untuk permohonan SLIK</p>
@@ -30,7 +35,7 @@
                     <span class="text-danger text-small">* berkas berisi KTP dan KK dengan format pdf, dan foto nomer register kredit, dijadikan 1 file</span>
                 </div>
                 <div class="col-12 mt-4">
-                    {!! Form::submit('Buat Permohonan', ['class' => ['btn', 'btn-dark']]) !!}
+                    {!! Form::submit('Buat Permohonan', ['class' => ['btn', 'btn-dark' , 'btn-sm', 'rounded-0']]) !!}
                 </div>
                 {!! Form::close() !!}
             </div>

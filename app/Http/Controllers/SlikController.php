@@ -37,7 +37,7 @@ class SlikController extends Controller
                 return redirect()->back()->with('error', 'Wajib Megisikan Minimal Identitas Debitur / Calon Debitur')->withInput($request->all());
             }
             $this->slikService->create($request);
-            return redirect()->route('admin.permohonan-slik.create')->with('success', 'Berhasil melakukan permohonan, untuk melihat hasil pengajuan terdapat di menu history permohonan');
+            return redirect()->route('admin.permohonan-slik.proccess', ['id' => $request->input('permohonan_slik_id')])->with('success', 'Berhasil melakukan permohonan, untuk melihat hasil pengajuan terdapat di menu history permohonan');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Gagal melakukan permohonan , sedang terjadi maintenance, coba beberapa saat lagi ');
         }

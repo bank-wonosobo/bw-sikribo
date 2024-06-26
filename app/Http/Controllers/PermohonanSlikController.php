@@ -6,6 +6,7 @@ use App\Exceptions\KodeSLIKNotSetException;
 use App\Exceptions\NomorSLIKCanotSameException;
 use App\Http\Requests\PermohonanSlik\EditBerkasPermohonanSlikReq;
 use App\Http\Requests\PermohonanSlik\StorePermohohonanSlikReq;
+use App\Models\AntrianPermohonanSlik;
 use App\Models\HasilSlik;
 use App\Models\KodeSlik;
 use App\Models\PermohonanSlik;
@@ -66,6 +67,7 @@ class PermohonanSlikController extends Controller
         return view('admin.permohonan_slik.history', compact('permohonan_slik'));
     }
 
+
     public function edit($id) {
         $permohonan_slik = PermohonanSlik::find($id);
 
@@ -82,5 +84,10 @@ class PermohonanSlikController extends Controller
             dd($e);
             return redirect()->back()->with('error', 'Gagal update berkas, sedang terjadi maintenance, coba beberapa saat lagi ');
         }
+
+    public function proccess($id) {
+        $permohonan_slik = PermohonanSlik::find($id);
+        $antrian_permohonan = AntrianPermohonanSlik::where('permohonan_slik_id', $id)->first();
+        return view('admin.permohonan_slik.proccess', compact('antrian_permohonan', 'permohonan_slik'));
     }
 }

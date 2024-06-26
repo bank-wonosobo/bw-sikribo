@@ -15,7 +15,7 @@
                     <tr>
                         <th>No</th>
                         <th>Nomer SLIK</th>
-                        <th data-type="date" data-format="YYYY-MM-DD">Tanggal Pengajuan</th>
+                        <th>Antrian</th>
                         <th>Pemohon</th>
                         <th>Status Pengajuan</th>
                         <th>Aksi</th>
@@ -27,7 +27,16 @@
                     <tr>
                         <td>{{ $i }}</td>
                         <td>{{ $permohonan->nomor }}</td>
-                        <td>{{ $permohonan->tanggal }}</td>
+                        <td>
+                            <div class="sub-label">
+                            @if (isset($permohonan->antrian->nomor_antrian))
+                                Antrian ke- {{ $permohonan->antrian->nomor_antrian }}
+                            @else
+                                Tidak ada antrian
+                            @endif
+
+                            </div>
+                        </td>
                         <td>{{ $permohonan->pemohon }}</td>
                         <td>
                         @if ($permohonan->sliks->count() == 0)
@@ -55,4 +64,13 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('style')
+<style>
+.sub-label {
+    font-size: 12px;
+    color: #767676;
+}
+</style>
 @endsection
