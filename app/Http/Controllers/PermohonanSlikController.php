@@ -91,4 +91,13 @@ class PermohonanSlikController extends Controller
         $antrian_permohonan = AntrianPermohonanSlik::where('permohonan_slik_id', $id)->first();
         return view('admin.permohonan_slik.proccess', compact('antrian_permohonan', 'permohonan_slik'));
     }
+
+    public function reject($id) {
+        try {
+            $this->permohonanSlikService->reject($id);
+            return redirect()->back()->with('success', 'Berhasil Tolak Permohonan');
+        } catch (\Exception $th) {
+            return redirect()->back()->with('error', 'Gagal tolak permohonan');
+        }
+    }
 }

@@ -100,4 +100,13 @@ class PermohonanSlikServiceImpl implements PermohonanSlikService {
 
         return $permohonan_slik;
     }
+
+    public function reject(string $permohonan_slik_id): PermohonanSlik
+    {
+        $permohonan_slik = PermohonanSlik::find($permohonan_slik_id);
+        $permohonan_slik->status = 'TOLAK';
+        $permohonan_slik->save();
+
+        return $permohonan_slik;
+    }
 }

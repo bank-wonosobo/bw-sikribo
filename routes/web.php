@@ -134,6 +134,7 @@ Route::prefix('admin')
             Route::get('/{id}/proccess', 'proccess')->name('proccess');
             Route::get('/history', 'history')->name('history');
             Route::post('/{id}/update-berkas', 'updateBerkas')->name('update-berkas');
+            Route::post('/{id}/reject', 'reject')->name('reject');
         });
 
     Route::prefix('slik')

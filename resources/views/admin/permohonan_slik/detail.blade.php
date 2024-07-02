@@ -132,7 +132,11 @@
                     </tbody>
                 </table>
                 </div>
-                <h5 class="card-title">Berkas SLIK</h5>
+                <h5 class="card-title ">Berkas SLIK</h5>
+                <form method="POST" action="{{ route('admin.permohonan-slik.reject', ['id' => $permohonan_slik->id]) }}">
+                    @csrf
+                    <button class="btn btn-danger mb-2">Tolak Permohonan</button>
+                </form>
                 <iframe src="{{ asset('storage' . $permohonan_slik->berkas) }}" width="100%" height="700px" frameborder="0"></iframe>
             </div>
         </div>
