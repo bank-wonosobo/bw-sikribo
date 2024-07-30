@@ -3,9 +3,13 @@
     <div class="card">
     <div class="card-body">
         <h5 class="card-title">Data Arsip Perjanjian Kredit</h5>
-        <a href="{{ route('admin.kredit.create') }}" class="btn btn-dark mb-2">
+        <a href="{{ route('admin.kredit.create') }}" class="btn btn-sm btn-dark rounded-0">
         Tambah Data
         </a>
+
+        <button type="button" class="btn btn-sm btn-success rounded-0" data-bs-toggle="modal" data-bs-target="#importkredit">
+            Import Data
+        </button>
 
         <div class="table-responsive">
         <!-- Table with stripped rows -->
@@ -14,10 +18,11 @@
             <tr>
                 <th>No</th>
                 <th>Nama Peminjam</th>
-                <th>Kredit Nomer</th>
-                <th>File</th>
+                <th>Nomer Kredit</th>
                 <th>Jenis Kredit</th>
-                <th data-type="date" data-format="YYYY-MM-DD">Tanggal Akad</th>
+                <th>Jenis Jaminan</th>
+                <th>No Penyimpanan / Jaminan</th>
+                <th>Tanggal Akad</th>
                 <th>Aksi</th>
             </tr>
             </thead>
@@ -28,12 +33,14 @@
                 <td>{{ $i }}</td>
                 <td>{{ $kredit->nama_peminjam }}</td>
                 <td>{{ $kredit->no_kredit }}</td>
-                <td><a href="{{ route('admin.kredit.file', ['id' => $kredit->id]) }}" class="btn btn-light" target="_blank"><i class='bx bxs-file-pdf'></i></a></td>
                 <td>{{ $kredit->kategorikredit->nama }}</td>
+                <td>{{ $kredit->jenisJaminan->nama }}</td>
+                <td>{{ $kredit->no_jaminan }}</td>
                 <td>{{ $kredit->tanggal_akad }}</td>
-                <td>
-                <a href="{{ route('admin.kredit.edit', ['id' => $kredit->id]) }}" class="btn btn-sm btn-success"><i class="bx bx-edit-alt me-1"></i></a>
-                <a href="{{ route('admin.kredit.delete', ['id' => $kredit->id]) }}" class="btn btn-sm btn-danger" onclick="return confirm('Konfirmasi hapus data')"><i class="bx bx-trash me-1"></i></a>
+                <td class="d-flex">
+                <a href="{{ route('admin.kredit.edit', ['id' => $kredit->id]) }}" class="btn btn-sm btn-success rounded-0"><i class="bx bx-edit-alt me-1"></i></a>
+                <a href="{{ route('admin.kredit.delete', ['id' => $kredit->id]) }}" class="btn btn-sm btn-danger rounded-0" onclick="return confirm('Konfirmasi hapus data')"><i class="bx bx-trash me-1"></i></a>
+                <a href="{{ route('admin.kredit.delete', ['id' => $kredit->id]) }}" class="btn btn-sm btn-info rounded-0"><i class='bx bx-info-circle'></i></a>
                 {{-- <form method="POST" action="{{ route('admin.kredit.delete', ['id' => $kredit->id]) }}" onSubmit="return confirm('Do you want to delete?') ">
                     @csrf
                     @method('DELETE')
@@ -51,3 +58,4 @@
     </div>
 
 </div>
+

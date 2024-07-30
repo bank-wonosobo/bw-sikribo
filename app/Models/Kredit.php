@@ -25,4 +25,8 @@ class Kredit extends Model
     public function kategorikredit() {
         return $this->belongsTo(KategoriKredit::class, 'kategori_id', 'id');
     }
+
+    public function jenisJaminan() {
+        return $this->belongsTo(JenisJaminan::class, 'jenis_jaminan_id', 'id');
+    }
 }

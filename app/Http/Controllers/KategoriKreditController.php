@@ -19,6 +19,7 @@ class KategoriKreditController extends Controller
 
             $kredit = new KategoriKredit([
                 'nama' => $data['nama'],
+                'kode' => $data['kode']
             ]);
 
             $kredit->save();
@@ -26,7 +27,7 @@ class KategoriKreditController extends Controller
             return redirect()->back()->with('success', 'Berhasil menambah kategori kredit');
 
         } catch (\Exception $e) {
-            dd($e->getMessage());
+            dd($e);
         }
     }
 }

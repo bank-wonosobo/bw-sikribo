@@ -30,7 +30,9 @@ class AddColumnPermohonanSlikRegister extends Migration
     public function down()
     {
         Schema::table('kredit', function(Blueprint $table) {
-            $table->dropColumn('petugas_slik');
+            $table->dropColumn('jenis_jaminan_id');
+            $table->dropColumn('no_jaminan');
+            $table->dropColumn('status_pengikatan');
         });
     }
 }

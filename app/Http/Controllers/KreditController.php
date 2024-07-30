@@ -2,14 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\KategoriKreditNotFoundException;
+use App\Http\Requests\Kredit\ImportKreditReq;
 use App\Http\Requests\Kredit\StoreKreditReq;
 use App\Http\Requests\Kredit\UpdateKreditReq;
+use App\Imports\KreditImport;
 use App\Models\JenisJaminan;
 use App\Models\KategoriKredit;
 use App\Models\Kredit;
 use App\Services\KreditService;
 use App\Traits\UploadTrait;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class KreditController extends Controller
 {
@@ -85,6 +89,15 @@ class KreditController extends Controller
         } catch (\Exception $e) {
             dd($e);
             return redirect()->back()->with('error', 'Gagal hapus data , sedang terjadi maintenance, coba beberapa saat lagi ');
+        }
+    }
+
+    public function import(ImportKreditReq $req) {
+        try {
+            Excel::import(new KreditImport, $req->file('file'));
+            return redirect()->back()->with('success', 'Berhasil import semua data');
+        } catch (KategoriKreditNotFoundException $e) {
+            return redirect()->back()->with('error', $e->getMessage());
         }
     }
 }

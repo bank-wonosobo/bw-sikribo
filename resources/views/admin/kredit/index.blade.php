@@ -9,3 +9,4 @@
 
 {{-- @include('admin.kredit.create') --}}
 @endsection
+@include('admin.kredit.import')

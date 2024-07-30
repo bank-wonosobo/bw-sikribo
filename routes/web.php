@@ -90,7 +90,7 @@ Route::prefix('admin')
             Route::get('/{id}/edit', 'edit')->name('edit');
             Route::put('/{id}', 'update')->name('update');
             Route::get('/{id}/delete', 'delete')->name('delete');
-
+            Route::post('/import', 'import')->name('import');
         });
 
     Route::prefix('kategori-kredit')

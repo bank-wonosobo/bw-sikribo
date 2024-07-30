@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\KategoriKredit;
+namespace App\Http\Requests\Kredit;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreKategoryKreditReq extends FormRequest
+class ImportKreditReq extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +24,7 @@ class StoreKategoryKreditReq extends FormRequest
     public function rules()
     {
         return [
-            'nama' => ['required', 'unique:kategori_kredit,nama'],
-            'kode' => ['required', 'unique:kategori_kredit,kode']
+            'file' => ['file','mimes:xlsx,xls'],
         ];
     }
 }
