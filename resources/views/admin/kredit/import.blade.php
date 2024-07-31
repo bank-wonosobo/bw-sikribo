@@ -7,11 +7,11 @@
         </div>
         {!! Form::open(['route' => 'admin.kredit.import', 'method' => 'POST', 'files' => true]) !!}
         <div class="modal-body">
-            <a href="#" class="btn btn-sm btn-success rounded-0">Download Template</a>
+                <a href="{{ asset('template-import/SIKRIBO - Template Import Data Arsip Kredit.xlsx') }}" class="btn btn-sm btn-success rounded-0">Download Template</a>
                 <div class="col-12 mt-3">
                     {!! Form::label('file', 'File', ['class' => 'form-label']) !!}
                     {!! Form::file('file' ,['class' => 'form-control', 'id' => 'files']) !!}
-                    <span class="text-danger text-small">* berkas dengan format xls, xlsx</span>
+                    <span class="text-sm">* Download template untuk dapat mengimpor data mahasiswa dengan menggunakan file .xlsx</span>
                 </div>
         </div>
         <div class="modal-footer">

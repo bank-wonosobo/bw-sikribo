@@ -7,6 +7,7 @@ use App\Exceptions\KategoriKreditNotFoundException;
 use App\Models\JenisJaminan;
 use App\Models\KategoriKredit;
 use App\Models\Kredit;
+use Carbon\Carbon;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\ToModel;
@@ -28,7 +29,7 @@ class KreditImport implements ToModel, WithHeadingRow
                 'no_kredit' => $row['no_pinjaman']
             ], [
                 'nama_peminjam' => $row['nama'],
-                'tanggal_akad' => Date::excelToDateTimeObject($row['tanggal_akad']),
+                'tanggal_akad' => Carbon::parse($row['tanggal_akad']),
                 'kategori_id' => $idKredit,
                 'no_jaminan' => $row['no_penyimpanan'],
                 'jenis_jaminan_id' => $jenisJaminan,
