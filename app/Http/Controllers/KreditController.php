@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\JenisJaminanNotFoundException;
 use App\Exceptions\KategoriKreditNotFoundException;
 use App\Http\Requests\Kredit\ImportKreditReq;
 use App\Http\Requests\Kredit\StoreKreditReq;
@@ -97,6 +98,8 @@ class KreditController extends Controller
             Excel::import(new KreditImport, $req->file('file'));
             return redirect()->back()->with('success', 'Berhasil import semua data');
         } catch (KategoriKreditNotFoundException $e) {
+            return redirect()->back()->with('error', $e->getMessage());
+        } catch (JenisJaminanNotFoundException $e) {
             return redirect()->back()->with('error', $e->getMessage());
         }
     }
