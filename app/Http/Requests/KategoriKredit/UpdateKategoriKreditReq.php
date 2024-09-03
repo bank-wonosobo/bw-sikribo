@@ -4,7 +4,7 @@ namespace App\Http\Requests\KategoriKredit;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreKategoryKreditReq extends FormRequest
+class UpdateKategoriKreditReq extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +24,8 @@ class StoreKategoryKreditReq extends FormRequest
     public function rules()
     {
         return [
-            'nama' => ['required', 'unique:kategori_kredit,nama'],
-            'kode' => ['required', 'unique:kategori_kredit,kode']
+            'nama' => ['required'],
+            'kode' => ['required']
         ];
     }
 }

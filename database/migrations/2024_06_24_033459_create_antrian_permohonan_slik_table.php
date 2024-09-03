@@ -14,7 +14,7 @@ class CreateAntrianPermohonanSlikTable extends Migration
     public function up()
     {
         Schema::create('antrian_permohonan_slik', function (Blueprint $table) {
-             $table->id();
+            $table->id();
             $table->uuid('permohonan_slik_id');
             $table->foreign('permohonan_slik_id')
                 ->references('id')

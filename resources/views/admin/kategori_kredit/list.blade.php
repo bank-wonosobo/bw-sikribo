@@ -8,6 +8,7 @@
             <thead>
                 <tr>
                     <th scope="col">No</th>
+                    <th scope="col">Kode</th>
                     <th scope="col">Nama Kategori</th>
                     <th scope="col">Action</th>
                 </tr>
@@ -17,9 +18,10 @@
               @foreach ($kategori as $kt)
               <tr>
                   <td>{{ $i }}</td>
+                  <td>{{ $kt->kode }}</td>
                   <td>{{ $kt->nama }}</td>
                   <td>
-                    <a href="#" class="btn btn-sm btn-success"><i class="bx bx-edit-alt me-1"></i></a>
+                    <a href="{{ route('admin.kategori-kredit.edit', ['id' => $kt->id]) }}" class="btn btn-sm btn-success"><i class="bx bx-edit-alt me-1"></i></a>
                     <a href="" class="btn btn-sm btn-danger" onclick="return confirm('Konfirmasi hapus data')"><i class="bx bx-trash me-1"></i></a>
                   </td>
               </tr>

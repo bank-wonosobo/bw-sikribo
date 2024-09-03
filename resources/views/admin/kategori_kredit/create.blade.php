@@ -4,6 +4,10 @@
         <h5 class="card-title">Tambah Jenis Kredit</h5>
             {!! Form::open(['route' => 'admin.kategori-kredit.store', 'method' => 'POST', 'files' => true, 'class' => ['row']]) !!}
                 <div class="col-12">
+                    {!! Form::label('kode', 'Kode') !!}
+                    {!! Form::text('kode', old('kode') ,['class' => 'form-control']) !!}
+                </div>
+                <div class="col-12 mt-2">
                     {!! Form::label('nama', 'Nama Kategori') !!}
                     {!! Form::text('nama', old('nama') ,['class' => 'form-control']) !!}
                 </div>

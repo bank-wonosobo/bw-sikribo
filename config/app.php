@@ -189,6 +189,7 @@ return [
         //Out Source
         Spatie\Permission\PermissionServiceProvider::class, // Multi Login
         Ladumor\LaravelPwa\PWAServiceProvider::class, // PWA
+        Maatwebsite\Excel\ExcelServiceProvider::class, // Excel
 
     ],
 
@@ -244,7 +245,8 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-        'LaravelPwa' => \Ladumor\LaravelPwa\LaravelPwa::class,
+        'LaravelPwa' => \Ladumor\LaravelPwa\LaravelPwa::class, // PWA
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class, // Excel
     ],
 
 ];
