@@ -23,6 +23,7 @@
                 <th>Jenis Jaminan</th>
                 <th>No Penyimpanan / Jaminan</th>
                 <th>Tanggal Akad</th>
+                <th>Dokumen</th>
                 <th>Aksi</th>
             </tr>
             </thead>
@@ -37,6 +38,7 @@
                 <td>{{ $kredit->jenisJaminan->nama }}</td>
                 <td>{{ $kredit->no_jaminan }}</td>
                 <td>{{ $kredit->tanggal_akad }}</td>
+                <td><a href="{{ route('admin.kredit.file', ['id' => $kredit->id]) }}" class="btn btn-light" target="_blank"><i class='bx bxs-file-pdf'></i></a></td>
                 <td class="d-flex">
                 <a href="{{ route('admin.kredit.edit', ['id' => $kredit->id]) }}" class="btn btn-sm btn-success rounded-0"><i class="bx bx-edit-alt me-1"></i></a>
                 <a href="{{ route('admin.kredit.delete', ['id' => $kredit->id]) }}" class="btn btn-sm btn-danger rounded-0" onclick="return confirm('Konfirmasi hapus data')"><i class="bx bx-trash me-1"></i></a>
