@@ -1,5 +1,5 @@
-<li class="nav-heading">User Management</li>
 @can('user.read')
+<li class="nav-heading">User Management</li>
 <li class="nav-item">
     <a class="nav-link {{ Route::is('admin.users.*') ? '' : 'collapsed' }}" href="{{ route('admin.users.index') }}">
     <i class='bx bx-user'></i>
