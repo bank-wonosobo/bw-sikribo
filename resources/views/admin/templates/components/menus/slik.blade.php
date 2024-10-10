@@ -1,5 +1,8 @@
+@can('permohonan_slik.read')
 <li class="nav-heading">SLIK</li>
+@endcan
 
+@can('permohonan_slik.create')
 <li class="nav-item">
     <a class="nav-link collapsed" data-bs-target="#permohonan_slik" data-bs-toggle="collapse" href="#">
         <i class='bx bx-file'></i></i><span>Permohonan SLIK</span><i class="bi bi-chevron-down ms-auto"></i>
@@ -15,8 +18,9 @@
         </li>
     </ul>
 </li>
+@endcan
 
-@can('manajemen slik')
+@can('permohonan_slik.proccess')
 <li class="nav-item">
     <a class="nav-link {{ Route::is('admin.slik.index') ? '' : 'collapsed' }}" href="{{ route('admin.permohonan-slik.index') }}">
     <i class='bx bxs-file-export'></i>
@@ -26,7 +30,9 @@
     @endif
     </a>
 </li>
+@endcan
 
+@can('slik.read')
 <li class="nav-item">
     <a class="nav-link {{ Route::is('admin.slik.index') ? '' : 'collapsed' }}" href="{{ route('admin.slik.index') }}">
     <i class='bx bxs-file-export'></i>
@@ -35,6 +41,7 @@
 </li>
 @endcan
 
+@can('hasil_slik.read')
 <li class="nav-item">
     <a class="nav-link collapsed" data-bs-target="#hasil_slik" data-bs-toggle="collapse" href="#">
         <i class='bx bx-file'></i></i><span>Hasil SLIK</span><i class="bi bi-chevron-down ms-auto"></i>
@@ -44,11 +51,16 @@
         <a href="{{ route('admin.hasil-slik.index') }}">
             <i class="bi bi-circle"></i><span>Hasil PDF</span>
         </a>
-        @can('manajemen slik')
-        <a href="{{ route('admin.hasil-slik.create') }}">
-            <i class="bi bi-circle"></i><span>Upload Hasil</span>
-        </a>
-        @endcan
         </li>
     </ul>
 </li>
+@endcan
+
+@can('hasil_slik.create')
+<li class="nav-item">
+    <a class="nav-link {{ Route::is('admin.slik.create') ? '' : 'collapsed' }}" href="{{ route('admin.hasil-slik.create') }}">
+    <i class='bx bxs-file-export'></i>
+    <span>Upload Hasil</span>
+    </a>
+</li>
+@endcan

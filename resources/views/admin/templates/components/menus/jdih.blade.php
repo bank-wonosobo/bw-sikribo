@@ -1,5 +1,8 @@
-    <li class="nav-heading">JDIH</li>
-@can('manage jdih')
+@can('jenis_jdih.read')
+<li class="nav-heading">JDIH</li>
+@endcan
+
+@can('jdih.create')
 <li class="nav-item">
     <a class="nav-link {{ Route::is('admin.dokumen-hukum.create') ? '' : 'collapsed' }}" href="{{ route('admin.dokumen-hukum.create') }}">
     <i class='bx bx-detail'></i>
@@ -8,6 +11,7 @@
 </li>
 @endcan
 
+@can('jdih.read')
 <li class="nav-item">
     <a class="nav-link collapsed" data-bs-target="#dokumen-hukum" data-bs-toggle="collapse" href="#">
         <i class='bx bx-food-menu'></i><span>Dokumen Hukum</span><i class="bi bi-chevron-down ms-auto"></i>
@@ -22,7 +26,9 @@
         @endforeach
     </ul>
 </li>
-@can('manage jdih')
+@endcan
+
+@can('jenis_jdih.read')
 <li class="nav-item">
     <a class="nav-link {{ Route::is('admin.jenis-dh.*') ? '' : 'collapsed' }}" href="{{ route('admin.jenis-dh.index') }}">
     <i class='bx bx-windows'></i>
