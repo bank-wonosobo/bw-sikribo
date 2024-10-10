@@ -16,6 +16,6 @@
 
     @include('admin.templates.components.menus.other')
 
-    @include('admin.templates.components.menus.bill')
+    {{-- @include('admin.templates.components.menus.bill') --}}
 
 </ul>
