@@ -1,19 +1,14 @@
 <?php
 
-use App\Helper\AuthUser;
-use App\Http\Controllers\AgencyController;
-use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BillController;
 use App\Http\Controllers\DokumenHukumController;
-use App\Http\Controllers\FileArchiveController;
 use App\Http\Controllers\HasilSlikController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\IncomingMailController;
 use App\Http\Controllers\JenisDokumenHukumController;
-use App\Http\Controllers\JenisJaminanController;
 use App\Http\Controllers\KategoriKreditController;
 use App\Http\Controllers\KodeSlikController;
 use App\Http\Controllers\KreditController;
-use App\Http\Controllers\OutgoingMailController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PermohonanSlikController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SlikController;
@@ -167,12 +162,21 @@ Route::prefix('admin')
             Route::post('/', 'store')->name('store');
         });
 
-    Route::prefix('jenis-jaminan')
-        ->as('jenis-jaminan.')
-        ->controller(JenisJaminanController::class)
+    Route::prefix('bills')
+        ->as('bills.')
+        ->controller(BillController::class)
         ->group(function() {
             Route::get('/', 'index')->name('index');
-            Route::post('/', 'store')->name('store');
+            Route::post('/', 'import')->name('import');
+        });
+
+    Route::prefix('notifications')
+        ->as('notifications.')
+        ->controller(NotificationController::class)
+        ->group(function() {
+            Route::get('/', 'index')->name('index');
+            Route::post('/', 'send')->name('send');
+
         });
 });
 

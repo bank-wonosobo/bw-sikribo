@@ -184,6 +184,7 @@ return [
         App\Providers\Owned\RoleProvider::class,
         App\Providers\Owned\DokumenHukumProvider::class,
         App\Providers\Owned\HasilSlikProvider::class,
+        App\Providers\Owned\NotificationProvider::class,
 
 
         //Out Source

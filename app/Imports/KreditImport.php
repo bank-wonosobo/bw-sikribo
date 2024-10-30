@@ -8,19 +8,14 @@ use App\Models\JenisJaminan;
 use App\Models\KategoriKredit;
 use App\Models\Kredit;
 use Carbon\Carbon;
-use Illuminate\Support\Collection;
-use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
-use PhpOffice\PhpSpreadsheet\Shared\Date;
 
 class KreditImport implements ToModel, WithHeadingRow
 {
 
     public function model(array $row)
     {
-
-
         if ($row['no_pinjaman'] != null or $row['no_penyimpanan'] != null) {
             $idKredit = $this->getJenisKreditId($row['no_pinjaman'], $row['no']);
             $jenisJaminan = $this->getJenisJaminanId($row['no_penyimpanan'], $row['no']);
@@ -29,7 +24,7 @@ class KreditImport implements ToModel, WithHeadingRow
                 'no_kredit' => $row['no_pinjaman']
             ], [
                 'nama_peminjam' => $row['nama'],
-                'tanggal_akad' => Carbon::parse($row['tanggal_akad']),
+                'tanggal_akad' => Carbon::createFromFormat('d/m/Y',$row['tanggal_akad']),
                 'kategori_id' => $idKredit,
                 'no_jaminan' => $row['no_penyimpanan'],
                 'jenis_jaminan_id' => $jenisJaminan,
