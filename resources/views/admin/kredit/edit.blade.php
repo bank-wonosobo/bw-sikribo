@@ -27,6 +27,21 @@
                     {!! Form::label('kategori_id', 'Kategori Kredit', ['class' => 'form-label']) !!}
                     {!! Form::select('kategori_id', $kategori, $kredit->kategori_id, ['class' => 'form-control', 'placeholder','placeholder' => 'Pilih kategori...']) !!}
                 </div>
+                <div class="col-12 mt-3">
+                    {!! Form::label('status_pengikatan', 'Status Pengikatan', ['class' => 'form-label']) !!}
+                    {!! Form::select('status_pengikatan', ["SELESAI"=> "Selesai", "BELUM SELESAI" => "Belum Selesai"], $kredit->status_pengikatan, ['class' => 'form-control', 'placeholder','placeholder' => '=== Status Pengikatan ===']) !!}
+                </div>
+                 <h5 class="card-title mt-3">Jaminan</h5>
+
+                <div class="col-12">
+                    {!! Form::label('no_jaminan', 'Nomer Jaminan', ['class' => 'form-label']) !!}
+                    {!! Form::text('no_jaminan', $kredit->no_jaminan ,['class' => 'form-control']) !!}
+                </div>
+                <div class="col-12 mt-3">
+                    {!! Form::label('jenis_jaminan_id', 'Jenis Jaminan', ['class' => 'form-label']) !!}
+                    {!! Form::select('jenis_jaminan_id', $jenis_jaminan, $kredit->jenis_jaminan_id, ['class' => 'form-control', 'placeholder','placeholder' => '=== Pilih Jenis Jaminan ===']) !!}
+                </div>
+
                 <div class="col-12">
                     {!! Form::label('file', 'File Kredit', ['class' => 'form-label']) !!}
                     <br>

@@ -72,12 +72,13 @@ class KreditController extends Controller
         return view('admin.kredit.edit', compact('kredit', 'kategori', 'jenis_jaminan'));
     }
 
-    public function update(UpdateKreditReq $request, int $id) {
+    public function update(UpdateKreditReq $request, string $id) {
         try {
             $kredit = $this->kredit_service->update($request, $id);
             if ($request->file('file') != null) $this->kredit_service->addFileKredit($kredit->id, $request->file('file'));
             return redirect()->back()->with('success', 'Berhasil update arsip perjanjian kredit');
         } catch (\Exception $e) {
+            dd($e->getMessage());
             return redirect()->back()->with('error', 'Gagal update data , sedang terjadi maintenance, coba beberapa saat lagi ');
         }
     }
