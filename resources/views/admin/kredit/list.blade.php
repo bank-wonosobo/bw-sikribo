@@ -54,8 +54,12 @@
                     @endif
                 </td>
                 <td class="d-flex">
-                <a href="{{ route('admin.kredit.edit', ['id' => $kredit->id]) }}" class="btn btn-sm btn-success rounded-0"><i class="bx bx-edit-alt me-1"></i></a>
-                <a href="{{ route('admin.kredit.delete', ['id' => $kredit->id]) }}" class="btn btn-sm btn-danger rounded-0" onclick="return confirm('Konfirmasi hapus data')"><i class="bx bx-trash me-1"></i></a>
+                @can('arsip_kredit.edit')
+                    <a href="{{ route('admin.kredit.edit', ['id' => $kredit->id]) }}" class="btn btn-sm btn-success rounded-0"><i class="bx bx-edit-alt me-1"></i></a>
+                @endcan
+                @can('arsip_kredit.delete')
+                    <a href="{{ route('admin.kredit.delete', ['id' => $kredit->id]) }}" class="btn btn-sm btn-danger rounded-0" onclick="return confirm('Konfirmasi hapus data')"><i class="bx bx-trash me-1"></i></a>
+                @endcan
                 <a href="#" class="btn btn-sm btn-info rounded-0"><i class='bx bx-info-circle'></i></a>
                 {{-- <form method="POST" action="{{ route('admin.kredit.delete', ['id' => $kredit->id]) }}" onSubmit="return confirm('Do you want to delete?') ">
                     @csrf
