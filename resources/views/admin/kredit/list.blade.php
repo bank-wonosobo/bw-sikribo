@@ -23,6 +23,7 @@
                 <th>Jenis Jaminan</th>
                 <th>No Penyimpanan / Jaminan</th>
                 <th>Tanggal Akad</th>
+                <th>Status Pengikatan</th>
                 <th>Dokumen</th>
                 <th>Aksi</th>
             </tr>
@@ -38,6 +39,13 @@
                 <td>{{ $kredit->jenisJaminan->nama }}</td>
                 <td>{{ $kredit->no_jaminan }}</td>
                 <td>{{ $kredit->tanggal_akad }}</td>
+                <td>
+                    @if ($kredit->status_pengikatan == "SELESAI")
+                        <span class="badge bg-primary">{{ $kredit->status_pengikatan }}</span>
+                    @else
+                        <span class="badge bg-warning">{{ $kredit->status_pengikatan }}</span>
+                    @endif
+                </td>
                 <td>
                     @if ($kredit->file == null)
                         <badge class="text-sm">Dokumen Belum Tersedia</badge>
