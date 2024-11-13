@@ -30,12 +30,12 @@ class KreditController extends Controller
 
         $kategori = KategoriKredit::pluck('nama', 'id')->all();
 
-        $kredits = [];
-        Kredit::chunk(200, function ($chunkedKredits) use (&$kredits) {
-            foreach ($chunkedKredits as $kredit) {
-                $kredits[] = $kredit;
-            }
-        });
+        $kredits = Kredit::orderBy('tanggal_akad', 'DESC')->get();
+        // Kredit::chunk(200, function ($chunkedKredits) use (&$kredits) {
+        //     foreach ($chunkedKredits as $kredit) {
+        //         $kredits[] = $kredit;
+        //     }
+        // });
 
         return view('admin.kredit.index', compact('kredits', 'kategori'));
     }

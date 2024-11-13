@@ -24,7 +24,6 @@
                 <th>Nama Peminjam</th>
                 <th>Nomer Kredit</th>
                 <th>Jenis Kredit</th>
-                <th>Jenis Jaminan</th>
                 <th>No Penyimpanan / Jaminan</th>
                 <th>Tanggal Akad</th>
                 <th>Status Pengikatan</th>
@@ -40,9 +39,10 @@
                 <td>{{ $kredit->nama_peminjam }}</td>
                 <td>{{ $kredit->no_kredit }}</td>
                 <td>{{ $kredit->kategorikredit->nama }}</td>
-                <td>{{ $kredit->jenisJaminan->nama }}</td>
                 <td>{{ $kredit->no_jaminan }}</td>
-                <td>{{ $kredit->tanggal_akad }}</td>
+                <td>{{ Carbon\Carbon::parse($kredit->tanggal_akad)->format('d M Y') }}
+
+                </td>
                 <td>
                     @if ($kredit->status_pengikatan == "SELESAI")
                         <span class="badge bg-primary">{{ $kredit->status_pengikatan }}</span>
