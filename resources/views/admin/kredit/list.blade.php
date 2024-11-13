@@ -3,13 +3,17 @@
     <div class="card">
     <div class="card-body">
         <h5 class="card-title">Data Arsip Perjanjian Kredit</h5>
-        <a href="{{ route('admin.kredit.create') }}" class="btn btn-sm btn-dark rounded-0">
-        Tambah Data
-        </a>
+        @can('arsip_kredit.create')
+            <a href="{{ route('admin.kredit.create') }}" class="btn btn-sm btn-dark rounded-0">
+            Tambah Data
+            </a>
+        @endcan
 
-        <button type="button" class="btn btn-sm btn-success rounded-0" data-bs-toggle="modal" data-bs-target="#importkredit">
-            Import Data
-        </button>
+        @can('arsip_kredit.import')
+            <button type="button" class="btn btn-sm btn-success rounded-0" data-bs-toggle="modal" data-bs-target="#importkredit">
+                Import Data
+            </button>
+        @endcan
 
         <div class="table-responsive">
         <!-- Table with stripped rows -->
