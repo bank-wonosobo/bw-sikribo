@@ -2,6 +2,8 @@
 
 @section('title', 'Tambah Arsip Perjanjian Kredit')
 
+@include('admin.templates.components.loader')
+
 @section('style')
 <style>
 #the-canvas {

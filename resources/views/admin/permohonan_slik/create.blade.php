@@ -2,6 +2,8 @@
 
 @section('title', 'Permohonan SLIK')
 
+@include('admin.templates.components.loader')
+
 @section('content')
 <div class="row">
     <div class="col-lg-8">

@@ -1,6 +1,9 @@
 @extends('admin.templates.app')
 
 @section('title', 'Edit Categori')
+
+@include('admin.templates.components.loader')
+
 @section('content')
 <div class="row">
     <div class="col-lg-6">

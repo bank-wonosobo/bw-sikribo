@@ -1,3 +1,5 @@
+@include('admin.templates.components.loader')
+
 <div class="col-lg-6">
     <div class="card">
       <div class="card-body">

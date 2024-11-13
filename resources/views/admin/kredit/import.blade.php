@@ -1,3 +1,4 @@
+@include('admin.templates.components.loader')
 <div class="modal fade" id="importkredit" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">

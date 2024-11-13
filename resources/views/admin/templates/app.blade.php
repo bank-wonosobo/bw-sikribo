@@ -69,11 +69,7 @@
 </head>
 
 <body>
-    <div  class="pageLoader" id="pageLoader">
-        <div class="d-flex align-items-center justify-content-center h-100 w-100">
-            <div class="loader"></div>
-        </div>
-    </div>
+    @yield('content-loader')
   <!-- ======= Header ======= -->
   <header id="header" class="header fixed-top d-flex align-items-center">
 
@@ -250,18 +246,8 @@
     <!-- jQuery -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
- <script>
-   $(window).on('beforeunload', function(){
+@yield('js-loader')
 
-        $('#pageLoader').show();
-
-    });
-
-    $(function () {
-
-        $('#pageLoader').hide();
-    })
-    </script>
   @yield('script')
 </body>
 
