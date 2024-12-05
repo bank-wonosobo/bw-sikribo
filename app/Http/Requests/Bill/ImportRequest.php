@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Bill;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateDokumenHukumReq extends FormRequest
+class ImportRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,7 @@ class UpdateDokumenHukumReq extends FormRequest
     public function rules()
     {
         return [
-            //
+            'file' => ['file','mimes:xlsx,xls'],
         ];
     }
 }
