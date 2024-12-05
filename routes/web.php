@@ -5,6 +5,7 @@ use App\Http\Controllers\DokumenHukumController;
 use App\Http\Controllers\HasilSlikController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\JenisDokumenHukumController;
+use App\Http\Controllers\JenisJaminanController;
 use App\Http\Controllers\KategoriKreditController;
 use App\Http\Controllers\KodeSlikController;
 use App\Http\Controllers\KreditController;
@@ -96,6 +97,14 @@ Route::prefix('admin')
             Route::post('/', 'store')->name('store');
             Route::get('/{id}/edit', 'edit')->name('edit');
             Route::put('/{id}', 'update')->name('update');
+        });
+
+    Route::prefix('jenis-jaminan')
+        ->as('jenis-jaminan.')
+        ->controller(JenisJaminanController::class)
+        ->group(function() {
+            Route::get('/', 'index')->name('index');
+            Route::post('/', 'store')->name('store');
         });
 
     Route::prefix('hasil-slik')
