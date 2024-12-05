@@ -24,7 +24,9 @@
                 <th>Jenis Dokumen</th>
                 <th>File</th>
                 <th>Status</th>
+                @can('jdih.manage')
                 <th>Aksi</th>
+                @endcan
             </tr>
             </thead>
             <tbody>
@@ -45,10 +47,12 @@
                         <span class="badge bg-danger">Tidak Berlaku</span>
                     @endif
                 </td>
+                @can('jdih.manage')
                 <td>
                     <a href="{{ route('admin.dokumen-hukum.edit', ['jdih_id' => $dokumen->id]) }}" class="btn btn-sm btn-success"><i class="bx bx-edit-alt me-1"></i></a>
                     <a href="#" class="btn btn-sm btn-danger" onclick="return confirm('Konfirmasi hapus data')"><i class="bx bx-trash me-1"></i></a>
                 </td>
+                @endcan
             </tr>
             @php($i++)
             @endforeach
