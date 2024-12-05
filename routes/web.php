@@ -159,6 +159,8 @@ Route::prefix('admin')
         ->group(function() {
             Route::get('/{jdh_id}/index', 'index')->name('index');
             Route::get('/create', 'create')->name('create');
+            Route::get('/{jdih_id}/edit', 'edit')->name('edit');
+            Route::put('/{jdih_id}', 'update')->name('update');
             Route::post('/', 'store')->name('store');
         });
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreDokumenHukumReq;
+use App\Http\Requests\UpdateDokumenHukumReq;
 use App\Models\DokumenHukum;
 use App\Models\JenisDokumenHukum;
 use App\Services\DokumenHukumService;
@@ -37,4 +38,20 @@ class DokumenHukumController extends Controller
             abort(500);
         }
     }
-}
+
+    public function edit($id) {
+        $jenis_dh = JenisDokumenHukum::pluck('nama', 'id')->all();
+        $dokumen_hukum = DokumenHukum::find($id);
+        return view('admin.dokumen_hukum.edit', compact('dokumen_hukum', 'jenis_dh'));
+    }
+
+    public function update(UpdateDokumenHukumReq $request, $id) {
+        try {
+            $result = $this->dokumenService->update($request, $id);
+            $this->dokumenService->addFile($result->id, $request->file('file'));
+            return redirect()->route('admin.dokumen-hukum.index', ['jdh_id' => $result->jenis_dokumen_hukum_id])->with('success', 'Berhasil Mengubah Dokumen Hukum');
+        } catch (\Exception $e) {
+            abort(500);
+        }
+    }
+ }

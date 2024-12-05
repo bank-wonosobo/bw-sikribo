@@ -37,7 +37,16 @@ class DokumenHukumServiceImpl implements DokumenHukumService {
 
     public function update(UpdateDokumenHukumReq $request, string $id): DokumenHukum
     {
-        return new DokumenHukum();
+        $dokumen_hukum = DokumenHukum::find($id);
+        $dokumen_hukum->nomor = $request->input('nomor');
+        $dokumen_hukum->status = $request->input('status');
+        $dokumen_hukum->perihal = $request->input('perihal');
+        $dokumen_hukum->tanggal = $request->input('tanggal');
+        $dokumen_hukum->keterangan = $request->input('keterangan');
+        $dokumen_hukum->tahun = $request->input('tahun');
+        $dokumen_hukum->jenis_dokumen_hukum_id = $request->input('jenis_dokumen_hukum_id');
+        $dokumen_hukum->save();
+        return $dokumen_hukum;
     }
 
     public function addFile(string $id, $file)
