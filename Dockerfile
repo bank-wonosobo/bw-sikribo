@@ -1,4 +1,4 @@
-# Use official PHP 7.4 CLI image
+# Use PHP 7.4 CLI image
 FROM php:7.4-cli
 
 # Set working directory
@@ -14,16 +14,25 @@ RUN apt-get update && apt-get install -y \
 # Install Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
+# Set memory limit for Composer
+ENV COMPOSER_MEMORY_LIMIT=-1
+
 # Copy application files
 COPY . /var/www/html
-
-# Install Laravel dependencies
-RUN composer install
 
 # Set permissions
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 
-# Expose port 8000 (used by php artisan serve)
+# Switch to www-data user for Composer
+USER www-data
+
+# Install Laravel dependencies
+RUN composer install
+
+# Switch back to root user
+USER root
+
+# Expose port 8000
 EXPOSE 8000
 
 # Run Laravel development server
