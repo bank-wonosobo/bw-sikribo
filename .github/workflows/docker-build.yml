@@ -55,8 +55,8 @@ jobs:
           composer install
 
       # Step 7: Run Tests
-      - name: Set Application Key
-        run: php artisan key:generate
+      # - name: Set Application Key
+      #   run: php artisan key:generate
 
       # Step 4: Set Application Key
       - name: Set Application Key
