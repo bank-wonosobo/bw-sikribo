@@ -15,14 +15,14 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # Step 2: Cache Composer dependencies (opsional)
-      - name: Cache Composer Dependencies
-        uses: actions/cache@v3
-        with:
-          path: vendor
-          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-composer-
+      # # Step 2: Cache Composer dependencies (opsional)
+      # - name: Cache Composer Dependencies
+      #   uses: actions/cache@v3
+      #   with:
+      #     path: vendor
+      #     key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+      #     restore-keys: |
+      #       ${{ runner.os }}-composer-
 
       # Step 3: Install dependencies Laravel
       - name: Install Composer Dependencies
