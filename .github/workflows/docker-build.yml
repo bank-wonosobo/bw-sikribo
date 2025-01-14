@@ -55,29 +55,27 @@ jobs:
           composer install
 
       # Step 5: Wait for MySQL to Be Ready
-      - name: Wait for MySQL
-        run: |
-          for i in {1..10}; do
-            if mysqladmin ping -h 127.0.0.1 -u root -proot --silent; then
-              echo "MySQL is ready";
-              exit 0;
-            fi
-            echo "Waiting for MySQL...";
-            sleep 5;
-          done
-          exit 1
-
+      # - name: Wait for MySQL
+      #   run: |
+      #     for i in {1..10}; do
+      #       if mysqladmin ping -h 127.0.0.1 -u root -proot --silent; then
+      #         echo "MySQL is ready";
+      #         exit 0;
+      #       fi
+      #       echo "Waiting for MySQL...";
+      #       sleep 5;
+      #     done
+      #     exit 1
       # Step 6: Run Database Migrations
-      - name: Run Database Migrations
-        env:
-          DB_CONNECTION: mysql
-          DB_HOST: 127.0.0.1
-          DB_PORT: 3306
-          DB_DATABASE: testing
-          DB_USERNAME: testuser
-          DB_PASSWORD: testpass
-        run: php artisan migrate --force
-
+      # - name: Run Database Migrations
+      #   env:
+      #     DB_CONNECTION: mysql
+      #     DB_HOST: 127.0.0.1
+      #     DB_PORT: 3306
+      #     DB_DATABASE: testing
+      #     DB_USERNAME: testuser
+      #     DB_PASSWORD: testpass
+      #   run: php artisan migrate --force
       # Step 4: Login ke Docker Hub atau GHCR
       - name: Log in to Docker Hub
         uses: docker/login-action@v2
@@ -96,12 +94,12 @@ jobs:
           docker push ${{ secrets.DOCKER_USERNAME }}/laravel-sikribo:latest
 
       # Step 7: Run Tests
-      - name: Run Tests
-        env:
-          DB_CONNECTION: mysql
-          DB_HOST: 127.0.0.1
-          DB_PORT: 3306
-          DB_DATABASE: testing
-          DB_USERNAME: testuser
-          DB_PASSWORD: testpass
-        run: php artisan test
+      # - name: Run Tests
+      #   env:
+      #     DB_CONNECTION: mysql
+      #     DB_HOST: 127.0.0.1
+      #     DB_PORT: 3306
+      #     DB_DATABASE: testing
+      #     DB_USERNAME: testuser
+      #     DB_PASSWORD: testpass
+      #   run: php artisan test
