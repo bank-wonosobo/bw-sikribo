@@ -54,6 +54,10 @@ jobs:
         run: |
           composer install
 
+      # Step 7: Run Tests
+      - name: Set Application Key
+        run: php artisan key:generate
+
       # Step 4: Set Application Key
       - name: Set Application Key
         run: php artisan key:generate
@@ -92,7 +96,7 @@ jobs:
         # Step 5: Build image Docker
       - name: Build Docker Image
         run: |
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/laravel-sikribo:latest .
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/laravel-sikribo:latest --platform linux/amd64 .
 
       # Step 6: Push image ke Docker Hub atau GHCR
       - name: Push Docker Image

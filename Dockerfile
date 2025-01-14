@@ -1,37 +1,30 @@
-FROM php:7.4-fpm
-
-
-# Install system dependencies
-RUN apt-get update && apt-get install -y \
-    git \
-    curl \
-    libpng-dev \
-    libonig-dev \
-    libxml2-dev \
-    zip \
-    unzip
-
-# Clear cache
-RUN apt-get clean && rm -rf /var/lib/apt/lists/*
-
-# Install PHP extensions
-RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd
-
-# Get latest Composer
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+# Use official PHP 7.4 image with Apache
+FROM php:7.4-apache
 
 # Set working directory
-WORKDIR /var/www
+WORKDIR /var/www/html
 
-# Copy application
-COPY . .
+# Install required extensions and tools
+RUN apt-get update && apt-get install -y \
+    libzip-dev \
+    unzip \
+    git \
+    && docker-php-ext-install pdo_mysql zip
 
-# Set permissions
-RUN chown -R www-data:www-data /var/www \
-    && chmod -R 775 /var/www/storage
+# Enable Apache mod_rewrite
+RUN a2enmod rewrite
 
-RUN composer install --ignore-platform-req=ext-zip
+# Install Composer
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
-# Expose port 9000
-EXPOSE 9000
-CMD ["php-fpm"]
+# Copy application files
+COPY . /var/www/html
+
+# Set permissions for Laravel
+RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
+
+# Expose port 80
+EXPOSE 80
+
+# Start Apache server
+CMD ["apache2-foreground"]

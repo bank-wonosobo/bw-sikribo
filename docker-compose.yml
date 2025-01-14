@@ -1,8 +1,6 @@
 services:
     sikribo_app:
-        build:
-            context: . # Context adalah direktori saat ini
-            dockerfile: Dockerfile # Gunakan Dockerfile di direktori saat ini
+        image: bankwonosobo/laravel-sikribo:latest
         container_name: sikribo_app
         restart: unless-stopped
         working_dir: /var/www
