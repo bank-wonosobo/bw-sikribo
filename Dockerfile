@@ -2,7 +2,7 @@
 FROM php:7.4-cli
 
 # Set working directory
-WORKDIR /var/www/html
+WORKDIR /app
 
 # Install dependencies including ZIP and GD extensions
 RUN apt-get update && apt-get install -y \
@@ -22,13 +22,10 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 ENV COMPOSER_MEMORY_LIMIT=-1
 
 # Copy application files
-COPY . /var/www/html
+COPY . /app
 
 # Set permissions
-RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
-
-# Switch to www-data user for Composer
-USER www-data
+RUN chown -R www-data:www-data /app/storage /app/bootstrap/cache
 
 # Install Laravel dependencies
 RUN composer install
