@@ -10,6 +10,22 @@ jobs:
     name: Build and Push Docker Image
     runs-on: ubuntu-latest
 
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: testing
+          MYSQL_USER: testuser
+          MYSQL_PASSWORD: testpass
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping -h localhost -u root -proot"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=3
+
     steps:
       # Step 1: Checkout kode dari repository
       - name: Checkout code
@@ -38,6 +54,34 @@ jobs:
         run: |
           composer install
 
+      # Step 4: Set Application Key
+      - name: Set Application Key
+        run: php artisan key:generate
+
+      # Step 5: Wait for MySQL to Be Ready
+      - name: Wait for MySQL
+        run: |
+          for i in {1..10}; do
+            if mysqladmin ping -h 127.0.0.1 -u root -proot --silent; then
+              echo "MySQL is ready";
+              exit 0;
+            fi
+            echo "Waiting for MySQL...";
+            sleep 5;
+          done
+          exit 1
+
+      # Step 6: Run Database Migrations
+      - name: Run Database Migrations
+        env:
+          DB_CONNECTION: mysql
+          DB_HOST: 127.0.0.1
+          DB_PORT: 3306
+          DB_DATABASE: testing
+          DB_USERNAME: testuser
+          DB_PASSWORD: testpass
+        run: php artisan migrate --force
+
       # Step 4: Login ke Docker Hub atau GHCR
       - name: Log in to Docker Hub
         uses: docker/login-action@v2
@@ -55,7 +99,13 @@ jobs:
         run: |
           docker push ${{ secrets.DOCKER_USERNAME }}/laravel-sikribo:latest
 
-      # Step 7: Jalankan pengujian Laravel (opsional)
+      # Step 7: Run Tests
       - name: Run Tests
-        run: |
-          php artisan test
+        env:
+          DB_CONNECTION: mysql
+          DB_HOST: 127.0.0.1
+          DB_PORT: 3306
+          DB_DATABASE: testing
+          DB_USERNAME: testuser
+          DB_PASSWORD: testpass
+        run: php artisan test
