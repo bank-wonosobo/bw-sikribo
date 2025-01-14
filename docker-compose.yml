@@ -1,6 +1,8 @@
 services:
     sikribo_app:
-        image: laravel-app
+        build:
+            context: . # Context adalah direktori saat ini
+            dockerfile: Dockerfile # Gunakan Dockerfile di direktori saat ini
         container_name: sikribo_app
         restart: unless-stopped
         working_dir: /var/www
@@ -9,15 +11,15 @@ services:
             - ./php/local.ini:/usr/local/etc/php/conf.d/local.ini
             - ./storage:/var/www/storage
         ports:
-            - "9000:9000"
+            - ":9000"
         env_file:
             - .env-stages
         networks:
             - sikribo
 
-    webserver_sikribodoc:
+    webserver_sikribodo:
         image: nginx:stable
-        container_name: webserver_sikribodoc
+        container_name: webserver_sikribodo
         restart: unless-stopped
         volumes:
             - .:/var/www
@@ -34,7 +36,7 @@ services:
         container_name: db_sikribo
         restart: unless-stopped
         ports:
-            - "3308:3306"
+            - ":3306"
         environment:
             MYSQL_DATABASE: sikribo
             MYSQL_USER: sikribo
