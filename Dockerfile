@@ -4,13 +4,16 @@ FROM php:7.4-cli
 # Set working directory
 WORKDIR /var/www/html
 
-# Install dependencies including GD
+# Install dependencies including ZIP and GD extensions
 RUN apt-get update && apt-get install -y \
+    libzip-dev \
     libfreetype6-dev \
     libjpeg62-turbo-dev \
     libpng-dev \
+    unzip \
+    git \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install -j$(nproc) gd
+    && docker-php-ext-install -j$(nproc) gd zip pdo_mysql
 
 # Install Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
@@ -28,7 +31,7 @@ RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cac
 USER www-data
 
 # Install Laravel dependencies
-RUN composer install --ignore-platform-req=ext-gd
+RUN composer install
 
 # Switch back to root user
 USER root
