@@ -10,12 +10,21 @@ services:
             - .:/var/www
             - ./php/local.ini:/usr/local/etc/php/conf.d/local.ini
             - ./storage:/var/www/storage
-        ports:
-            - ":9000"
-        env_file:
-            - .env-stages
+        environment:
+            APP_NAME: "Sikribo Laravel"
+            APP_ENV: production
+            APP_DEBUG: "true"
+            APP_KEY: base64:Ke2Tt9EwNksfv/Ov54dLHwN0ZPicYIc8e/s+7bwvw3s=
+            DB_CONNECTION: mysql
+            DB_HOST: db_sikribo
+            DB_PORT: 3306
+            DB_DATABASE: sikribodb
+            DB_USERNAME: sikribodb
+            DB_PASSWORD: sikribodb
         networks:
-            - sikribo
+            - sikribo-network
+        depends_on:
+            - db_sikribo
 
     webserver_sikribodo:
         image: nginx:stable
@@ -27,27 +36,27 @@ services:
         ports:
             - "8081:80"
         networks:
-            - sikribo
+            - sikribo-network
         depends_on:
             - sikribo_app
 
     db_sikribo:
         image: mysql:8.0
         container_name: db_sikribo
-        restart: unless-stopped
-        ports:
-            - ":3306"
+        restart: always
         environment:
-            MYSQL_DATABASE: sikribo
-            MYSQL_USER: sikribo
-            MYSQL_ROOT_PASSWORD: rahasia
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_DATABASE: sikribodb
+            MYSQL_USER: sikribodb
+            MYSQL_PASSWORD: sikribodb
         volumes:
             - sikribodbdata:/var/lib/mysql
         networks:
-            - sikribo
+            - sikribo-network
 
 volumes:
     sikribodbdata:
 
 networks:
-    sikribo:
+    sikribo-network:
+        driver: bridge
