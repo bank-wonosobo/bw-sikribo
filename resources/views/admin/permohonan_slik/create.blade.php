@@ -14,9 +14,9 @@
         <div class="card">
             <div class="card-body">
                 <h5 class="card-title">Permohonan SLIK</h5>
-                <div class="alert bg-light text-dark border-0 alert-dismissible fade show" role="alert">
+                <div class="alert alert-primary text-dark border-0 alert-dismissible fade show" role="alert">
                     @if ($kode_slik == null)
-                        <p class="text-warning">User belum <a href="{{ route('admin.kode-slik.index') }}" class="alert-link">Atur Kode SLIK</a>. atur kode SLIK untuk dapat melakukan permohonan SLIK</p>
+                        <p>User belum set kode slik, atur kode SLIK untuk dapat melakukan permohonan SLIK. <a href="{{ route('admin.kode-slik.index') }}" class="btn btn-dark btn-sm">Atur Kode SLIK Disini</a></p>
                     @else
                         Kode SLIK : <strong>{{ $kode_slik->kode }}</strong>
                         <br><br>

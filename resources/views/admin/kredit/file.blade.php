@@ -8,7 +8,7 @@
 </head>
 <body>
     <div style="height: 100vh; width:100%">
-        <iframe src="{{ asset('storage' . $kredit->file) }}" width="100%" height="100%" frameborder="0"></iframe>
+        <iframe src="{{ Storage::disk('s3')->url($kredit->file) }}" width="100%" height="100%" frameborder="0"></iframe>
     </div>
 </body>
 </html>

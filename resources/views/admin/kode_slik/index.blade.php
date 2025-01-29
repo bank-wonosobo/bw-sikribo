@@ -14,6 +14,11 @@
                     <div class="col-md-6">
                         {!! Form::select('kode', $kode, $kode_slik->kode ?? '', ['class' => 'form-control', 'placeholder','placeholder' => 'Pilih kategori...']) !!}
                     </div>
+                    <div class="col-md-6">
+                         @if ($kode_slik->kode != null)
+                            <a href="{{ route('admin.permohonan-slik.create') }}" class="btn btn-light">Mulai Permohonan Slik</a>
+                        @endif
+                    </div>
                 </div>
                 <div class="mt-3">
                     <button type="submit" class="btn btn-dark">Set</button>
