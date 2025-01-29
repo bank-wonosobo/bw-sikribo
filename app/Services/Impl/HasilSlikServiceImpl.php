@@ -15,7 +15,7 @@ use Illuminate\Support\Str;
 class HasilSlikServiceImpl implements HasilSlikService {
     use UploadTrait, ManageFile;
 
-    const PATH = 'slik/file/';
+    const PATH = 'slik/file';
 
     public function create(StoreHasilSlikReq $req): HasilSlik
     {

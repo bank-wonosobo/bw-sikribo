@@ -120,9 +120,9 @@
                     <a>
                     <tr>
                         <td>{{ $i }}</td>
-                        <td><a href="{{ asset('storage' . $hasil->file) }}" class="btn" target="_blank">{{ $hasil->nama }}</a></td>
+                        <td><a href="{{ Storage::disk('s3')->url($hasil->file) }}" class="btn" target="_blank">{{ $hasil->nama }}</a></td>
                         <td>{{ $hasil->created_at }}</td>
-                        <td><a href="{{ asset('storage' . $hasil->file) }}" class="btn btn-dark" target="_blank"><i class='bx bxs-download'></i></a></td>
+                        <td><a href="{{ Storage::disk('s3')->url($hasil->file) }}" class="btn btn-dark" target="_blank"><i class='bx bxs-download'></i></a></td>
                         </td>
                     </tr>
                     </a>
@@ -137,7 +137,7 @@
                     @csrf
                     <button class="btn btn-danger mb-2">Tolak Permohonan</button>
                 </form>
-                <iframe src="{{ asset('storage' . $permohonan_slik->berkas) }}" width="100%" height="700px" frameborder="0"></iframe>
+                <iframe src="{{ Storage::disk('s3')->url($permohonan_slik->berkas) }}" width="100%" height="700px" frameborder="0"></iframe>
             </div>
         </div>
     </div>

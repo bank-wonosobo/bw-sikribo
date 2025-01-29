@@ -39,7 +39,7 @@
                 <td>{{ $dokumen->tanggal }}</td>
                 <td>{{ $dokumen->tahun }}</td>
                 <td><span class="badge bg-dark">{{ $dokumen->jenisDokumen->nama }}</span></td>
-                <td><a href="{{ asset('storage' . $dokumen->file) }}" class="btn btn-light" target="_blank"><i class='bx bxs-file-pdf'></i></a></td>
+                <td><a href="{{ Storage::disk('s3')->url($dokumen->file) }}" class="btn btn-light" target="_blank"><i class='bx bxs-file-pdf'></i></a></td>
                 <td>
                     @if ($dokumen->status != 0)
                         <span class="badge bg-success">Berlaku</span>

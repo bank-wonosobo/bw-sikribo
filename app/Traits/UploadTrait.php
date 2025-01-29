@@ -16,7 +16,7 @@ trait UploadTrait
                 $fileType  = $file->getClientOriginalExtension();
                 $filePath  = '/' . $path . '/'. $fileName . '.' . $fileType;
             }
-            Storage::disk('public')->put($filePath, File::get($file));
+            Storage::disk('s3')->put($filePath, File::get($file));
             return $filePath;
         }
     }

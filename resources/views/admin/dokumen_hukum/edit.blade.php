@@ -49,7 +49,7 @@
                 <div class="col-12 mt-3">
                     {!! Form::label('berkas', 'Berkas SLIK', ['class' => 'font-weight-bold']) !!}
                     {!! Form::file('file' ,['class' => 'form-control', 'id' => 'files']) !!}
-                    <a target="_blank" href="{{ asset('storage' . $dokumen_hukum->file) }}">Lihat Dokumen </a> <br>
+                    <a target="_blank" href="{{ Storage::disk('s3')->url($dokumen_hukum->file) }}">Lihat Dokumen </a> <br>
                     <span class="text-danger text-small">* berkas dengan format pdf, dijadikan 1 file</span>
                 </div>
                 <div class="container">

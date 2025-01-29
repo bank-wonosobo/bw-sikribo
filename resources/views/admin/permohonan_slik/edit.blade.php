@@ -40,7 +40,7 @@
                             <th>Berkas</th>
                             <td>:</td>
                             <td>
-                                <a href="{{ asset('storage' . $permohonan_slik->berkas) }}" class="btn btn-dark" target="_blank"><i class='bx bxs-download'></i></a>
+                                <a href="{{ Storage::disk('s3')->url($permohonan_slik->berkas) }}" class="btn btn-dark" target="_blank"><i class='bx bxs-download'></i></a>
                             </td>
                         </tr>
                     </table>
