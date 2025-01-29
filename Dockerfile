@@ -15,6 +15,9 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install -j$(nproc) gd zip pdo_mysql
 
+RUN echo "upload_max_filesize=500M" > /usr/local/etc/php/conf.d/uploads.ini \
+    && echo "post_max_size=500M" >> /usr/local/etc/php/conf.d/uploads.ini
+    
 # Install Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
