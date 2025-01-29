@@ -69,7 +69,11 @@
 </head>
 
 <body>
-    @yield('content-loader')
+    <div  class="pageLoader" id="pageLoader">
+        <div class="d-flex align-items-center justify-content-center h-100 w-100">
+            <div class="loader"></div>
+        </div>
+    </div>
   <!-- ======= Header ======= -->
   <header id="header" class="header fixed-top d-flex align-items-center">
 
@@ -244,9 +248,20 @@
   <!-- Template Main JS File -->
   <script src="{{ asset('templates/assets/js/main.js') }}"></script>
     <!-- jQuery -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-@yield('js-loader')
+    <script>
+        $(window).on('beforeunload', function(){
+
+            $('#pageLoader').show();
+
+        });
+
+        $(function () {
+
+            $('#pageLoader').hide();
+        })
+    </script>
 
   @yield('script')
 </body>
