@@ -102,3 +102,19 @@ jobs:
       #     DB_USERNAME: testuser
       #     DB_PASSWORD: testpass
       #   run: php artisan test
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+      # deploy ke vps
+      - name: Deploy ke vps
+        uses: appleboy/ssh-action@v0.1.8
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            cd /home/server-vps1/deployments/sikribo
+            docker compose pull
+            docker compose up -d
