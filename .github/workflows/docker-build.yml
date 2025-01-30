@@ -50,10 +50,9 @@ jobs:
             ${{ runner.os }}-composer-
 
       # Step 3: Install dependencies Laravel
-      - name: Install Composer Dependencies
-        run: |
-          composer install
-
+      # - name: Install Composer Dependencies
+      #   run: |
+      #     composer install
       # Step 5: Wait for MySQL to Be Ready
       # - name: Wait for MySQL
       #   run: |
