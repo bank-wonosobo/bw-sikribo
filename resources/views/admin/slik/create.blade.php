@@ -35,7 +35,7 @@
                             </div>
                             <div class="col-md-6">
                                 {!! Form::label('nik[0]', 'NIK') !!}
-                                {!! Form::text('nik[0]', old('nik[0]') ,['class' => 'form-control']) !!}
+                                {!! Form::text('nik[0]', old('nik[0]') ,['class' => 'form-control', 'minlength' => '16', 'maxlength' => '16']) !!}
                             </div>
                             <input type="hidden" name="identitas_slik[0]" value="Debitur/Calon Debitur" >
                         </div>
@@ -49,7 +49,7 @@
                             </div>
                             <div class="col-md-6">
                                 {!! Form::label('nik[1]', 'NIK') !!}
-                                {!! Form::text('nik[1]', old('nik[1]') ,['class' => 'form-control']) !!}
+                                {!! Form::text('nik[1]', old('nik[1]') ,['class' => 'form-control', 'minlength' => '16', 'maxlength' => '16']) !!}
                             </div>
                             <input type="hidden" name="identitas_slik[1]" value="Pasangan Debitur/Calon Debitur" >
                         </div>
@@ -66,7 +66,7 @@
                             </div>
                             <div class="col-md-6">
                                 {!! Form::label('nik[2]', 'NIK') !!}
-                                {!! Form::text('nik[2]', old('nik[2]') ,['class' => 'form-control']) !!}
+                                {!! Form::text('nik[2]', old('nik[2]') ,['class' => 'form-control', 'minlength' => '16', 'maxlength' => '16']) !!}
                             </div>
                             <input type="hidden" name="identitas_slik[2]" value="Penjamin" >
                         </div>
@@ -80,7 +80,7 @@
                             </div>
                             <div class="col-md-6">
                                 {!! Form::label('nik[3]', 'NIK') !!}
-                                {!! Form::text('nik[3]', old('nik[3]') ,['class' => 'form-control']) !!}
+                                {!! Form::text('nik[3]', old('nik[3]') ,['class' => 'form-control', 'minlength' => '16', 'maxlength' => '16']) !!}
                             </div>
                             <input type="hidden" name="identitas_slik[3]" value="Pasangan Penjamin" >
                         </div>
