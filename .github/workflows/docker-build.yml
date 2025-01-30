@@ -113,6 +113,7 @@ jobs:
         with:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USER }}
+          # /home/server-vps1/.ssh/authorized_keys
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             cd /home/server-vps1/deployments/sikribo
