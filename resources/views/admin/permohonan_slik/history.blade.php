@@ -1,6 +1,6 @@
 @extends('admin.templates.app')
 
-@section('title', 'Arsip Jaminan/Kredit')
+@section('title', 'Histori Permohonan')
 
 @section('content')
 <div class="row">
