@@ -47,19 +47,34 @@
                             <th>No Ref</th>
                             <th>NIK</th>
                             <th>Nama</th>
-                            <th>Identitas SLIK</th>
+                            {{-- <th>Identitas SLIK</th> --}}
                             <th>Petugas Slik</th>
                             <th>Status</th>
                             <th>Aksi</th>
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach ($permohonan_slik->sliks->sortBy('created_at') as $slik)
+                        @foreach ($permohonan_slik->sliks->sortBy('created_at') as $index => $slik)
                         <tr>
-                            <td>{{ $slik->no_ref_slik }}</td>
-                            <td>{{ $slik->nik }}</td>
-                            <td>{{ $slik->nama }}</td>
-                            <td>{{ $slik->identitas_slik }}</td>
+                            <td>
+                                <div class="d-flex">
+                                    <button class="btn btn-sm" onclick="copyText('noRef{{ $index }}')"><i class="bi bi-copy"></i></button>
+                                    <input type="text" class="border-0" disabled value="{{ $slik->no_ref_slik }}" id="noRef{{ $index }}">
+                                </div>
+                            </td>
+                            <td>
+                                <div class="d-flex">
+                                     <button class="btn btn-sm"  onclick="copyText('nik{{ $index }}')"><i class="bi bi-copy"></i></button>
+                                    <input type="text" disabled class="border-0"  value="{{ $slik->nik }}" id="nik{{ $index }}">
+                                </div>
+                            </td>
+                            <td>
+                                <div class="d-flex">
+                                    <button class="btn btn-sm"  onclick="copyText('nama{{ $index }}')"><i class="bi bi-copy"></i></button>
+                                    <input type="text" disabled class="border-0"  value="{{ $slik->nama }}" id="nama{{ $index }}">
+                                </div>
+                            </td>
+                            {{-- <td>{{ $slik->identitas_slik }}</td> --}}
                             <td>{{ $slik->petugas_slik ?? '-' }}</td>
                             <td>
                                 @if ($slik->status == 'SELESAI')
@@ -75,14 +90,13 @@
                                     @can('selesai slik')
                                         <a href="{{ route('admin.slik.start-slik', ['id' => $slik->id]) }}" class="btn btn-sm btn-warning">Proses SLIK</a>
                                     @else
-                                        <badge class="text-sm">Menunggu Proses Petugas</badge>
+                                        <span class="text-sm">Menunggu Proses Petugas</span>
                                     @endcan
-
                                 @elseif ($slik->status == "PROSES SLIK")
                                     @can('selesai slik')
                                         <a href="{{ route('admin.slik.done', ['id' => $slik->id]) }}" class="btn btn-sm btn-primary">SELESAI SLIK</a>
                                     @else
-                                        <badge class="text-sm">SLIK Sedang Diproses</badge>
+                                        <span class="text-sm">SLIK Sedang Diproses</span>
                                     @endcan
                                 @elseif ($slik->status == "SELESAI")
                                     <a href="{{ route('admin.hasil-slik.index') . '?nama=' . $slik->nama }}"><span class="badge text-dark">Lihat Hasil Slik</span></a>
@@ -90,7 +104,7 @@
                             </td>
                         </tr>
                         @endforeach
-                        </tbody>
+                    </tbody>
                     </table>
                 </div>
 
@@ -181,6 +195,15 @@
         }
       });
   })
+
+  function copyText(id) {
+        var copyText = document.getElementById(id);
+        copyText.select();
+        copyText.setSelectionRange(0, 99999); // Untuk mobile
+
+        navigator.clipboard.writeText(copyText.value);
+        // alert("Copied: " + copyText.value);
+    }
 </script>
 @endsection
 
