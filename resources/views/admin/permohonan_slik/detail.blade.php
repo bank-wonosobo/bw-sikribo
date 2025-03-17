@@ -28,7 +28,7 @@
                     <tr>
                         <th>Tanggal Pengajuan</th>
                         <td>:</td>
-                        <td>{{ $permohonan_slik->tanggal }}</td>
+                        <td>{{ $permohonan_slik->created_at }}</td>
                     </tr>
                     <tr>
                         <th>Status Pengajuan</th>
@@ -48,8 +48,8 @@
                             <th>NIK</th>
                             <th>Nama</th>
                             {{-- <th>Identitas SLIK</th> --}}
+                            <th>Tanggal Lahir</th>
                             <th>Petugas Slik</th>
-                            <th>Status</th>
                             <th>Aksi</th>
                         </tr>
                         </thead>
@@ -75,22 +75,20 @@
                                 </div>
                             </td>
                             {{-- <td>{{ $slik->identitas_slik }}</td> --}}
-                            <td>{{ $slik->petugas_slik ?? '-' }}</td>
                             <td>
-                                @if ($slik->status == 'SELESAI')
-                                    <span class="badge bg-success">{{ $slik->status }}</span>
-                                @elseif ($slik->status == 'PROSES SLIK')
-                                    <span class="badge bg-primary">{{ $slik->status }}</span>
-                                @else
-                                    <span class="badge bg-light text-dark">{{ $slik->status }}</span>
-                                @endif
+                                <div class="d-flex">
+                                    <button class="btn btn-sm"  onclick="copyText('tanggal_lahir{{ $index }}')"><i class="bi bi-copy"></i></button>
+                                    <input type="text" disabled class="border-0"  value="{{ \Carbon\Carbon::parse($slik->tanggal_lahir)->format('d-m-Y') }}" id="tanggal_lahir{{ $index }}">
+                                </div>
                             </td>
+                            <td>{{ $slik->petugas_slik ?? '-' }}</td>
+
                             <td>
                                 @if ($slik->status == 'PROSES PENGAJUAN')
                                     @can('selesai slik')
                                         <a href="{{ route('admin.slik.start-slik', ['id' => $slik->id]) }}" class="btn btn-sm btn-warning">Proses SLIK</a>
                                     @else
-                                        <span class="text-sm">Menunggu Proses Petugas</span>
+                                        <span class="text-xs">Menunggu Proses Petugas</span>
                                     @endcan
                                 @elseif ($slik->status == "PROSES SLIK")
                                     @can('selesai slik')

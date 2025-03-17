@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\InvalidRequestSlik;
 use App\Http\Requests\Slik\StoreSlikReq;
 use App\Models\PermohonanSlik;
 use App\Models\Slik;
@@ -33,12 +34,18 @@ class SlikController extends Controller
 
     public function store(StoreSlikReq $request) {
         try {
-            if($request->input('nama')[0] == null || $request->input('nik')[0] == null){
+            if($request->input('nama')[0] == null ||
+            $request->input('nik')[0] == null ||
+            $request->input('tanggal_lahir')[0] == null ||
+            $request->input('identitas_slik')[0] == null){
                 return redirect()->back()->with('error', 'Wajib Megisikan Minimal Identitas Debitur / Calon Debitur')->withInput($request->all());
             }
             $this->slikService->create($request);
             return redirect()->route('admin.permohonan-slik.proccess', ['id' => $request->input('permohonan_slik_id')])->with('success', 'Berhasil melakukan permohonan, untuk melihat hasil pengajuan terdapat di menu history permohonan');
-        } catch (\Exception $e) {
+        } catch(InvalidRequestSlik $e) {
+            return redirect()->back()->with('error', $e->getMessage());
+        }
+        catch (\Exception $e) {
             return redirect()->back()->with('error', 'Gagal melakukan permohonan , sedang terjadi maintenance, coba beberapa saat lagi ');
         }
     }

@@ -3,6 +3,7 @@
 namespace App\Services\Impl;
 
 use App\Exceptions\AntrianIsNullException;
+use App\Exceptions\InvalidRequestSlik;
 use App\Http\Requests\Slik\StoreSlikReq;
 use App\Models\AntrianPermohonanSlik;
 use App\Models\PermohonanSlik;
@@ -19,7 +20,7 @@ use Illuminate\Support\Facades\DB;
 class SlikServiceImpl implements SlikService {
     use NumberToRoman;
 
-    public function create(StoreSlikReq $req): array
+    public function create(StoreSlikReq $req)
     {
         try {
             DB::beginTransaction();
@@ -27,15 +28,16 @@ class SlikServiceImpl implements SlikService {
             $nik = $req->input('nik');
             $identitas_slik = $req->input('identitas_slik');
             $permohonan_slik_id = $req->input('permohonan_slik_id');
+            $tanggal_lahir = $req->input('tanggal_lahir');
             $sliks = [];
 
             $nomer_ref_nomor =  $this->generateNoRef()['nomor'] + 1;
 
 
-            for ($i=0; $i < 4; $i++) {
+            for ($i=0; $i < count($nama); $i++) {
 
-                if ($nama[$i] == null or $nik[$i] == null ) {
-                    continue;
+                if ($nama[$i] == null or $nik[$i] == null or $identitas_slik[$i] == null or $tanggal_lahir[$i] == null) {
+                    throw new InvalidRequestSlik("Pastikan data yang anda masukan benar.");
                 }
 
                 $slik = new Slik([
@@ -44,6 +46,7 @@ class SlikServiceImpl implements SlikService {
                     'identitas_slik' => $identitas_slik[$i],
                     'permohonan_slik_id' => $permohonan_slik_id,
                     'status' => 'PROSES PENGAJUAN',
+                    'tanggal_lahir' => $tanggal_lahir[$i],
                     'no_ref_slik' => $this->generateNoRef($nomer_ref_nomor)['nomor_ref'],
                 ]);
                 $slik->save();
@@ -66,8 +69,9 @@ class SlikServiceImpl implements SlikService {
 
         } catch (\Exception $e) {
             DB::rollBack();
-            dd($e);
+            throw new InvalidRequestSlik("Pastikan data yang anda masukan benar.");
         }
+
 
     }
 
