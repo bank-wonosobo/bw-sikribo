@@ -24,6 +24,10 @@ class StoreSlikReq extends FormRequest
     public function rules()
     {
         return [
+            'nik.*' => ['required','string','min:16', 'max:16'],
+            'nama.*' => ['required'],
+            'nik.*' => ['required'],
+            'tanggal_lahir.*' => ['required'],
             'permohonan_slik_id' => ['required'],
         ];
     }

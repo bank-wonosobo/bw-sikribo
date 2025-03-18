@@ -38,7 +38,7 @@
                                     </div>
                                     <div class="col-md-3">
                                         {!! Form::label('nik[0]', 'Nomer Identitas (NIK / NPWP)') !!}
-                                        {!! Form::text('nik[0]', old('nik[0]'), ['class' => 'form-control']) !!}
+                                        {!! Form::text('nik[0]', old('nik[0]'), ['class' => 'form-control', 'minlength' => '16', 'maxlength' => '16']) !!}
                                     </div>
                                     <div class="col-md-3">
                                         {!! Form::label('tanggal_lahir[0]', 'Tanggal Lahir') !!}
@@ -126,7 +126,7 @@ function tambahPenjamin() {
             </div>
             <div class="col-md-3">
                 <label for="nik[${newIndex}]">Nomer Identitas (NIK / NPWP)</label>
-                <input type="text" name="nik[${newIndex}]" class="form-control">
+                <input type="text" name="nik[${newIndex}]" class="form-control" minlength="16" maxlength="16">
             </div>
             <div class="col-md-3">
                 <label for="tanggal_lahir[${newIndex}]">Tanggal Lahir</label>
@@ -164,8 +164,68 @@ function hapusPenjamin(element) {
     element.closest(".penjamin-group").remove();
 }
 
+function validateForm() {
+    let valid = true;
+    let errorMessage = "";
+
+    // Ambil semua input dalam form
+    let namaInputs = document.querySelectorAll("input[name^='nama']");
+    let nikInputs = document.querySelectorAll("input[name^='nik']");
+    let tanggalLahirInputs = document.querySelectorAll("input[name^='tanggal_lahir']");
+    let identitasSlikInputs = document.querySelectorAll("select[name^='identitas_slik']");
+
+    let nikSet = new Set();
+
+
+    // Periksa setiap input
+    namaInputs.forEach((input, index) => {
+        if (input.value.trim() === "") {
+            errorMessage += `Nama ke-${index + 1} harus diisi.\n`;
+            valid = false;
+        }
+    });
+
+    nikInputs.forEach((input, index) => {
+        let nikValue = input.value.trim();
+        if (nikValue === "") {
+            errorMessage += `NIK ke-${index + 1} harus diisi.\n`;
+            valid = false;
+        } else if (nikValue.length !== 16) {
+            errorMessage += `NIK ke-${index + 1} harus berisi 16 karakter.\n`;
+            valid = false;
+        } else if (nikSet.has(nikValue)) {
+            errorMessage += `NIK ke-${index + 1} sudah ada, tidak boleh duplikat.\n`;
+            valid = false;
+        }
+        nikSet.add(nikValue);
+    });
+
+    tanggalLahirInputs.forEach((input, index) => {
+        if (input.value.trim() === "") {
+            errorMessage += `Tanggal lahir ke-${index + 1} harus diisi.\n`;
+            valid = false;
+        }
+    });
+
+    identitasSlikInputs.forEach((input, index) => {
+        if (input.value.trim() === "") {
+            errorMessage += `Identitas SLIK ke-${index + 1} harus dipilih.\n`;
+            valid = false;
+        }
+    });
+
+    // Jika ada kesalahan, tampilkan alert
+    if (!valid) {
+        alert(errorMessage);
+    }
+
+    return valid;
+}
+
 function submitForm() {
-    document.getElementById("slikForm").submit();
+    if (validateForm()) {
+        document.getElementById("slikForm").submit();
+    }
 }
 </script>
 @endsection
