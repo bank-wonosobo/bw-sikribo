@@ -7,7 +7,8 @@
     <div class="col-lg-12">
         <div class="card">
             <div class="card-body">
-                <h5 class="card-title">Data Arsip Perjanjian Kredit</h5>
+                <h5 class="card-title">Data Permohonan Slik</h5>
+                <a href="#" id="generateBatchSlik" class="btn btn-success">Generate Batch Slik</a>
                 <div class="table-responsive">
                 <!-- Table with stripped rows -->
                 <table class="table datatable">
@@ -73,4 +74,25 @@
     color: #767676;
 }
 </style>
+@endsection
+
+@section("script")
+<a href="#" id="generateBatchSlik" class="btn btn-success">Generate Batch Slik</a>
+
+<script>
+document.getElementById('generateBatchSlik').addEventListener('click', function (e) {
+    e.preventDefault();
+
+    const link = document.createElement('a');
+    link.href = "{{ route('admin.slik.generate-doc') }}";
+    link.style.display = 'none';
+    document.body.appendChild(link);
+    link.click();
+
+    // Reload the page after a delay (adjust if needed)
+    setTimeout(() => {
+        window.location.reload();
+    }, 500); // 3 seconds
+});
+</script>
 @endsection

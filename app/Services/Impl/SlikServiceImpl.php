@@ -248,4 +248,19 @@ class SlikServiceImpl implements SlikService {
 
 
     }
+
+    public function generateBulkDoc(): string {
+        $content = "";
+
+        $sliks = Slik::where("status", "PROSES PENGAJUAN")->skip(0)->take(20)->get();
+
+        foreach ($sliks as $slik) {
+            $content .= $slik->no_ref_slik . "|01|I|" . $slik->nik ."\n";
+
+            $this->startSlik($slik->id);
+        }
+
+
+        return $content;
+    }
 }

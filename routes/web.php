@@ -152,6 +152,7 @@ Route::prefix('admin')
             Route::post('/', 'store')->name('store');
             Route::get('/{id}/done', 'done')->name('done');
             Route::get('/{id}/start-slik', 'startSlik')->name('start-slik');
+            Route::get('/generate-doc', 'generateDoc')->name('generate-doc');
         });
 
     Route::prefix('jenis-dh')

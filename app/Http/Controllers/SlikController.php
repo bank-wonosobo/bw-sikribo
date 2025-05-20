@@ -67,4 +67,14 @@ class SlikController extends Controller
             return redirect()->back()->with('error', 'Gagal melakukan permohonan , sedang terjadi maintenance, coba beberapa saat lagi ');
         }
     }
+
+    public function generateDoc() {
+        $content = $this->slikService->generateBulkDoc();
+
+        $fileName = "batch_slik_" . now() . ".txt";
+
+        return response()->streamDownload(function () use ($content) {
+            echo $content;
+        }, $fileName);
+    }
 }
