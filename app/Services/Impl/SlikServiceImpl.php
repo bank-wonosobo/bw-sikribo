@@ -256,7 +256,7 @@ class SlikServiceImpl implements SlikService {
 
         foreach ($sliks as $slik) {
             $content .= $slik->no_ref_slik . "|01|I|" . $slik->nik ."\n";
-            $this->startSlik($slik->id);
+            // $this->startSlik($slik->id);
         }
 
 
