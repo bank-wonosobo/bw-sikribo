@@ -71,7 +71,7 @@ class SlikController extends Controller
     public function generateDoc() {
         $content = $this->slikService->generateBulkDoc();
 
-        $fileName = "batch_slik_" . now() . ".txt";
+        $fileName = "batch_slik_" . time() . ".txt";
 
         return response()->streamDownload(function () use ($content) {
             echo $content;
