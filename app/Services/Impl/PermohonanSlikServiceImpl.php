@@ -8,11 +8,13 @@ use App\Helper\AuthUser;
 use App\Http\Requests\PermohonanSlik\StorePermohohonanSlikReq;
 use App\Models\KodeSlik;
 use App\Models\PermohonanSlik;
+use App\Models\Slik;
 use App\Services\PermohonanSlikService;
 use App\Traits\ManageFile;
 use App\Traits\NumberToRoman;
 use App\Traits\UploadTrait;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class PermohonanSlikServiceImpl implements PermohonanSlikService {
 
@@ -103,9 +105,24 @@ class PermohonanSlikServiceImpl implements PermohonanSlikService {
 
     public function reject(string $permohonan_slik_id): PermohonanSlik
     {
-        $permohonan_slik = PermohonanSlik::find($permohonan_slik_id);
-        $permohonan_slik->status = 'TOLAK';
-        $permohonan_slik->save();
+        try {
+            DB::beginTransaction();
+            $permohonan_slik = PermohonanSlik::find($permohonan_slik_id);
+            $permohonan_slik->status = 'TOLAK';
+            $permohonan_slik->save();
+
+            $sliks = Slik::where("permohonan_slik_id", $permohonan_slik_id)->get();
+
+            foreach ($sliks as $slik) {
+                $slik->status = "TOLAK";
+                $slik->save();
+
+            }
+            DB::commit();
+        } catch (\Throwable $th) {
+            DB::rollBack();
+        }
+
 
         return $permohonan_slik;
     }
