@@ -43,13 +43,9 @@
                         @csrf
                         <button class="btn btn-danger mb-2 @if($permohonan_slik->status != "PROSES PENGAJUAN") disabled @endif">Tolak Permohonan</button>
                     </form>
-                    <form method="POST" action="{{ route('admin.permohonan-slik.process-slik', ['id' => $permohonan_slik->id]) }}">
-                        @csrf
-                        <button class="btn btn-warning mb-2 @if($permohonan_slik->status != "PROSES PENGAJUAN") disabled @endif">Proses Slik</button>
-                    </form>
                     <form method="POST" action="{{ route('admin.permohonan-slik.done', ['id' => $permohonan_slik->id]) }}">
                         @csrf
-                        <button class="btn btn-success mb-2 @if($permohonan_slik->status != "PROSES SLIK") disabled @endif">Selesai Slik</button>
+                        <button class="btn btn-success mb-2">Selesai Slik</button>
                     </form>
                 </div>
 

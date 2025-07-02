@@ -158,6 +158,8 @@ class PermohonanSlikServiceImpl implements PermohonanSlikService {
 
     public function done(string $permohonan_slik_id): PermohonanSlik
     {
+        $petugasSlik = Auth::user()->name;
+
         try {
             DB::beginTransaction();
             $permohonan_slik = PermohonanSlik::find($permohonan_slik_id);
@@ -167,6 +169,7 @@ class PermohonanSlikServiceImpl implements PermohonanSlikService {
             $sliks = Slik::where("permohonan_slik_id", $permohonan_slik_id)->get();
             foreach ($sliks as $slik) {
                 $slik->status = "SELESAI";
+                $slik->petugas_slik = $petugasSlik;
                 $slik->save();
             }
 
