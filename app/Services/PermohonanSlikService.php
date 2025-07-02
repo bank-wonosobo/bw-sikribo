@@ -11,4 +11,6 @@ interface PermohonanSlikService {
     public function generateNomorPengajuan(string $kode_slik): string;
     public function addBerkas(string $id, $file);
     public function reject(string $permohonan_slik_id): PermohonanSlik;
+    public function processSlik(string $permohonan_slik_id): PermohonanSlik;
+    public function done(string $permohonan_slik_id): PermohonanSlik;
 }

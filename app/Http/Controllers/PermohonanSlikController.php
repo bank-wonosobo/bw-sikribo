@@ -100,4 +100,22 @@ class PermohonanSlikController extends Controller
             return redirect()->back()->with('error', 'Gagal tolak permohonan');
         }
     }
+
+    public function procesSlik($id) {
+        try {
+            $this->permohonanSlikService->processSlik($id);
+            return redirect()->back()->with('success', 'Berhasil Memproses Permohonan');
+        } catch (\Exception $th) {
+            return redirect()->back()->with('error', 'Gagal Memproses permohonan');
+        }
+    }
+
+    public function done($id) {
+        try {
+            $this->permohonanSlikService->done($id);
+            return redirect()->back()->with('success', 'Berhasil Menyelasaikan Permohonan');
+        } catch (\Exception $th) {
+            return redirect()->back()->with('error', 'Gagal Menyelasaikan permohonan');
+        }
+    }
 }

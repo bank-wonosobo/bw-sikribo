@@ -10,16 +10,23 @@ use App\Models\KodeSlik;
 use App\Models\PermohonanSlik;
 use App\Models\Slik;
 use App\Services\PermohonanSlikService;
+use App\Services\SlikService;
 use App\Traits\ManageFile;
 use App\Traits\NumberToRoman;
 use App\Traits\UploadTrait;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class PermohonanSlikServiceImpl implements PermohonanSlikService {
 
     use NumberToRoman, UploadTrait, ManageFile;
 
+    private SlikService $slikService;
+
+    public function __construct(SlikService $slikService) {
+        $this->slikService = $slikService;
+    }
 
     function create(StorePermohohonanSlikReq $req, string $userid, string $pemohon): PermohonanSlik
     {
@@ -112,12 +119,58 @@ class PermohonanSlikServiceImpl implements PermohonanSlikService {
             $permohonan_slik->save();
 
             $sliks = Slik::where("permohonan_slik_id", $permohonan_slik_id)->get();
-
             foreach ($sliks as $slik) {
                 $slik->status = "TOLAK";
                 $slik->save();
-
             }
+            DB::commit();
+        } catch (\Throwable $th) {
+            DB::rollBack();
+        }
+
+
+        return $permohonan_slik;
+    }
+
+    public function processSlik(string $permohonan_slik_id): PermohonanSlik
+    {
+        $petugasSlik = Auth::user()->name;
+        try {
+            DB::beginTransaction();
+            $permohonan_slik = PermohonanSlik::find($permohonan_slik_id);
+            $permohonan_slik->status = 'PROSES SLIK';
+            $permohonan_slik->save();
+
+            $sliks = Slik::where("permohonan_slik_id", $permohonan_slik_id)->get();
+            foreach ($sliks as $slik) {
+                $slik->status = "PROSES SLIK";
+                $slik->petugas_slik = $petugasSlik;
+                $slik->save();
+            }
+            DB::commit();
+        } catch (\Throwable $th) {
+            DB::rollBack();
+        }
+
+
+        return $permohonan_slik;
+    }
+
+    public function done(string $permohonan_slik_id): PermohonanSlik
+    {
+        try {
+            DB::beginTransaction();
+            $permohonan_slik = PermohonanSlik::find($permohonan_slik_id);
+            $permohonan_slik->status = 'SELESAI';
+            $permohonan_slik->save();
+
+            $sliks = Slik::where("permohonan_slik_id", $permohonan_slik_id)->get();
+            foreach ($sliks as $slik) {
+                $slik->status = "SELESAI";
+                $slik->save();
+            }
+
+            $this->slikService->dequeue($permohonan_slik_id);
             DB::commit();
         } catch (\Throwable $th) {
             DB::rollBack();
