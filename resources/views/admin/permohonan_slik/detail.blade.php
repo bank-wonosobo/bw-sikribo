@@ -38,6 +38,21 @@
                         </td>
                     </tr>
                 </table>
+                <div class="d-flex w-100 gap-2">
+                    <form method="POST" action="{{ route('admin.permohonan-slik.reject', ['id' => $permohonan_slik->id]) }}">
+                        @csrf
+                        <button class="btn btn-danger mb-2 @if($permohonan_slik->status != "PROSES PENGAJUAN") disabled @endif">Tolak Permohonan</button>
+                    </form>
+                    <form method="POST" action="{{ route('admin.permohonan-slik.process-slik', ['id' => $permohonan_slik->id]) }}">
+                        @csrf
+                        <button class="btn btn-warning mb-2 @if($permohonan_slik->status != "PROSES PENGAJUAN") disabled @endif">Proses Slik</button>
+                    </form>
+                    <form method="POST" action="{{ route('admin.permohonan-slik.done', ['id' => $permohonan_slik->id]) }}">
+                        @csrf
+                        <button class="btn btn-success mb-2 @if($permohonan_slik->status != "PROSES SLIK") disabled @endif">Selesai Slik</button>
+                    </form>
+                </div>
+
 
                 <h5 class="card-title mb-0">Data SLIK</h5>
                 <div class="table-responsive">
@@ -50,7 +65,7 @@
                             {{-- <th>Identitas SLIK</th> --}}
                             <th>Tanggal Lahir</th>
                             <th>Petugas Slik</th>
-                            <th>Aksi</th>
+                            {{-- <th>Aksi</th> --}}
                         </tr>
                         </thead>
                         <tbody>
@@ -83,7 +98,7 @@
                             </td>
                             <td>{{ $slik->petugas_slik ?? '-' }}</td>
 
-                            <td>
+                            {{-- <td>
                                 @if ($slik->status == 'PROSES PENGAJUAN')
                                     @can('selesai slik')
                                         <a href="{{ route('admin.slik.start-slik', ['id' => $slik->id]) }}" class="btn btn-sm btn-warning">Proses SLIK</a>
@@ -99,7 +114,7 @@
                                 @elseif ($slik->status == "SELESAI")
                                     <a href="{{ route('admin.hasil-slik.index') . '?nama=' . $slik->nama }}"><span class="badge text-dark">Lihat Hasil Slik</span></a>
                                 @endif
-                            </td>
+                            </td> --}}
                         </tr>
                         @endforeach
                     </tbody>
@@ -145,10 +160,6 @@
                 </table>
                 </div>
                 <h5 class="card-title ">Berkas SLIK</h5>
-                <form method="POST" action="{{ route('admin.permohonan-slik.reject', ['id' => $permohonan_slik->id]) }}">
-                    @csrf
-                    <button class="btn btn-danger mb-2">Tolak Permohonan</button>
-                </form>
                 <iframe src="{{ Storage::disk('s3')->url($permohonan_slik->berkas) }}" width="100%" height="700px" frameborder="0"></iframe>
             </div>
         </div>

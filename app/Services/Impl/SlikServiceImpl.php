@@ -198,7 +198,7 @@ class SlikServiceImpl implements SlikService {
         }
     }
 
-    private function dequeue($permohonan_slik_id) {
+    public function dequeue($permohonan_slik_id) {
         $antrian = AntrianPermohonanSlik::where('permohonan_slik_id', $permohonan_slik_id)->first();
 
         if ($antrian != null) {
