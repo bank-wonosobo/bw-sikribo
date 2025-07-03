@@ -41,11 +41,11 @@
                 <div class="d-flex w-100 gap-2">
                     <form method="POST" action="{{ route('admin.permohonan-slik.reject', ['id' => $permohonan_slik->id]) }}">
                         @csrf
-                        <button class="btn btn-danger mb-2 @if($permohonan_slik->status != "PROSES PENGAJUAN") disabled @endif">Tolak Permohonan</button>
+                        <button class="btn btn-danger mb-2 @if($permohonan_slik->status == "SELESAI") disabled @endif">Tolak Permohonan</button>
                     </form>
                     <form method="POST" action="{{ route('admin.permohonan-slik.done', ['id' => $permohonan_slik->id]) }}">
                         @csrf
-                        <button class="btn btn-success mb-2">Selesai Slik</button>
+                        <button class="btn btn-success mb-2  @if($permohonan_slik->status == "TOLAK") disabled @endif">Selesai Slik</button>
                     </form>
                 </div>
 
