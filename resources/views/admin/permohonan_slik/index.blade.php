@@ -30,10 +30,9 @@
                     @foreach ($permohonan_slik as $permohonan)
                     <tr>
                         <td>
-                            @if ($permohonan->status == "PROSES PENGAJUAN")
+                            {{-- @if ($permohonan->status == "PROSES PENGAJUAN") --}}
                                 <input type="checkbox" name="permohonan_ids[]" value="{{ $permohonan->id }}" class="form-check-input child-checkbox">
-                            @endif
-
+                            {{-- @endif --}}
                         </td>
                         <td>{{ $i }}</td>
                         <td>{{ $permohonan->nomor }}</td>
