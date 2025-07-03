@@ -68,8 +68,14 @@ class SlikController extends Controller
         }
     }
 
-    public function generateDoc() {
-        $content = $this->slikService->generateBulkDoc();
+    public function generateDoc(Request $request) {
+        $ids = $request->input('permohonan_ids', []);
+
+        if (empty($ids)) {
+            return redirect()->back()->with('error', 'Silakan pilih minimal satu permohonan!');
+        }
+
+        $content = $this->slikService->generateBulkDoc($ids);
 
         $fileName = "batch_slik_" . time() . ".txt";
 

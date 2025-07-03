@@ -11,6 +11,6 @@ interface SlikService {
     public function setStatus(string $id, string $status): Slik;
     public function done(string $id): Slik;
     public function startSlik(string $is): Slik;
-    public function generateBulkDoc(): string;
+    public function generateBulkDoc(array $permohonanSlikIds): string;
     public function dequeue($permohonan_slik_id);
 }

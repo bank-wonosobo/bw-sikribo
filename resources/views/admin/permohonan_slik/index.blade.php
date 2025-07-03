@@ -6,14 +6,17 @@
 <div class="row">
     <div class="col-lg-12">
         <div class="card">
+            <form id="generateSlikForm" method="POST" action="{{ route('admin.slik.generate-doc') }}">
+            @csrf
             <div class="card-body">
                 <h5 class="card-title">Data Permohonan Slik</h5>
-                <a href="#" id="generateBatchSlik" class="btn btn-success">Generate Batch Slik</a>
+                <button type="generateBatchSlik" id="generateBatchSlik" class="btn btn-success">Generate Batch Slik</button>
                 <div class="table-responsive">
                 <!-- Table with stripped rows -->
-                <table class="table datatable">
+                <table class="table ">
                     <thead>
                     <tr>
+                        <th><input type="checkbox" class="form-check-input" id="checkAll"></th>
                         <th>No</th>
                         <th>Nomer SLIK</th>
                         <th>Antrian</th>
@@ -26,6 +29,12 @@
                     @php($i = 1)
                     @foreach ($permohonan_slik as $permohonan)
                     <tr>
+                        <td>
+                            @if ($permohonan->status == "PROSES PENGAJUAN")
+                                <input type="checkbox" name="permohonan_ids[]" value="{{ $permohonan->id }}" class="form-check-input child-checkbox">
+                            @endif
+
+                        </td>
                         <td>{{ $i }}</td>
                         <td>{{ $permohonan->nomor }}</td>
                         <td>
@@ -62,6 +71,7 @@
                 </table>
                 </div>
             </div>
+            </form>
         </div>
     </div>
 </div>
@@ -77,22 +87,78 @@
 @endsection
 
 @section("script")
-<a href="#" id="generateBatchSlik" class="btn btn-success">Generate Batch Slik</a>
-
 <script>
-document.getElementById('generateBatchSlik').addEventListener('click', function (e) {
-    e.preventDefault();
+    document.getElementById('checkAll').addEventListener('change', function () {
+        const checkboxes = document.querySelectorAll('.child-checkbox');
+        checkboxes.forEach(checkbox => checkbox.checked = this.checked);
+    });
 
-    const link = document.createElement('a');
-    link.href = "{{ route('admin.slik.generate-doc') }}";
-    link.style.display = 'none';
-    document.body.appendChild(link);
-    link.click();
+      // Reload the page after a delay (adjust if needed)
+   // 3 seconds
+// document.getElementById('generateBatchSlik').addEventListener('click', function (e) {
+//     e.preventDefault();
 
-    // Reload the page after a delay (adjust if needed)
-    setTimeout(() => {
-        window.location.reload();
-    }, 500); // 3 seconds
+//     const link = document.createElement('a');
+//     link.href = "{{ route('admin.slik.generate-doc') }}";
+//     link.style.display = 'none';
+//     document.body.appendChild(link);
+//     link.click();
+
+//     // Reload the page after a delay (adjust if needed)
+//     setTimeout(() => {
+//         window.location.reload();
+//     }, 500); // 3 seconds
+// });
+
+document.getElementById('generateBatchSlik').addEventListener('click', async function () {
+    const checkboxes = document.querySelectorAll('.child-checkbox:checked');
+    if (checkboxes.length === 0) {
+        alert('Silakan pilih minimal satu permohonan!');
+        return;
+    }
+
+    const formData = new FormData();
+    checkboxes.forEach(checkbox => {
+        formData.append('permohonan_ids[]', checkbox.value);
+    });
+
+    // Tambahkan CSRF token
+    formData.append('_token', '{{ csrf_token() }}');
+
+    try {
+        const response = await fetch("{{ route('admin.slik.generate-doc') }}", {
+            method: 'POST',
+            body: formData,
+        });
+
+        if (!response.ok) throw new Error('Download gagal');
+
+        const blob = await response.blob();
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+
+        // Buat nama file dari header 'Content-Disposition'
+        const contentDisposition = response.headers.get('Content-Disposition');
+        let fileName = "batch_slik.txt";
+        if (contentDisposition && contentDisposition.includes("filename=")) {
+            fileName = contentDisposition.split("filename=")[1].replace(/"/g, '');
+        }
+
+        a.download = fileName;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+
+        // Tunggu 1 detik lalu reload
+        setTimeout(() => {
+            location.reload();
+        }, 700);
+    } catch (error) {
+        alert('Terjadi kesalahan saat mengunduh file.');
+        console.error(error);
+    }
 });
+
 </script>
 @endsection
