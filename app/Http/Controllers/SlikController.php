@@ -17,8 +17,27 @@ class SlikController extends Controller
         $this->slikService = $slikService;
     }
 
-    public function index() {
-        $sliks = Slik::orderBy('created_at', 'DESC')->get();
+    public function index(Request $request) {
+        $search = trim((string) $request->query('search', ''));
+        $allowedLimits = [10, 25, 50, 100];
+        $limit = (int) $request->query('limit', 10);
+        $limit = in_array($limit, $allowedLimits, true) ? $limit : 10;
+
+        $sliks = Slik::query()
+            ->when($search !== '', function ($query) use ($search) {
+                $query->where(function ($q) use ($search) {
+                    $q->where('no_ref_slik', 'like', "%{$search}%")
+                        ->orWhere('nik', 'like', "%{$search}%")
+                        ->orWhere('nama', 'like', "%{$search}%")
+                        ->orWhere('identitas_slik', 'like', "%{$search}%")
+                        ->orWhere('petugas_slik', 'like', "%{$search}%")
+                        ->orWhere('status', 'like', "%{$search}%");
+                });
+            })
+            ->orderBy('created_at', 'DESC')
+            ->paginate($limit)
+            ->withQueryString();
+
         return view('admin.slik.index', compact('sliks'));
     }
 

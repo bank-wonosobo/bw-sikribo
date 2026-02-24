@@ -4,7 +4,7 @@
     <div class="card-body">
         <h5 class="card-title">Data Arsip Perjanjian Kredit</h5>
         @can('arsip_kredit.create')
-            <a href="{{ route('admin.kredit.create') }}" class="btn btn-sm btn-dark rounded-0">
+            <a href="{{ route('admin.kredit.create') }}" class="btn btn-sm btn-dark rounded-0 mb-4">
             Tambah Data
             </a>
         @endcan
@@ -15,9 +15,34 @@
             </button>
         @endcan
 
+        <form method="GET" action="{{ route('admin.kredit.index') }}" class="row g-2 mb-3">
+            <div class="col-md-6">
+                <input
+                    type="text"
+                    name="search"
+                    value="{{ request('search') }}"
+                    class="form-control"
+                    placeholder="Cari nama peminjam, no kredit, jenis kredit, no jaminan, status"
+                >
+            </div>
+            <div class="col-md-2">
+                <select name="limit" class="form-select">
+                    @foreach ([10, 25, 50, 100] as $option)
+                        <option value="{{ $option }}" {{ (int) request('limit', 10) === $option ? 'selected' : '' }}>
+                            {{ $option }} / halaman
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="col-md-4 d-flex gap-2">
+                <button type="submit" class="btn btn-primary">Filter</button>
+                <a href="{{ route('admin.kredit.index') }}" class="btn btn-light">Reset</a>
+            </div>
+        </form>
+
         <div class="table-responsive">
         <!-- Table with stripped rows -->
-        <table class="table datatable">
+        <table class="table table-striped">
             <thead>
             <tr>
                 <th>No</th>
@@ -32,10 +57,9 @@
             </tr>
             </thead>
             <tbody>
-            @php($i = 1)
-            @foreach ($kredits as $kredit)
+            @forelse ($kredits as $kredit)
             <tr>
-                <td>{{ $i }}</td>
+                <td>{{ $kredits->firstItem() + $loop->index }}</td>
                 <td>{{ $kredit->nama_peminjam }}</td>
                 <td>{{ $kredit->no_kredit }}</td>
                 <td>{{ $kredit->kategorikredit->nama }}</td>
@@ -72,14 +96,19 @@
                 </form> --}}
                 </td>
             </tr>
-            @php($i++)
-            @endforeach
+            @empty
+            <tr>
+                <td colspan="9" class="text-center">Tidak ada data</td>
+            </tr>
+            @endforelse
             </tbody>
         </table>
         <!-- End Table with stripped rows -->
+        </div>
+        <div class="mt-3">
+            {{ $kredits->withQueryString()->links() }}
         </div>
     </div>
     </div>
 
 </div>
-

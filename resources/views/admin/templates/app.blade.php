@@ -251,16 +251,20 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <script>
-        $(window).on('beforeunload', function(){
+        (function () {
+            var showLoader = function () {
+                $('#pageLoader').show();
+            };
 
-            $('#pageLoader').show();
+            var hideLoader = function () {
+                $('#pageLoader').hide();
+            };
 
-        });
-
-        $(function () {
-
-            $('#pageLoader').hide();
-        })
+            $(window).on('beforeunload', showLoader);
+            $(window).on('pageshow', hideLoader);
+            $(window).on('load', hideLoader);
+            $(hideLoader);
+        })();
     </script>
 
   @yield('script')

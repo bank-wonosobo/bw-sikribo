@@ -54,4 +54,13 @@ class DokumenHukumController extends Controller
             abort(500);
         }
     }
+
+    public function destroy($id) {
+        try {
+            $result = $this->dokumenService->destroy($id);
+            return redirect()->route('admin.dokumen-hukum.index', ['jdh_id' => $result->jenis_dokumen_hukum_id])->with('success', 'Berhasil Menghapus Dokumen Hukum');
+        } catch (\Exception $e) {
+            abort(500);
+        }
+    }
  }

@@ -32,7 +32,11 @@ class DokumenHukumServiceImpl implements DokumenHukumService {
 
     public function destroy(string $id)
     {
+        $dokumen_hukum = DokumenHukum::findOrFail($id);
+        $this->deleteFileExist($dokumen_hukum);
+        $dokumen_hukum->delete();
 
+        return $dokumen_hukum;
     }
 
     public function update(UpdateDokumenHukumReq $request, string $id): DokumenHukum

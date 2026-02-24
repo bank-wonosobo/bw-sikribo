@@ -22,7 +22,11 @@
                   <td>{{ $kt->nama }}</td>
                   <td>
                     <a href="{{ route('admin.kategori-kredit.edit', ['id' => $kt->id]) }}" class="btn btn-sm btn-success"><i class="bx bx-edit-alt me-1"></i></a>
-                    <a href="" class="btn btn-sm btn-danger" onclick="return confirm('Konfirmasi hapus data')"><i class="bx bx-trash me-1"></i></a>
+                    <form method="POST" action="{{ route('admin.kategori-kredit.destroy', ['id' => $kt->id]) }}" class="d-inline" onsubmit="return confirm('Konfirmasi hapus data')">
+                      @csrf
+                      @method('DELETE')
+                      <button type="submit" class="btn btn-sm btn-danger"><i class="bx bx-trash me-1"></i></button>
+                    </form>
                   </td>
               </tr>
               @php($i++)

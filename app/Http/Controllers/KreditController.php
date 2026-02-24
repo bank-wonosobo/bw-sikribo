@@ -30,12 +30,27 @@ class KreditController extends Controller
 
         $kategori = KategoriKredit::pluck('nama', 'id')->all();
 
-        $kredits = Kredit::orderBy('tanggal_akad', 'DESC')->get();
-        // Kredit::chunk(200, function ($chunkedKredits) use (&$kredits) {
-        //     foreach ($chunkedKredits as $kredit) {
-        //         $kredits[] = $kredit;
-        //     }
-        // });
+        $search = trim((string) $request->get('search', ''));
+        $limit = (int) $request->get('limit', 10);
+        $allowedLimits = [10, 25, 50, 100];
+        if (!in_array($limit, $allowedLimits, true)) {
+            $limit = 10;
+        }
+
+        $kredits = Kredit::with('kategorikredit')
+            ->when($search !== '', function ($query) use ($search) {
+                $query->where(function ($subQuery) use ($search) {
+                    $subQuery->where('nama_peminjam', 'like', "%{$search}%")
+                        ->orWhere('no_kredit', 'like', "%{$search}%")
+                        ->orWhere('no_jaminan', 'like', "%{$search}%")
+                        ->orWhere('status_pengikatan', 'like', "%{$search}%")
+                        ->orWhereHas('kategorikredit', function ($kategoriQuery) use ($search) {
+                            $kategoriQuery->where('nama', 'like', "%{$search}%");
+                        });
+                });
+            })
+            ->orderBy('tanggal_akad', 'DESC')
+            ->paginate($limit);
 
         return view('admin.kredit.index', compact('kredits', 'kategori'));
     }

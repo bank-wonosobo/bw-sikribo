@@ -97,6 +97,7 @@ Route::prefix('admin')
             Route::post('/', 'store')->name('store');
             Route::get('/{id}/edit', 'edit')->name('edit');
             Route::put('/{id}', 'update')->name('update');
+            Route::delete('/{id}', 'destroy')->name('destroy');
         });
 
     Route::prefix('jenis-jaminan')
@@ -163,6 +164,9 @@ Route::prefix('admin')
         ->group(function() {
             Route::get('/', 'index')->name('index');
             Route::post('/', 'store')->name('store');
+            Route::get('/{id}/edit', 'edit')->name('edit');
+            Route::put('/{id}', 'update')->name('update');
+            Route::get('/{id}/delete', 'destroy')->name('destroy');
         });
 
     Route::prefix('dokumen-hukum')
@@ -173,6 +177,7 @@ Route::prefix('admin')
             Route::get('/create', 'create')->name('create');
             Route::get('/{jdih_id}/edit', 'edit')->name('edit');
             Route::put('/{jdih_id}', 'update')->name('update');
+            Route::get('/{jdih_id}/delete', 'destroy')->name('destroy');
             Route::post('/', 'store')->name('store');
         });
 

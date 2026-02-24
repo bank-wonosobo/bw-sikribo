@@ -22,7 +22,7 @@
 
 @can('permohonan_slik.proccess')
 <li class="nav-item">
-    <a class="nav-link {{ Route::is('admin.slik.index') ? '' : 'collapsed' }}" href="{{ route('admin.permohonan-slik.index') }}">
+    <a class="nav-link {{ Route::is('admin.permohonan-slik.index') ? '' : 'collapsed' }}" href="{{ route('admin.permohonan-slik.index') }}">
     <i class='bx bxs-file-export'></i>
     <span>Data Permohohon SLIK</span>
     @if (App\Models\PermohonanSlik::where('status', 'PROSES PENGAJUAN')->orWhere('status', 'PROSES SLIK')->count() > 0)
@@ -36,7 +36,7 @@
 <li class="nav-item">
     <a class="nav-link {{ Route::is('admin.slik.index') ? '' : 'collapsed' }}" href="{{ route('admin.slik.index') }}">
     <i class='bx bxs-file-export'></i>
-    <span>Data SLIK</span>
+    <span>Data Register SLIK</span>
     </a>
 </li>
 @endcan

@@ -8,16 +8,19 @@
 
 @section('js-loader')
 <script>
-    $(window).on('beforeunload', function(){
+    (function () {
+        var showLoader = function () {
+            $('#pageLoader').show();
+        };
 
-        $('#pageLoader').show();
+        var hideLoader = function () {
+            $('#pageLoader').hide();
+        };
 
-    });
-
-    $(function () {
-
-        $('#pageLoader').hide();
-    })
+        $(window).on('beforeunload', showLoader);
+        $(window).on('pageshow', hideLoader);
+        $(window).on('load', hideLoader);
+        $(hideLoader);
+    })();
 </script>
 @endsection
-

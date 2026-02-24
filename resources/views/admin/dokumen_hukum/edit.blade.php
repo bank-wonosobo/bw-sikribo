@@ -66,7 +66,7 @@
                     </div>
                 </div>
                 <div class="col-12 mt-4">
-                    {!! Form::submit('Buat Permohonan', ['class' => ['btn', 'btn-dark']]) !!}
+                    {!! Form::submit('Edit Dokumen', ['class' => ['btn', 'btn-dark']]) !!}
                 </div>
                 {!! Form::close() !!}
             </div>

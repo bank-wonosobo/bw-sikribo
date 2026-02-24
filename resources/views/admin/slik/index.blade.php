@@ -7,9 +7,33 @@
     <div class="col-lg-12">
         <div class="card">
             <div class="card-body">
-                <h5 class="card-title">Data Arsip Perjanjian Kredit</h5>
+                <h5 class="card-title">Data Register SLIK</h5>
+                <form method="GET" action="{{ route('admin.slik.index') }}" class="row g-2 mb-3">
+                    <div class="col-md-6">
+                        <input
+                            type="text"
+                            name="search"
+                            value="{{ request('search') }}"
+                            class="form-control"
+                            placeholder="Cari no ref, NIK, nama, identitas, petugas, status"
+                        >
+                    </div>
+                    <div class="col-md-2">
+                        <select name="limit" class="form-select">
+                            @foreach ([10, 25, 50, 100] as $option)
+                                <option value="{{ $option }}" {{ (int) request('limit', 10) === $option ? 'selected' : '' }}>
+                                    {{ $option }} / halaman
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="col-md-4 d-flex gap-2">
+                        <button type="submit" class="btn btn-primary">Filter</button>
+                        <a href="{{ route('admin.slik.index') }}" class="btn btn-light">Reset</a>
+                    </div>
+                </form>
                 <div class="table-responsive">
-                    <table class="table table-striped datatable">
+                    <table class="table table-striped">
                         <thead>
                         <tr>
                             <th>No Ref</th>
@@ -22,7 +46,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach ($sliks as $slik)
+                        @forelse ($sliks as $slik)
                         <tr>
                             <td>{{ $slik->no_ref_slik }}</td>
                             <td>{{ $slik->nik }}</td>
@@ -57,9 +81,16 @@
                                 @endif
                             </td>
                         </tr>
-                        @endforeach
+                        @empty
+                        <tr>
+                            <td colspan="7" class="text-center">Tidak ada data</td>
+                        </tr>
+                        @endforelse
                         </tbody>
                     </table>
+                </div>
+                <div class="mt-3">
+                    {{ $sliks->withQueryString()->links() }}
                 </div>
             </div>
         </div>

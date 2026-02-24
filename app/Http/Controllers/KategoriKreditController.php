@@ -49,4 +49,15 @@ class KategoriKreditController extends Controller
             dd($e);
         }
     }
+
+    public function destroy($id) {
+        try {
+            $kategoriKredit = KategoriKredit::find($id);
+            $kategoriKredit->delete();
+
+            return redirect()->route('admin.kategori-kredit.index')->with('success', 'Berhasil menghapus kategori kredit');
+        } catch (\Exception $e) {
+            dd($e);
+        }
+    }
 }
