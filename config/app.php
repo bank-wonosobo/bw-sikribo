@@ -177,6 +177,10 @@ return [
 
         //own
         App\Providers\KreditProvider::class,
+        App\Providers\PemberkasanKreditProvider::class,
+        App\Providers\KomiteKreditProvider::class,
+        App\Providers\PraKomiteKreditProvider::class,
+        App\Providers\AssesmentKreditProvider::class,
         App\Providers\SlikProvider::class,
         App\Providers\KodeSlikProvider::class,
         App\Providers\PermohonanSlikProvider::class,

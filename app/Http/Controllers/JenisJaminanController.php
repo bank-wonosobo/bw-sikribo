@@ -29,4 +29,36 @@ class JenisJaminanController extends Controller
             dd($e->getMessage());
         }
     }
+
+    public function edit($id) {
+        $jenisjaminan = JenisJaminan::findOrFail($id);
+        return view('admin.jenis_jaminan.edit', compact('jenisjaminan'));
+    }
+
+    public function update(StoreJenisJaminanReq $request, $id) {
+        try {
+            $data = $request->validated();
+
+            $jenisjaminan = JenisJaminan::findOrFail($id);
+            $jenisjaminan->nama = $data['nama'];
+            $jenisjaminan->save();
+
+            return redirect()->route('admin.jenis-jaminan.index')->with('success', 'Berhasil mengubah jenis jaminan');
+
+        } catch (\Exception $e) {
+            dd($e->getMessage());
+        }
+    }
+
+    public function destroy($id) {
+        try {
+            $jenisjaminan = JenisJaminan::findOrFail($id);
+            $jenisjaminan->delete();
+
+            return redirect()->route('admin.jenis-jaminan.index')->with('success', 'Berhasil menghapus jenis jaminan');
+
+        } catch (\Exception $e) {
+            dd($e->getMessage());
+        }
+    }
 }
