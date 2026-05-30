@@ -13,7 +13,6 @@ class UpdatePraKomiteKreditReq extends FormRequest
         return [
             'nomor_register' => 'required|unique:pra_komite_kredit,nomor_register,' . $this->route('id'),
             'kategori_id'    => 'required',
-            'status'         => 'required|in:Disetujui,Ditolak,Disetujui Tidak Sesuai Permohonan',
         ];
     }
 }
