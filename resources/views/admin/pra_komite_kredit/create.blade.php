@@ -33,10 +33,10 @@
                     {!! Form::select('kategori_id', $kategori, null, ['class' => 'form-control', 'placeholder' => '=== Pilih Jenis Kredit ===']) !!}
                 </div>
 
-                <div class="col-12 mt-3">
+                {{-- <div class="col-12 mt-3">
                     {!! Form::label('status', 'Status', ['class' => 'form-label']) !!}
                     {!! Form::select('status', $statuses, null, ['class' => 'form-control', 'placeholder' => '=== Pilih Status ===']) !!}
-                </div>
+                </div> --}}
 
                 <h5 class="card-title mt-3">Berkas Kredit</h5>
 

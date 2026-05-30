@@ -19,7 +19,7 @@
             <form method="GET" action="{{ route('admin.pra-komite-kredit.index') }}" class="row g-2 mb-3">
                 <div class="col-md-6">
                     <input type="text" name="search" value="{{ request('search') }}" class="form-control"
-                        placeholder="Cari nomor register, jenis kredit, atau status">
+                        placeholder="Cari nomor register atau jenis kredit">
                 </div>
                 <div class="col-md-2">
                     <select name="limit" class="form-select">
@@ -43,7 +43,7 @@
                             <th>No</th>
                             <th>Nomor Register</th>
                             <th>Jenis Kredit</th>
-                            <th>Status</th>
+                            {{-- <th>Status</th> --}}
                             <th>Berkas</th>
                             <th>Aksi</th>
                         </tr>
@@ -54,15 +54,6 @@
                             <td>{{ $data->firstItem() + $loop->index }}</td>
                             <td>{{ $item->nomor_register }}</td>
                             <td>{{ $item->kategorikredit->nama }}</td>
-                            <td>
-                                @if ($item->status === 'Disetujui')
-                                    <span class="badge bg-success">{{ $item->status }}</span>
-                                @elseif ($item->status === 'Ditolak')
-                                    <span class="badge bg-danger">{{ $item->status }}</span>
-                                @else
-                                    <span class="badge bg-warning text-dark">{{ $item->status }}</span>
-                                @endif
-                            </td>
                             <td>
                                 @if ($item->file)
                                     <a href="{{ route('admin.pra-komite-kredit.file', $item->id) }}" class="btn btn-sm btn-light" target="_blank">

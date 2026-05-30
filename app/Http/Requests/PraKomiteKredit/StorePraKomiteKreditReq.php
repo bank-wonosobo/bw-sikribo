@@ -13,7 +13,6 @@ class StorePraKomiteKreditReq extends FormRequest
         return [
             'nomor_register' => 'required|unique:pra_komite_kredit,nomor_register',
             'kategori_id'    => 'required',
-            'status'         => 'required|in:Disetujui,Ditolak,Disetujui Tidak Sesuai Permohonan',
             'file'           => 'required|mimes:pdf',
         ];
     }

@@ -18,7 +18,6 @@ class PraKomiteKreditServiceImpl implements PraKomiteKreditService
         $data = new PraKomiteKredit([
             'nomor_register' => $request->input('nomor_register'),
             'kategori_id'    => $request->input('kategori_id'),
-            'status'         => $request->input('status'),
         ]);
         $data->save();
         return $data;
@@ -29,7 +28,6 @@ class PraKomiteKreditServiceImpl implements PraKomiteKreditService
         $data = PraKomiteKredit::find($id);
         $data->nomor_register = $request->input('nomor_register');
         $data->kategori_id    = $request->input('kategori_id');
-        $data->status         = $request->input('status');
         $data->save();
         return $data;
     }

@@ -27,7 +27,6 @@ class PraKomiteKreditController extends Controller
         $data = PraKomiteKredit::with('kategorikredit')
             ->when($search, fn($q) => $q
                 ->where('nomor_register', 'like', "%{$search}%")
-                ->orWhere('status', 'like', "%{$search}%")
                 ->orWhereHas('kategorikredit', fn($q2) => $q2->where('nama', 'like', "%{$search}%"))
             )
             ->latest()
@@ -39,12 +38,7 @@ class PraKomiteKreditController extends Controller
     public function create()
     {
         $kategori = KategoriKredit::pluck('nama', 'id');
-        $statuses = [
-            'Disetujui'                          => 'Disetujui',
-            'Ditolak'                            => 'Ditolak',
-            'Disetujui Tidak Sesuai Permohonan'  => 'Disetujui Tidak Sesuai Permohonan',
-        ];
-        return view('admin.pra_komite_kredit.create', compact('kategori', 'statuses'));
+        return view('admin.pra_komite_kredit.create', compact('kategori'));
     }
 
     public function store(StorePraKomiteKreditReq $request)
@@ -60,12 +54,7 @@ class PraKomiteKreditController extends Controller
     {
         $record   = PraKomiteKredit::findOrFail($id);
         $kategori = KategoriKredit::pluck('nama', 'id');
-        $statuses = [
-            'Disetujui'                          => 'Disetujui',
-            'Ditolak'                            => 'Ditolak',
-            'Disetujui Tidak Sesuai Permohonan'  => 'Disetujui Tidak Sesuai Permohonan',
-        ];
-        return view('admin.pra_komite_kredit.edit', compact('record', 'kategori', 'statuses'));
+        return view('admin.pra_komite_kredit.edit', compact('record', 'kategori'));
     }
 
     public function update(UpdatePraKomiteKreditReq $request, string $id)
