@@ -6,9 +6,9 @@
       </a>
     </li><!-- End Dashboard Nav -->
 
-    @include('admin.templates.components.menus.arsip_kredit')
-
     @include('admin.templates.components.menus.slik')
+
+    @include('admin.templates.components.menus.arsip_kredit')
 
     @include('admin.templates.components.menus.jdih')
 

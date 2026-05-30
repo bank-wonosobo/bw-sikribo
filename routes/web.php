@@ -89,6 +89,58 @@ Route::prefix('admin')
             Route::post('/import', 'import')->name('import');
         });
 
+    Route::prefix('pemberkasan-kredit')
+        ->as('pemberkasan-kredit.')
+        ->controller(\App\Http\Controllers\PemberkasanKreditController::class)
+        ->group(function() {
+            Route::get('/', 'index')->name('index');
+            Route::post('/', 'store')->name('store');
+            Route::get('/create', 'create')->name('create');
+            Route::get('/{id}/file', 'file')->name('file');
+            Route::get('/{id}/edit', 'edit')->name('edit');
+            Route::put('/{id}', 'update')->name('update');
+            Route::get('/{id}/delete', 'delete')->name('delete');
+        });
+
+    Route::prefix('pra-komite-kredit')
+        ->as('pra-komite-kredit.')
+        ->controller(\App\Http\Controllers\PraKomiteKreditController::class)
+        ->group(function() {
+            Route::get('/', 'index')->name('index');
+            Route::post('/', 'store')->name('store');
+            Route::get('/create', 'create')->name('create');
+            Route::get('/{id}/file', 'file')->name('file');
+            Route::get('/{id}/edit', 'edit')->name('edit');
+            Route::put('/{id}', 'update')->name('update');
+            Route::get('/{id}/delete', 'delete')->name('delete');
+        });
+
+    Route::prefix('komite-kredit')
+        ->as('komite-kredit.')
+        ->controller(\App\Http\Controllers\KomiteKreditController::class)
+        ->group(function() {
+            Route::get('/', 'index')->name('index');
+            Route::post('/', 'store')->name('store');
+            Route::get('/create', 'create')->name('create');
+            Route::get('/{id}/file', 'file')->name('file');
+            Route::get('/{id}/edit', 'edit')->name('edit');
+            Route::put('/{id}', 'update')->name('update');
+            Route::get('/{id}/delete', 'delete')->name('delete');
+        });
+
+    Route::prefix('assesment-kredit')
+        ->as('assesment-kredit.')
+        ->controller(\App\Http\Controllers\AssesmentKreditController::class)
+        ->group(function() {
+            Route::get('/', 'index')->name('index');
+            Route::post('/', 'store')->name('store');
+            Route::get('/create', 'create')->name('create');
+            Route::get('/{id}/file', 'file')->name('file');
+            Route::get('/{id}/edit', 'edit')->name('edit');
+            Route::put('/{id}', 'update')->name('update');
+            Route::get('/{id}/delete', 'delete')->name('delete');
+        });
+
     Route::prefix('kategori-kredit')
         ->as('kategori-kredit.')
         ->controller(KategoriKreditController::class)
@@ -106,6 +158,9 @@ Route::prefix('admin')
         ->group(function() {
             Route::get('/', 'index')->name('index');
             Route::post('/', 'store')->name('store');
+            Route::get('/{id}/edit', 'edit')->name('edit');
+            Route::put('/{id}', 'update')->name('update');
+            Route::delete('/{id}', 'destroy')->name('destroy');
         });
 
     Route::prefix('hasil-slik')
