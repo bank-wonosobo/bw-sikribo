@@ -86,6 +86,12 @@ class KomiteKreditController extends Controller
     public function file(string $id)
     {
         $record = KomiteKredit::findOrFail($id);
-        return Storage::response($record->file);
+
+        /** @var \Illuminate\Filesystem\FilesystemAdapter $disk */
+        $disk = Storage::disk('s3');
+
+        abort_if(empty($record->file) || ! $disk->exists($record->file), 404, 'File tidak ditemukan');
+
+        return $disk->response($record->file);
     }
 }

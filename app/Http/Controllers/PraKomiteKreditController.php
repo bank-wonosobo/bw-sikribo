@@ -75,6 +75,12 @@ class PraKomiteKreditController extends Controller
     public function file(string $id)
     {
         $record = PraKomiteKredit::findOrFail($id);
-        return Storage::response($record->file);
+
+        /** @var \Illuminate\Filesystem\FilesystemAdapter $disk */
+        $disk = Storage::disk('s3');
+
+        abort_if(empty($record->file) || ! $disk->exists($record->file), 404, 'File tidak ditemukan');
+
+        return $disk->response($record->file);
     }
 }

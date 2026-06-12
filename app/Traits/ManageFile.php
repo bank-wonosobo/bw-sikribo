@@ -7,9 +7,8 @@ use Illuminate\Support\Facades\Storage;
 
 trait ManageFile {
     public function delete($path) {
-        // $disk = Storage::disk(config('filesystems.default'));
-        if (Storage::disk(config('filesystems.default'))->exists($path)) {
-            Storage::disk(config('filesystems.default'))->delete($path);
+        if (Storage::disk('s3')->exists($path)) {
+            Storage::disk('s3')->delete($path);
         }
     }
 
