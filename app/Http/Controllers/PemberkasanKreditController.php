@@ -78,7 +78,7 @@ class PemberkasanKreditController extends Controller
         $record = PemberkasanKredit::findOrFail($id);
 
         /** @var \Illuminate\Filesystem\FilesystemAdapter $disk */
-        $disk = Storage::disk('s3');
+        $disk = Storage::disk('r2');
 
         abort_if(empty($record->file) || ! $disk->exists($record->file), 404, 'File tidak ditemukan');
 

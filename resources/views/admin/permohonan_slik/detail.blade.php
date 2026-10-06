@@ -143,9 +143,9 @@
                     <a>
                     <tr>
                         <td>{{ $i }}</td>
-                        <td><a href="{{ Storage::disk('s3')->url($hasil->file) }}" class="btn" target="_blank">{{ $hasil->nama }}</a></td>
+                        <td><a href="{{ Storage::disk('r2')->url($hasil->file) }}" class="btn" target="_blank">{{ $hasil->nama }}</a></td>
                         <td>{{ $hasil->created_at }}</td>
-                        <td><a href="{{ Storage::disk('s3')->url($hasil->file) }}" class="btn btn-dark" target="_blank"><i class='bx bxs-download'></i></a></td>
+                        <td><a href="{{ Storage::disk('r2')->url($hasil->file) }}" class="btn btn-dark" target="_blank"><i class='bx bxs-download'></i></a></td>
                         </td>
                     </tr>
                     </a>
@@ -156,7 +156,7 @@
                 </table>
                 </div>
                 <h5 class="card-title ">Berkas SLIK</h5>
-                <iframe src="{{ Storage::disk('s3')->url($permohonan_slik->berkas) }}" width="100%" height="700px" frameborder="0"></iframe>
+                <iframe src="{{ Storage::disk('r2')->url($permohonan_slik->berkas) }}" width="100%" height="700px" frameborder="0"></iframe>
             </div>
         </div>
     </div>
@@ -211,4 +211,3 @@
     }
 </script>
 @endsection
-

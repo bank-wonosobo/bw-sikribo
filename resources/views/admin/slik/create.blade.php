@@ -19,7 +19,7 @@
                 <br>
                 Peruntukan Ideb : <strong>{{ $permohonan_slik->peruntukan_ideb }}</strong>
                 <br>
-                Berkas SLIK : <a href="{{ Storage::disk('s3')->url($permohonan_slik->berkas) }}" class="text-link" target="_blank">Lihat</a>
+                Berkas SLIK : <a href="{{ Storage::disk('r2')->url($permohonan_slik->berkas) }}" class="text-link" target="_blank">Lihat</a>
                 </div>
 
 
