@@ -1,5 +1,5 @@
 # Use PHP 7.4 CLI image
-FROM php:7.4-cli
+FROM php:8.1-cli
 
 # Set working directory
 WORKDIR /app
@@ -17,7 +17,7 @@ RUN apt-get update && apt-get install -y \
 
 RUN echo "upload_max_filesize=500M" > /usr/local/etc/php/conf.d/uploads.ini \
     && echo "post_max_size=500M" >> /usr/local/etc/php/conf.d/uploads.ini
-    
+
 # Install Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
